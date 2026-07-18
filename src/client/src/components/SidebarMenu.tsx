@@ -182,7 +182,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
       {/* ── Process Management ── */}
       <nav className="px-1.5 py-2 overflow-x-hidden shrink-0">
         {!collapsed && (
-          <p className="px-2 mb-1 font-mono font-bold text-[9px] text-[#333] uppercase tracking-[0.2em] whitespace-nowrap">
+          <p className="px-2 mb-1 font-mono font-bold text-[11px] text-[#333] uppercase tracking-[0.2em] whitespace-nowrap">
             {t('nav.management')}
           </p>
         )}
@@ -198,7 +198,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                 onClick={handleItemClick}
                 title={collapsed ? item.label : undefined}
                 className={`
-                  flex items-center gap-2 font-mono text-[11px]
+                  flex items-center gap-2 font-mono text-[13px]
                   transition-colors duration-100
                   ${collapsed ? 'px-0 py-1.5 justify-center w-full' : 'px-2 py-1.5'}
                   ${
@@ -209,7 +209,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                 `}
               >
                 <Icon
-                  className={`h-3.5 w-3.5 shrink-0 ${active ? 'text-[#e8e8e8]' : 'text-[#444]'}`}
+                  className={`h-4 w-4 shrink-0 ${active ? 'text-[#e8e8e8]' : 'text-[#444]'}`}
                 />
                 {!collapsed && <span className="truncate">{item.label}</span>}
               </Link>
@@ -224,13 +224,13 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
       {/* ── Process Tree ── */}
       {!collapsed && (
         <div className="flex-1 min-h-0 flex flex-col">
-          <p className="px-3 pt-2 pb-1 font-mono text-[9px] text-[#333] uppercase tracking-[0.2em] shrink-0">
+          <p className="px-3 pt-2 pb-1 font-mono text-[11px] text-[#333] uppercase tracking-[0.2em] shrink-0">
             {t('sidebar.processes')}
           </p>
           <div className="flex-1 overflow-y-auto">
             {treeLoading && serverGroups.length === 0 ? (
               <div className="flex items-center justify-center py-4">
-                <svg className="h-3.5 w-3.5 animate-spin text-[#333]" viewBox="0 0 24 24" fill="none">
+                <svg className="h-4 w-4 animate-spin text-[#333]" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
@@ -246,18 +246,18 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                       className="w-full flex items-center gap-1.5 px-2 py-1.5 text-left text-[#555] hover:text-[#888] hover:bg-[#111] transition-colors"
                     >
                       {expanded
-                        ? <ChevronDownIcon className="h-3 w-3 shrink-0" />
-                        : <ChevronRightIcon className="h-3 w-3 shrink-0" />
+                        ? <ChevronDownIcon className="h-3.5 w-3.5 shrink-0" />
+                        : <ChevronRightIcon className="h-3.5 w-3.5 shrink-0" />
                       }
                       {group.isRemote
-                        ? <CloudIcon className="h-3.5 w-3.5 text-[#22d3ee] shrink-0" />
-                        : <ServerIcon className="h-3.5 w-3.5 text-[#22c55e] shrink-0" />
+                        ? <CloudIcon className="h-4 w-4 text-[#22d3ee] shrink-0" />
+                        : <ServerIcon className="h-4 w-4 text-[#22c55e] shrink-0" />
                       }
-                      <span className="flex-1 font-mono text-[11px] text-[#888] truncate">
+                      <span className="flex-1 font-mono text-[13px] text-[#888] truncate">
                         {group.serverName}
                       </span>
                       {group.isRemote && (
-                        <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${group.connected ? 'bg-[#22c55e]' : 'bg-[#555]'}`} />
+                        <span className={`h-2 w-2 rounded-full shrink-0 ${group.connected ? 'bg-[#22c55e]' : 'bg-[#555]'}`} />
                       )}
                     </button>
 
@@ -265,11 +265,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                     {expanded && (
                       <div className="pb-0.5">
                         {!group.connected ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[10px] text-[#444] italic">{t('sidebar.notConnected')}</p>
+                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] italic">{t('sidebar.notConnected')}</p>
                         ) : group.loading ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[10px] text-[#444] animate-pulse">{t('sidebar.loading')}</p>
+                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] animate-pulse">{t('sidebar.loading')}</p>
                         ) : group.processes.length === 0 ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[10px] text-[#444] italic">{t('sidebar.noProcesses')}</p>
+                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] italic">{t('sidebar.noProcesses')}</p>
                         ) : (
                           group.processes.map(proc => {
                             const remoteMatch = currentPath.startsWith('/logs/remote/');
@@ -291,15 +291,15 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                                   className={`flex-1 flex items-center gap-1.5 text-left min-w-0
                                               ${active ? 'text-[#e8e8e8]' : 'text-[#666]'}`}
                                 >
-                                  <span className={`h-1.5 w-1.5 rounded-full shrink-0 ${
+                                  <span className={`h-2 w-2 rounded-full shrink-0 ${
                                     proc.status === 'online'
                                       ? 'bg-[#22c55e]'
                                       : (proc.status === 'stopping' || proc.status === 'launching')
                                         ? 'bg-[#f59e0b]'
                                         : 'bg-[#555]'
                                   }`} />
-                                  <CpuChipIcon className="h-3 w-3 shrink-0 opacity-40" />
-                                  <span className={`font-mono text-[10px] truncate ${active ? 'text-[#e8e8e8]' : 'text-[#666]'}`}>
+                                  <CpuChipIcon className="h-3.5 w-3.5 shrink-0 opacity-40" />
+                                  <span className={`font-mono text-[12px] truncate ${active ? 'text-[#e8e8e8]' : 'text-[#666]'}`}>
                                     {proc.name}
                                   </span>
                                 </button>
@@ -307,7 +307,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                                 {/* Restart / Start + Logs buttons — visible on row hover */}
                                 <div className="shrink-0 opacity-0 group-hover/proc:opacity-100 transition-opacity flex items-center gap-0.5">
                                   {actionLoading[actionKey] ? (
-                                    <svg className="h-3 w-3 animate-spin text-[#444]" viewBox="0 0 24 24" fill="none">
+                                    <svg className="h-3.5 w-3.5 animate-spin text-[#444]" viewBox="0 0 24 24" fill="none">
                                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                                     </svg>
@@ -315,25 +315,25 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                                     <button
                                       onClick={(e) => handleProcessAction(e, group.serverId, proc, 'restart')}
                                       title={t('actions.restart')}
-                                      className="h-4 w-4 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
+                                      className="h-5 w-5 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
                                     >
-                                      <ArrowPathIcon className="h-2.5 w-2.5" />
+                                      <ArrowPathIcon className="h-3 w-3" />
                                     </button>
                                   ) : (
                                     <button
                                       onClick={(e) => handleProcessAction(e, group.serverId, proc, 'start')}
                                       title={t('actions.start')}
-                                      className="h-4 w-4 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
+                                      className="h-5 w-5 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
                                     >
-                                      <PlayIcon className="h-2.5 w-2.5" />
+                                      <PlayIcon className="h-3 w-3" />
                                     </button>
                                   )}
                                   <button
                                     onClick={(e) => { e.stopPropagation(); selectProcess(group.serverId, proc); }}
                                     title={t('actions.viewLogs')}
-                                    className="h-4 w-4 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
+                                    className="h-5 w-5 flex items-center justify-center text-[#444] hover:text-[#888] transition-colors"
                                   >
-                                    <DocumentTextIcon className="h-2.5 w-2.5" />
+                                    <DocumentTextIcon className="h-3 w-3" />
                                   </button>
                                 </div>
                               </div>

@@ -156,22 +156,22 @@ const LogChatTaskbar: React.FC<LogChatTaskbarProps> = ({
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.25, flexShrink: 0 }} onClick={e => e.stopPropagation()}>
           <Tooltip title={isPaused ? t('logPanel.resume') : t('logPanel.pause')}>
             <IconButton size="small" onClick={() => setIsPaused(p => !p)} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-              {isPaused ? <PlayIcon sx={{ fontSize: 14 }} /> : <PauseIcon sx={{ fontSize: 14 }} />}
+              {isPaused ? <PlayIcon sx={{ fontSize: 16 }} /> : <PauseIcon sx={{ fontSize: 16 }} />}
             </IconButton>
           </Tooltip>
           <Tooltip title={t('logPanel.clear')}>
             <IconButton size="small" onClick={() => { onClear(); setDisplayLogs([]); }} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-              <ClearIcon sx={{ fontSize: 14 }} />
+              <ClearIcon sx={{ fontSize: 16 }} />
             </IconButton>
           </Tooltip>
           <Tooltip title={isMinimized ? t('logPanel.expand') : t('logPanel.collapse')}>
             <IconButton size="small" onClick={() => setIsMinimized(m => !m)} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-              {isMinimized ? <MaximizeIcon sx={{ fontSize: 13 }} /> : <MinimizeIcon sx={{ fontSize: 14 }} />}
+              {isMinimized ? <MaximizeIcon sx={{ fontSize: 15 }} /> : <MinimizeIcon sx={{ fontSize: 16 }} />}
             </IconButton>
           </Tooltip>
           <Tooltip title={t('logPanel.close')}>
             <IconButton size="small" onClick={onClose} sx={{ color: '#555', '&:hover': { color: '#ef4444' } }}>
-              <CloseIcon sx={{ fontSize: 14 }} />
+              <CloseIcon sx={{ fontSize: 16 }} />
             </IconButton>
           </Tooltip>
         </Box>

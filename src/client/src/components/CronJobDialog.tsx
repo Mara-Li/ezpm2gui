@@ -31,9 +31,9 @@ const DEFAULT_FORM = {
 const INPUT_CLS =
   'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
 
-const LABEL_CLS = 'text-[10px] font-mono text-[#888] mb-1 block';
-const HELP_CLS = 'text-[9px] font-mono text-[#555] mt-0.5';
-const SECTION_TITLE_CLS = 'text-[10px] font-mono font-bold text-[#888] uppercase tracking-[0.1em] mb-3';
+const LABEL_CLS = 'text-[12px] font-mono text-[#888] mb-1 block';
+const HELP_CLS = 'text-[11px] font-mono text-[#555] mt-0.5';
+const SECTION_TITLE_CLS = 'text-[12px] font-mono font-bold text-[#888] uppercase tracking-[0.1em] mb-3';
 
 // @group Component : CronJobDialog modal
 const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, editJob }) => {
@@ -136,7 +136,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
         onClick={(e) => e.stopPropagation()}
       >
         {/* @group Rendering : Dialog title bar */}
-        <div className="text-[11px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between shrink-0">
+        <div className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between shrink-0">
           <span>{editJob ? t('cronJobs.editJob') : t('cronJobs.createJob')}</span>
           <button
             onClick={onClose}
@@ -179,12 +179,12 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                 >
                   <span
                     className={[
-                      'inline-block h-3 w-3 rounded-sm bg-current transition-transform mt-0.5',
+                      'inline-block h-3.5 w-3.5 rounded-sm bg-current transition-transform mt-0.5',
                       formData.enabled ? 'translate-x-4 text-[#22c55e]' : 'translate-x-0.5 text-[#555]',
                     ].join(' ')}
                   />
                 </button>
-                <span className="text-[10px] font-mono text-[#888]">
+                <span className="text-[12px] font-mono text-[#888]">
                   {formData.enabled ? 'Enabled' : 'Disabled'}
                 </span>
               </div>
@@ -308,7 +308,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                 {formData.args.map((arg, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-[10px] px-2 py-0.5 rounded-sm"
+                    className="inline-flex items-center gap-1 bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-[12px] px-2 py-0.5 rounded-sm"
                   >
                     {arg}
                     <button
@@ -361,8 +361,8 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                     key={key}
                     className="flex items-center gap-2 bg-[#0d0d0d] border border-[#1e1e1e] px-2.5 py-1.5 rounded-sm"
                   >
-                    <span className="font-mono text-[10px] text-[#22d3ee] min-w-[100px]">{key}</span>
-                    <span className="font-mono text-[10px] text-[#888] flex-1 truncate">{val}</span>
+                    <span className="font-mono text-[12px] text-[#22d3ee] min-w-[100px]">{key}</span>
+                    <span className="font-mono text-[12px] text-[#888] flex-1 truncate">{val}</span>
                     <button
                       type="button"
                       onClick={() => removeEnv(key)}

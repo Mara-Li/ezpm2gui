@@ -106,8 +106,8 @@ const StatusBadge: React.FC<{ status: string }> = ({ status }) => {
       ? 'bg-[#ef4444]'
       : 'bg-[#f59e0b]';
   return (
-    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[10px] font-mono font-medium ${cls}`}>
-      <span className={`w-1 h-1 rounded-full ${dot}`} />
+    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm text-[12px] font-mono font-medium ${cls}`}>
+      <span className={`w-1.5 h-1.5 rounded-full ${dot}`} />
       {status}
     </span>
   );
@@ -199,12 +199,12 @@ const MetricsHistoryPage: React.FC = () => {
           onClick={() => setExpandedId(isExpanded ? null : ph.pm_id)}
         >
           {/* ID */}
-          <td className="px-3 py-2 text-[10px] font-mono text-[#555] w-10">{ph.pm_id}</td>
+          <td className="px-3 py-2 text-[12px] font-mono text-[#555] w-10">{ph.pm_id}</td>
 
           {/* Name + status */}
           <td className="px-3 py-2">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-mono font-medium text-[#e8e8e8] truncate max-w-[120px]">
+              <span className="text-[12px] font-mono font-medium text-[#e8e8e8] truncate max-w-[120px]">
                 {ph.name}
               </span>
               <StatusBadge status={ph.status} />
@@ -215,14 +215,14 @@ const MetricsHistoryPage: React.FC = () => {
           <td className="px-3 py-2">
             <div className="flex items-center gap-2">
               <Sparkline values={cpuSeries} color={cpuColor(latest?.cpu ?? 0)} max={100} />
-              <div className="text-[10px] font-mono min-w-[80px]">
+              <div className="text-[12px] font-mono min-w-[80px]">
                 <span className={`font-semibold ${latest?.cpu >= 80 ? 'text-[#ef4444]' : latest?.cpu >= 60 ? 'text-[#f59e0b]' : 'text-[#22c55e]'}`}>
                   {latest ? `${latest.cpu.toFixed(1)}%` : '—'}
                 </span>
-                <div className="text-[#555] text-[10px] leading-tight">
+                <div className="text-[#555] text-[12px] leading-tight">
                   min {cpuStats.min.toFixed(1)}% / max {cpuStats.max.toFixed(1)}%
                 </div>
-                <div className="text-[#555] text-[10px]">
+                <div className="text-[#555] text-[12px]">
                   avg {cpuStats.avg.toFixed(1)}%
                 </div>
               </div>
@@ -233,17 +233,17 @@ const MetricsHistoryPage: React.FC = () => {
           <td className="px-3 py-2">
             <div className="flex items-center gap-2">
               <Sparkline values={memPctSeries} color={memColor} max={100} />
-              <div className="text-[10px] font-mono min-w-[100px]">
+              <div className="text-[12px] font-mono min-w-[100px]">
                 <span className="font-semibold text-[#a78bfa]">
                   {latest ? `${latest.memoryMB.toFixed(1)} MB` : '—'}
                 </span>
-                <span className="ml-1 text-[#555] text-[10px]">
+                <span className="ml-1 text-[#555] text-[12px]">
                   ({latest ? `${latest.memoryPercent.toFixed(1)}%` : '—'})
                 </span>
-                <div className="text-[#555] text-[10px] leading-tight">
+                <div className="text-[#555] text-[12px] leading-tight">
                   min {memStats.min.toFixed(1)} / max {memStats.max.toFixed(1)} MB
                 </div>
-                <div className="text-[#555] text-[10px]">
+                <div className="text-[#555] text-[12px]">
                   avg {memStats.avg.toFixed(1)} MB · {memPctStats.avg.toFixed(1)}%
                 </div>
               </div>
@@ -251,7 +251,7 @@ const MetricsHistoryPage: React.FC = () => {
           </td>
 
           {/* Data points count */}
-          <td className="px-3 py-2 text-[10px] font-mono text-[#555] text-center">
+          <td className="px-3 py-2 text-[12px] font-mono text-[#555] text-center">
             {ph.history.length} pts<br />
             {ph.history.length > 0 && (
               <span>{fmtTime(ph.history[0].timestamp)} – {fmtTime(ph.history[ph.history.length - 1].timestamp)}</span>
@@ -260,7 +260,7 @@ const MetricsHistoryPage: React.FC = () => {
 
           {/* Expand toggle */}
           <td className="px-3 py-2 text-center text-[#555]">
-            <span className="text-[10px] font-mono">{isExpanded ? '▲' : '▼'}</span>
+            <span className="text-[12px] font-mono">{isExpanded ? '▲' : '▼'}</span>
           </td>
         </tr>
 
@@ -268,7 +268,7 @@ const MetricsHistoryPage: React.FC = () => {
         {isExpanded && (
           <tr>
             <td colSpan={6} className="bg-[#0d0d0d] px-4 py-3 border-b border-[#1a1a1a]">
-              <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.2em] mb-2">
+              <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.2em] mb-2">
                 ▸ {ph.name} — last {ph.history.length} recordings (newest first)
               </p>
               <div className="overflow-x-auto max-h-64 overflow-y-auto border border-[#1e1e1e] rounded-sm">
@@ -276,27 +276,27 @@ const MetricsHistoryPage: React.FC = () => {
                   <thead className="sticky top-0 bg-[#0d0d0d]">
                     <tr>
                       {['#', 'Time', 'CPU %', 'Memory (MB)', 'Memory %', 'Memory (bytes)'].map(h => (
-                        <th key={h} className="px-3 py-1.5 text-left text-[9px] font-mono text-[#444] uppercase tracking-[0.15em]">{h}</th>
+                        <th key={h} className="px-3 py-1.5 text-left text-[11px] font-mono text-[#444] uppercase tracking-[0.15em]">{h}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#1a1a1a]">
                     {[...ph.history].reverse().map((pt, idx) => (
                       <tr key={pt.timestamp} className="hover:bg-[#111] transition-colors">
-                        <td className="px-3 py-1 text-[10px] font-mono text-[#555]">{ph.history.length - idx}</td>
-                        <td className="px-3 py-1 text-[10px] font-mono text-[#888] whitespace-nowrap">{fmtDateTime(pt.timestamp)}</td>
+                        <td className="px-3 py-1 text-[12px] font-mono text-[#555]">{ph.history.length - idx}</td>
+                        <td className="px-3 py-1 text-[12px] font-mono text-[#888] whitespace-nowrap">{fmtDateTime(pt.timestamp)}</td>
                         <td className="px-3 py-1 text-right">
-                          <span className={`font-mono text-[10px] font-medium ${pt.cpu >= 80 ? 'text-[#ef4444]' : pt.cpu >= 60 ? 'text-[#f59e0b]' : 'text-[#22c55e]'}`}>
+                          <span className={`font-mono text-[12px] font-medium ${pt.cpu >= 80 ? 'text-[#ef4444]' : pt.cpu >= 60 ? 'text-[#f59e0b]' : 'text-[#22c55e]'}`}>
                             {pt.cpu.toFixed(2)}%
                           </span>
                         </td>
-                        <td className="px-3 py-1 text-right font-mono text-[10px] font-medium text-[#a78bfa]">
+                        <td className="px-3 py-1 text-right font-mono text-[12px] font-medium text-[#a78bfa]">
                           {pt.memoryMB.toFixed(2)}
                         </td>
-                        <td className="px-3 py-1 text-right font-mono text-[10px] text-[#888]">
+                        <td className="px-3 py-1 text-right font-mono text-[12px] text-[#888]">
                           {pt.memoryPercent.toFixed(2)}%
                         </td>
-                        <td className="px-3 py-1 text-right font-mono text-[10px] text-[#555]">
+                        <td className="px-3 py-1 text-right font-mono text-[12px] text-[#555]">
                           {pt.memory.toLocaleString()}
                         </td>
                       </tr>
@@ -320,14 +320,14 @@ const MetricsHistoryPage: React.FC = () => {
         actions={
           <div className="flex items-center gap-2">
             {lastUpdated && (
-              <span className="text-[10px] font-mono text-[#555]">
+              <span className="text-[12px] font-mono text-[#555]">
                 Updated {fmtTime(lastUpdated.getTime())}
               </span>
             )}
             <Tooltip title={autoRefresh ? 'Pause auto-refresh' : 'Resume auto-refresh'}>
               <button
                 onClick={() => setAutoRefresh(r => !r)}
-                className={`text-[10px] font-mono px-2 py-1 rounded-sm border transition-colors ${
+                className={`text-[12px] font-mono px-2 py-1 rounded-sm border transition-colors ${
                   autoRefresh
                     ? 'border-[#22c55e]/40 bg-[#22c55e]/10 text-[#22c55e]'
                     : 'border-[#333] text-[#555] hover:border-[#555]'
@@ -350,12 +350,12 @@ const MetricsHistoryPage: React.FC = () => {
       />
 
       {loading ? (
-        <div className="text-[10px] font-mono text-[#555] py-12 text-center">
+        <div className="text-[12px] font-mono text-[#555] py-12 text-center">
           {t('metricsHistory.loading')}
         </div>
       ) : sorted.length === 0 ? (
         <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-8 text-center">
-          <p className="text-[10px] font-mono text-[#555]">
+          <p className="text-[12px] font-mono text-[#555]">
             {t('metricsHistory.noHistory')}
           </p>
         </div>
@@ -374,12 +374,12 @@ const MetricsHistoryPage: React.FC = () => {
                     <th
                       key={key}
                       onClick={() => handleSort(key)}
-                      className="px-3 py-2 text-left text-[9px] font-mono text-[#444] uppercase tracking-[0.15em] select-none cursor-pointer hover:text-[#888]"
+                      className="px-3 py-2 text-left text-[11px] font-mono text-[#444] uppercase tracking-[0.15em] select-none cursor-pointer hover:text-[#888]"
                     >
                       {label}<SortArrow field={key} />
                     </th>
                   ))}
-                  <th className="px-3 py-2 text-center text-[9px] font-mono text-[#444] uppercase tracking-[0.15em]">
+                  <th className="px-3 py-2 text-center text-[11px] font-mono text-[#444] uppercase tracking-[0.15em]">
                     {t('metricsHistory.window')}
                   </th>
                   <th className="px-3 py-2 w-8" />
@@ -394,7 +394,7 @@ const MetricsHistoryPage: React.FC = () => {
       )}
 
       {/* Legend */}
-      <p className="text-[10px] font-mono text-[#555]">
+      <p className="text-[12px] font-mono text-[#555]">
         {t('metricsHistory.sparklineHint')}
       </p>
     </div>

@@ -202,22 +202,22 @@ const LogStatusBar: React.FC<LogStatusBarProps> = ({ logWindows, onClose, onClea
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Tooltip title={isPaused ? t('logPanel.resume') : t('logPanel.pause')}>
                 <IconButton size="small" onClick={handlePause} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-                  {isPaused ? <PlayIcon sx={{ fontSize: 13 }} /> : <PauseIcon sx={{ fontSize: 13 }} />}
+                  {isPaused ? <PlayIcon sx={{ fontSize: 15 }} /> : <PauseIcon sx={{ fontSize: 15 }} />}
                 </IconButton>
               </Tooltip>
               <Tooltip title={t('logPanel.clear')}>
                 <IconButton size="small" onClick={() => onClear(activeKey)} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-                  <ClearIcon sx={{ fontSize: 13 }} />
+                  <ClearIcon sx={{ fontSize: 15 }} />
                 </IconButton>
               </Tooltip>
               <Tooltip title={t('logPanel.collapse')}>
                 <IconButton size="small" onClick={() => setActiveKey(null)} sx={{ color: '#555', '&:hover': { color: '#888' } }}>
-                  <CollapseIcon sx={{ fontSize: 14 }} />
+                  <CollapseIcon sx={{ fontSize: 16 }} />
                 </IconButton>
               </Tooltip>
               <Tooltip title={t('logPanel.closeSession')}>
                 <IconButton size="small" onClick={() => onClose(activeKey)} sx={{ color: '#555', '&:hover': { color: '#ef4444' } }}>
-                  <CloseIcon sx={{ fontSize: 13 }} />
+                  <CloseIcon sx={{ fontSize: 15 }} />
                 </IconButton>
               </Tooltip>
             </Box>
@@ -317,7 +317,7 @@ const LogStatusBar: React.FC<LogStatusBarProps> = ({ logWindows, onClose, onClea
             '&:hover': { color: '#888', bgcolor: 'rgba(255,255,255,0.03)' },
           }}
         >
-          <ChevronLeftIcon sx={{ fontSize: 16 }} />
+          <ChevronLeftIcon sx={{ fontSize: 18 }} />
         </Box>
 
         {/* Scrollable tab list */}
@@ -399,8 +399,8 @@ const LogStatusBar: React.FC<LogStatusBarProps> = ({ logWindows, onClose, onClea
 
                 {/* Expand / collapse chevron */}
                 {isActive
-                  ? <CollapseIcon sx={{ fontSize: 11, color: '#555', ml: 0.25 }} />
-                  : <ExpandIcon   sx={{ fontSize: 11, color: '#333', ml: 0.25 }} />
+                  ? <CollapseIcon sx={{ fontSize: 13, color: '#555', ml: 0.25 }} />
+                  : <ExpandIcon   sx={{ fontSize: 13, color: '#333', ml: 0.25 }} />
                 }
 
                 {/* Close × */}
@@ -439,7 +439,7 @@ const LogStatusBar: React.FC<LogStatusBarProps> = ({ logWindows, onClose, onClea
             '&:hover': { color: '#888', bgcolor: 'rgba(255,255,255,0.03)' },
           }}
         >
-          <ChevronRightIcon sx={{ fontSize: 16 }} />
+          <ChevronRightIcon sx={{ fontSize: 18 }} />
         </Box>
       </Box>
     </Box>

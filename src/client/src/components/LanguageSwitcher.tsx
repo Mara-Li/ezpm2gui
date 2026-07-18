@@ -45,9 +45,9 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = () => {
       <button
         onClick={() => setOpen(o => !o)}
         title={current.label}
-        className="flex items-center gap-1 p-1 rounded-sm transition-colors font-mono text-[10px] text-[#555] hover:text-[#888]"
+        className="flex items-center gap-1 p-1 rounded-sm transition-colors font-mono text-[12px] text-[#555] hover:text-[#888]"
       >
-        <GlobeAltIcon className="h-3.5 w-3.5" />
+        <GlobeAltIcon className="h-4 w-4" />
         <span className="hidden sm:inline">{current.code.toUpperCase()}</span>
       </button>
 
@@ -58,7 +58,7 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = () => {
             <button
               key={lang.code}
               onClick={() => select(lang.code)}
-              className={`w-full text-left px-3 py-1.5 font-mono text-[10px] transition-colors hover:bg-[#1a1a1a]
+              className={`w-full text-left px-3 py-1.5 font-mono text-[12px] transition-colors hover:bg-[#1a1a1a]
                 ${lang.code === i18n.language
                   ? 'text-[#e8e8e8]'
                   : 'text-[#888] hover:text-[#e8e8e8]'

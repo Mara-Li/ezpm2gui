@@ -316,7 +316,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
               <button
                 onClick={toggleStreaming}
                 disabled={initPid === null}
-                className={`h-7 px-3 text-[10px] font-mono rounded-sm border transition-colors
+                className={`h-7 px-3 text-[12px] font-mono rounded-sm border transition-colors
                             disabled:opacity-40
                             ${isStreaming
                               ? 'border-[#ef4444] text-[#ef4444] hover:bg-[#ef4444]/10'
@@ -334,7 +334,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
         {/* Row 1: text filter + action buttons */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
           <div className="relative flex-1">
-            <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3 w-3 text-[#555] pointer-events-none" />
+            <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#555] pointer-events-none" />
             <input
               type="text"
               placeholder={t('logs.filterLogs')}
@@ -351,7 +351,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
             {/* Auto-scroll toggle */}
             <button
               onClick={() => setFollowLogs(p => !p)}
-              className={`h-7 px-2.5 text-[10px] font-mono rounded-sm border transition-colors
+              className={`h-7 px-2.5 text-[12px] font-mono rounded-sm border transition-colors
                           ${followLogs
                             ? 'bg-[#22c55e]/20 border-[#22c55e] text-[#22c55e]'
                             : 'border-[#1e1e1e] text-[#555] hover:text-[#888]'}`}
@@ -361,59 +361,59 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
 
             {/* Live indicator */}
             {isStreaming && (
-              <span className="flex items-center gap-1 px-2 text-[10px] font-mono text-[#22c55e]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+              <span className="flex items-center gap-1 px-2 text-[12px] font-mono text-[#22c55e]">
+                <span className="h-2 w-2 rounded-full bg-[#22c55e] animate-pulse" />
                 live
               </span>
             )}
 
             {/* Refresh */}
             <button onClick={refreshLogs} title="Refresh"
-              className="h-7 w-7 flex items-center justify-center rounded-sm border
+              className="h-8 w-8 flex items-center justify-center rounded-sm border
                          border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors">
-              <ArrowPathIcon className="h-3 w-3" />
+              <ArrowPathIcon className="h-3.5 w-3.5" />
             </button>
 
             {/* Clear */}
             <button onClick={() => setLogs([])} title={t('logs.clearLogs')}
-              className="h-7 w-7 flex items-center justify-center rounded-sm border
+              className="h-8 w-8 flex items-center justify-center rounded-sm border
                          border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors">
-              <XMarkIcon className="h-3 w-3" />
+              <XMarkIcon className="h-3.5 w-3.5" />
             </button>
 
             {/* Download */}
             <button onClick={downloadLogs} disabled={initPid === null || logs.length === 0} title="Download"
-              className="h-7 w-7 flex items-center justify-center rounded-sm border
+              className="h-8 w-8 flex items-center justify-center rounded-sm border
                          border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors
                          disabled:opacity-40 disabled:cursor-not-allowed">
-              <ArrowDownTrayIcon className="h-3 w-3" />
+              <ArrowDownTrayIcon className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
 
         {/* @group DateRangeFilter : Date-time range filter row */}
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] shrink-0">Date range</span>
+          <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] shrink-0">Date range</span>
 
           <div className="flex items-center gap-1">
-            <label className="text-[9px] font-mono text-[#555] shrink-0">from</label>
+            <label className="text-[11px] font-mono text-[#555] shrink-0">from</label>
             <input
               type="datetime-local"
               value={dateFrom}
               onChange={e => setDateFrom(e.target.value)}
-              className="h-7 px-2 text-[10px] font-mono rounded-sm border
+              className="h-7 px-2 text-[12px] font-mono rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          focus:outline-none focus:border-[#22c55e]"
             />
           </div>
 
           <div className="flex items-center gap-1">
-            <label className="text-[9px] font-mono text-[#555] shrink-0">to</label>
+            <label className="text-[11px] font-mono text-[#555] shrink-0">to</label>
             <input
               type="datetime-local"
               value={dateTo}
               onChange={e => setDateTo(e.target.value)}
-              className="h-7 px-2 text-[10px] font-mono rounded-sm border
+              className="h-7 px-2 text-[12px] font-mono rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          focus:outline-none focus:border-[#22c55e]"
             />
@@ -422,7 +422,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
           <button
             onClick={applyDateRange}
             disabled={(!dateFrom && !dateTo) || filterLoading}
-            className={`h-7 px-3 text-[10px] font-mono rounded-sm border transition-colors
+            className={`h-7 px-3 text-[12px] font-mono rounded-sm border transition-colors
                         disabled:opacity-40 disabled:cursor-not-allowed
                         flex items-center gap-1.5
                         ${dateRangePending
@@ -431,7 +431,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
           >
             {filterLoading ? (
               <>
-                <svg className="h-3 w-3 animate-spin" viewBox="0 0 24 24" fill="none">
+                <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
@@ -443,7 +443,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
           {(appliedFrom || appliedTo) && (
             <button
               onClick={clearDateRange}
-              className="h-7 px-2 text-[10px] font-mono rounded-sm border
+              className="h-7 px-2 text-[12px] font-mono rounded-sm border
                          border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors"
             >
               clear
@@ -451,7 +451,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
           )}
 
           {(appliedFrom || appliedTo) && !dateRangePending && (
-            <span className="text-[9px] font-mono text-[#22c55e] border border-[#22c55e]/30 rounded-sm px-1.5 py-0.5">
+            <span className="text-[11px] font-mono text-[#22c55e] border border-[#22c55e]/30 rounded-sm px-1.5 py-0.5">
               filter active
             </span>
           )}
@@ -462,8 +462,8 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
       <div className="rounded-sm border border-[#1e1e1e] overflow-hidden">
         {loading || filterLoading ? (
           <div className="flex items-center justify-center h-64 bg-[#0a0a0a]">
-            <div className="flex items-center gap-2 text-[10px] font-mono text-[#555]">
-              <svg className="h-3.5 w-3.5 animate-spin text-[#22c55e]" viewBox="0 0 24 24" fill="none">
+            <div className="flex items-center gap-2 text-[12px] font-mono text-[#555]">
+              <svg className="h-4 w-4 animate-spin text-[#22c55e]" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
               </svg>
@@ -471,17 +471,17 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
             </div>
           </div>
         ) : error ? (
-          <div className="flex items-center gap-2 p-4 text-[10px] font-mono text-[#ef4444] bg-[#ef4444]/5 border-b border-[#1e1e1e]">
+          <div className="flex items-center gap-2 p-4 text-[12px] font-mono text-[#ef4444] bg-[#ef4444]/5 border-b border-[#1e1e1e]">
             <span className="text-[#555]">err:</span> {error}
           </div>
         ) : initPid === null ? (
-          <div className="flex items-center justify-center h-64 bg-[#0a0a0a] text-[10px] font-mono text-[#555]">
+          <div className="flex items-center justify-center h-64 bg-[#0a0a0a] text-[12px] font-mono text-[#555]">
             {t('logs.selectProcessHint')}
           </div>
         ) : (
           <div
             ref={logContainerRef}
-            className="h-[calc(100vh-16rem)] overflow-y-auto bg-[#0a0a0a] p-3 font-mono text-[10px] leading-relaxed"
+            className="h-[calc(100vh-16rem)] overflow-y-auto bg-[#0a0a0a] p-3 font-mono text-[12px] leading-relaxed"
           >
             {filteredLogs.length === 0 ? (
               <span className="text-[#555] italic">

@@ -406,7 +406,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
                 height: '60%',
                 color: 'success.main'
               }}>
-                <CheckCircleIcon sx={{ fontSize: 28, mb: 1 }} />
+                <CheckCircleIcon sx={{ fontSize: 32, mb: 1 }} />
                 <Typography variant="body1">{t('advancedMonitoring.allHealthy')}</Typography>
               </Box>
             ) : (

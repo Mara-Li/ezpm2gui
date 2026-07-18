@@ -113,14 +113,14 @@ const CronJobsPage: React.FC = () => {
               disabled={loading}
               className="flex items-center gap-1.5 border border-[#333] text-[#888] text-xs font-mono px-3 py-1 rounded-sm hover:border-[#555] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
-              <ArrowPathIcon className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
+              <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
               {t('common.refresh')}
             </button>
             <button
               onClick={handleCreate}
               className="flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
             >
-              <PlusIcon className="h-3.5 w-3.5" />
+              <PlusIcon className="h-4 w-4" />
               {t('cronJobs.createJob')}
             </button>
           </>
@@ -136,8 +136,8 @@ const CronJobsPage: React.FC = () => {
           { id: 'scheduled', label: t('cronJobs.scheduled'), value: jobs.filter(j => j.config.enabled && !j.isRunning).length, color: 'text-[#f59e0b]' },
         ].map(({ id, label, value, color }) => (
           <div key={id} className="bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2">
-            <p className={`text-[11px] font-mono font-bold leading-none ${color}`}>{value}</p>
-            <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mt-1">{label}</p>
+            <p className={`text-[13px] font-mono font-bold leading-none ${color}`}>{value}</p>
+            <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -145,16 +145,16 @@ const CronJobsPage: React.FC = () => {
       {/* Jobs Table / Empty state */}
       {jobs.length === 0 ? (
         <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-10 text-center">
-          <ClockIcon className="mx-auto h-8 w-8 text-[#333] mb-3" />
-          <p className="text-[10px] font-mono text-[#555]">{t('cronJobs.noJobs')}</p>
-          <p className="text-[10px] font-mono text-[#444] mt-1 mb-4">
+          <ClockIcon className="mx-auto h-9 w-9 text-[#333] mb-3" />
+          <p className="text-[12px] font-mono text-[#555]">{t('cronJobs.noJobs')}</p>
+          <p className="text-[12px] font-mono text-[#444] mt-1 mb-4">
             Create your first scheduled task to automate your workflows
           </p>
           <button
             onClick={handleCreate}
             className="inline-flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
           >
-            <PlusIcon className="h-3.5 w-3.5" />
+            <PlusIcon className="h-4 w-4" />
             Create First Job
           </button>
         </div>
@@ -172,7 +172,7 @@ const CronJobsPage: React.FC = () => {
                   { id: 'enabled', label: t('cronJobs.enabled') },
                   { id: 'actions', label: '' },
                 ].map(({ id, label }) => (
-                  <th key={id} className="px-3 py-2.5 text-left text-[9px] font-mono text-[#444] uppercase tracking-[0.15em] whitespace-nowrap">
+                  <th key={id} className="px-3 py-2.5 text-left text-[11px] font-mono text-[#444] uppercase tracking-[0.15em] whitespace-nowrap">
                     {label}
                   </th>
                 ))}
@@ -183,43 +183,43 @@ const CronJobsPage: React.FC = () => {
                 <tr key={job.config.id} className="bg-[#0a0a0a] hover:bg-[#111] transition-colors">
                   {/* Name */}
                   <td className="px-3 py-2.5">
-                    <p className="text-[10px] font-mono font-semibold text-[#e8e8e8]">{job.config.name}</p>
+                    <p className="text-[12px] font-mono font-semibold text-[#e8e8e8]">{job.config.name}</p>
                     {job.config.description && (
-                      <p className="text-[10px] font-mono text-[#555] mt-0.5">{job.config.description}</p>
+                      <p className="text-[12px] font-mono text-[#555] mt-0.5">{job.config.description}</p>
                     )}
                   </td>
 
                   {/* Type */}
                   <td className="px-3 py-2.5">
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[10px] font-mono font-medium ${scriptTypeBadge(job.config.scriptType)}`}>
-                      <CodeBracketIcon className="h-3 w-3 shrink-0" />
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium ${scriptTypeBadge(job.config.scriptType)}`}>
+                      <CodeBracketIcon className="h-3.5 w-3.5 shrink-0" />
                       {job.config.scriptType.toUpperCase()}
                     </span>
                   </td>
 
                   {/* Schedule */}
                   <td className="px-3 py-2.5">
-                    <code className="font-mono text-[10px] text-[#888]">{job.config.cronExpression}</code>
+                    <code className="font-mono text-[12px] text-[#888]">{job.config.cronExpression}</code>
                   </td>
 
                   {/* Next Run */}
-                  <td className="px-3 py-2.5 text-[10px] font-mono text-[#888] whitespace-nowrap">
+                  <td className="px-3 py-2.5 text-[12px] font-mono text-[#888] whitespace-nowrap">
                     {job.nextExecution ? new Date(job.nextExecution).toLocaleString() : '—'}
                   </td>
 
                   {/* Status */}
                   <td className="px-3 py-2.5">
                     {job.isRunning ? (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[10px] font-mono font-medium bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e]/20">
-                        <CheckCircleIcon className="h-3 w-3" /> {t('common.running')}
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e]/20">
+                        <CheckCircleIcon className="h-3.5 w-3.5" /> {t('common.running')}
                       </span>
                     ) : job.config.enabled ? (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[10px] font-mono font-medium bg-[#1e1e1e] text-[#888] border-[#333]">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#1e1e1e] text-[#888] border-[#333]">
                         {t('common.scheduled')}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[10px] font-mono font-medium bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/20">
-                        <XCircleIcon className="h-3 w-3" /> {t('cronJobs.disabled')}
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/20">
+                        <XCircleIcon className="h-3.5 w-3.5" /> {t('cronJobs.disabled')}
                       </span>
                     )}
                   </td>
@@ -232,7 +232,7 @@ const CronJobsPage: React.FC = () => {
                                   transition-colors duration-200 cursor-pointer
                                   ${job.config.enabled ? 'bg-[#22c55e]' : 'bg-[#333]'}`}
                     >
-                      <span className={`pointer-events-none inline-block h-4 w-4 rounded-full bg-[#e8e8e8] shadow
+                      <span className={`pointer-events-none inline-block h-5 w-5 rounded-full bg-[#e8e8e8] shadow
                                         transform transition-transform duration-200
                                         ${job.config.enabled ? 'translate-x-4' : 'translate-x-0'}`} />
                     </button>
@@ -247,7 +247,7 @@ const CronJobsPage: React.FC = () => {
                           title="Stop"
                           className="p-1 rounded-sm text-[#ef4444] hover:bg-[#ef4444]/10 transition-colors"
                         >
-                          <StopIcon className="h-4 w-4" />
+                          <StopIcon className="h-5 w-5" />
                         </button>
                       ) : (
                         <button
@@ -255,7 +255,7 @@ const CronJobsPage: React.FC = () => {
                           title="Start"
                           className="p-1 rounded-sm text-[#22c55e] hover:bg-[#22c55e]/10 transition-colors"
                         >
-                          <PlayIcon className="h-4 w-4" />
+                          <PlayIcon className="h-5 w-5" />
                         </button>
                       )}
                       <button
@@ -263,14 +263,14 @@ const CronJobsPage: React.FC = () => {
                         title={t('common.edit')}
                         className="p-1 rounded-sm text-[#555] hover:bg-[#1e1e1e] hover:text-[#888] transition-colors"
                       >
-                        <PencilIcon className="h-4 w-4" />
+                        <PencilIcon className="h-5 w-5" />
                       </button>
                       <button
                         onClick={() => { setJobToDelete(job.config.id); setDeleteConfirmOpen(true); }}
                         title={t('common.delete')}
                         className="p-1 rounded-sm text-[#555] hover:bg-[#ef4444]/10 hover:text-[#ef4444] transition-colors"
                       >
-                        <TrashIcon className="h-4 w-4" />
+                        <TrashIcon className="h-5 w-5" />
                       </button>
                     </div>
                   </td>

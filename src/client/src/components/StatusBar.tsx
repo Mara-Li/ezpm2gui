@@ -92,7 +92,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ notifications, onDismiss, status,
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[60] flex items-center h-[22px]
                     bg-[#0a0a0a] border-t border-[#1a1a1a]
-                    font-mono text-[10px] select-none">
+                    font-mono text-[12px] select-none">
 
       {/* ── Left: connection + server + counts ── */}
       <div className="flex items-center shrink-0 h-full">
@@ -104,8 +104,8 @@ const StatusBar: React.FC<StatusBarProps> = ({ notifications, onDismiss, status,
             : 'text-[#ef4444] hover:bg-[#ef4444]/5'
         }`}>
           {status.connected
-            ? <SignalIcon className="h-3 w-3 shrink-0" />
-            : <SignalSlashIcon className="h-3 w-3 shrink-0 animate-pulse" />}
+            ? <SignalIcon className="h-3.5 w-3.5 shrink-0" />
+            : <SignalSlashIcon className="h-3.5 w-3.5 shrink-0 animate-pulse" />}
           <span className="font-mono">{status.connected ? t('common.connected') : t('common.disconnected')}</span>
         </div>
 
@@ -134,12 +134,12 @@ const StatusBar: React.FC<StatusBarProps> = ({ notifications, onDismiss, status,
               const cfg = TYPE_CONFIG[current.type] ?? TYPE_CONFIG.info;
               return (
                 <>
-                  <span className={`shrink-0 text-[9px] font-mono font-bold px-1.5 py-px rounded-sm ${cfg.labelClass}`}>
+                  <span className={`shrink-0 text-[11px] font-mono font-bold px-1.5 py-px rounded-sm ${cfg.labelClass}`}>
                     {cfg.label}
                   </span>
                   <span className={`truncate font-mono ${cfg.textClass}`}>{current.message}</span>
                   {remaining > 0 && (
-                    <span className="shrink-0 text-[9px] font-mono font-semibold bg-[#1a1a1a] text-[#888] rounded-sm px-1.5 py-px">
+                    <span className="shrink-0 text-[11px] font-mono font-semibold bg-[#1a1a1a] text-[#888] rounded-sm px-1.5 py-px">
                       +{remaining}
                     </span>
                   )}
@@ -148,7 +148,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ notifications, onDismiss, status,
                     className="shrink-0 text-[#555] hover:text-[#888] transition-colors ml-0.5"
                     aria-label={t('statusBar.dismiss')}
                   >
-                    <XMarkIcon className="h-3 w-3" />
+                    <XMarkIcon className="h-3.5 w-3.5" />
                   </button>
                 </>
               );
@@ -157,7 +157,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ notifications, onDismiss, status,
         ) : (
           // Tip mode
           <div className={`flex items-center gap-2 min-w-0 transition-opacity duration-[400ms] ${tipVisible ? 'opacity-100' : 'opacity-0'}`}>
-            <span className="shrink-0 text-[9px] font-mono px-1.5 py-px rounded-sm bg-[#1a0a3a] text-[#a78bfa]">
+            <span className="shrink-0 text-[11px] font-mono px-1.5 py-px rounded-sm bg-[#1a0a3a] text-[#a78bfa]">
               {t('statusBar.tip')}
             </span>
             <span className="truncate font-mono text-[#555]">{TIPS[tipIndex]}</span>

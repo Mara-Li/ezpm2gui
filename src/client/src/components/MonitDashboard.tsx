@@ -70,9 +70,9 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
   // @group Render : Stat card helper
   const statCard = (label: string, value: string | number, sub: string) => (
     <div className="bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2">
-      <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em]">{label}</p>
-      <p className="text-[11px] font-mono font-bold text-[#e8e8e8] leading-tight mt-0.5">{value}</p>
-      <p className="text-[9px] font-mono text-[#555] mt-0.5">{sub}</p>
+      <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em]">{label}</p>
+      <p className="text-[13px] font-mono font-bold text-[#e8e8e8] leading-tight mt-0.5">{value}</p>
+      <p className="text-[11px] font-mono text-[#555] mt-0.5">{sub}</p>
     </div>
   );
 
@@ -95,8 +95,8 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
       status === 'online'  ? 'text-[#22c55e]' :
       status === 'stopped' ? 'text-[#ef4444]' : 'text-[#f59e0b]';
     return (
-      <span className={`inline-flex items-center gap-1 font-mono text-[10px] ${text}`}>
-        <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${dot}`} />
+      <span className={`inline-flex items-center gap-1 font-mono text-[12px] ${text}`}>
+        <span className={`w-2 h-2 rounded-full shrink-0 ${dot}`} />
         {status}
       </span>
     );
@@ -111,13 +111,13 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
           <h1 className="font-mono text-xs font-semibold text-[#e8e8e8] tracking-[0.15em] uppercase">
             ▸ {t('monitDashboard.title')}
           </h1>
-          <p className="font-mono text-[10px] text-[#555] mt-0.5">
+          <p className="font-mono text-[12px] text-[#555] mt-0.5">
             {t('monitDashboard.subtitle')}
           </p>
         </div>
         <button
           onClick={onRefresh}
-          className="font-mono text-[10px] text-[#555] hover:text-[#888] border border-[#1e1e1e] hover:border-[#333] px-2.5 py-1 rounded-sm transition-colors"
+          className="font-mono text-[12px] text-[#555] hover:text-[#888] border border-[#1e1e1e] hover:border-[#333] px-2.5 py-1 rounded-sm transition-colors"
         >
           ↺ refresh
         </button>
@@ -165,7 +165,7 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
                   <th
                     key={key}
                     onClick={() => handleSort(key)}
-                    className="px-3 py-2 text-left text-[9px] font-mono text-[#444] uppercase tracking-[0.15em] select-none cursor-pointer hover:text-[#666] transition-colors"
+                    className="px-3 py-2 text-left text-[11px] font-mono text-[#444] uppercase tracking-[0.15em] select-none cursor-pointer hover:text-[#666] transition-colors"
                   >
                     {label}{sortArrow(key)}
                   </th>
@@ -175,7 +175,7 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
             <tbody className="divide-y divide-[#111]">
               {sortedProcesses.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-3 py-8 text-center text-[10px] font-mono text-[#555]">
+                  <td colSpan={7} className="px-3 py-8 text-center text-[12px] font-mono text-[#555]">
                     {t('monitDashboard.noProcesses')}
                   </td>
                 </tr>
@@ -185,8 +185,8 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
                   onClick={() => navigate(`/process/${proc.pm_id}`)}
                   className="cursor-pointer hover:bg-[#141414] transition-colors border-b border-[#1a1a1a]"
                 >
-                  <td className="px-3 py-2 text-[10px] font-mono text-[#555]">{proc.pm_id}</td>
-                  <td className="px-3 py-2 text-[10px] font-mono text-[#e8e8e8]">{proc.name}</td>
+                  <td className="px-3 py-2 text-[12px] font-mono text-[#555]">{proc.pm_id}</td>
+                  <td className="px-3 py-2 text-[12px] font-mono text-[#e8e8e8]">{proc.name}</td>
                   <td className="px-3 py-2">{statusBadge(proc.pm2_env.status)}</td>
 
                   {/* CPU bar */}
@@ -198,7 +198,7 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
                           style={{ width: `${Math.min(proc.monit.cpu, 100)}%` }}
                         />
                       </div>
-                      <span className="text-[10px] font-mono text-[#888] min-w-[36px]">
+                      <span className="text-[12px] font-mono text-[#888] min-w-[36px]">
                         {proc.monit.cpu.toFixed(1)}%
                       </span>
                     </div>
@@ -213,16 +213,16 @@ const MonitDashboard: React.FC<MonitDashboardProps> = ({ processes, onRefresh })
                           style={{ width: `${maxMem > 0 ? (proc.monit.memory / maxMem) * 100 : 0}%` }}
                         />
                       </div>
-                      <span className="text-[10px] font-mono text-[#888] min-w-[56px]">
+                      <span className="text-[12px] font-mono text-[#888] min-w-[56px]">
                         {formatMemory(proc.monit.memory)}
                       </span>
                     </div>
                   </td>
 
-                  <td className="px-3 py-2 text-[10px] font-mono text-[#888]">
+                  <td className="px-3 py-2 text-[12px] font-mono text-[#888]">
                     {proc.pm2_env.status === 'online' ? formatUptime(proc.pm2_env.pm_uptime) : '—'}
                   </td>
-                  <td className="px-3 py-2 text-[10px] font-mono text-[#888]">
+                  <td className="px-3 py-2 text-[12px] font-mono text-[#888]">
                     {proc.pm2_env.restart_time}
                   </td>
                 </tr>

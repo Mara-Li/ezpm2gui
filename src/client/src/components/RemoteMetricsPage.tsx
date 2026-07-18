@@ -211,16 +211,16 @@ const RemoteMetricsPage: React.FC = () => {
   // @group StatCard : Small stat display helper
   const StatCard = ({ label, value, unit, color }: { label: string; value: number; unit: string; color: string }) => (
     <div className="bg-[#111] border border-[#1e1e1e] rounded-sm px-2.5 py-1.5 flex flex-col gap-0.5">
-      <span className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em]">{label}</span>
-      <span className={`text-[11px] font-mono font-bold ${color}`}>
+      <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em]">{label}</span>
+      <span className={`text-[13px] font-mono font-bold ${color}`}>
         {value.toFixed(2)}
-        <span className="text-[9px] font-normal text-[#555] ml-0.5">{unit}</span>
+        <span className="text-[11px] font-normal text-[#555] ml-0.5">{unit}</span>
       </span>
     </div>
   );
 
   // @group SelectStyles : CLI-styled select element class
-  const selectCls = `font-mono text-[10px] px-2 py-1.5 rounded-sm border border-[#1e1e1e]
+  const selectCls = `font-mono text-[12px] px-2 py-1.5 rounded-sm border border-[#1e1e1e]
     bg-[#111] text-[#e8e8e8]
     focus:outline-none focus:ring-1 focus:ring-[#22c55e] disabled:opacity-40`;
 
@@ -233,11 +233,11 @@ const RemoteMetricsPage: React.FC = () => {
           <button
             onClick={fetchMetrics}
             disabled={loading}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-mono text-[10px]
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-mono text-[12px]
               bg-[#111] border border-[#1e1e1e] text-[#888] hover:text-[#e8e8e8] hover:border-[#333]
               disabled:opacity-40 transition-colors"
           >
-            <ArrowPathIcon className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
+            <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
             {t('common.refresh')}
           </button>
         }
@@ -248,7 +248,7 @@ const RemoteMetricsPage: React.FC = () => {
 
         {/* Connection selector */}
         <div className="flex flex-col gap-0.5">
-          <label className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.connection')}</label>
+          <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.connection')}</label>
           <select
             value={selectedConn}
             onChange={e => setSelectedConn(e.target.value)}
@@ -263,7 +263,7 @@ const RemoteMetricsPage: React.FC = () => {
 
         {/* Process selector */}
         <div className="flex flex-col gap-0.5">
-          <label className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.process')}</label>
+          <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.process')}</label>
           <select
             value={selectedProc}
             onChange={e => setSelectedProc(e.target.value)}
@@ -279,13 +279,13 @@ const RemoteMetricsPage: React.FC = () => {
 
         {/* Time range pills */}
         <div className="flex flex-col gap-0.5">
-          <label className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.range')}</label>
+          <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.range')}</label>
           <div className="flex gap-1">
             {TIME_RANGES.map((r, i) => (
               <button
                 key={r.label}
                 onClick={() => setRangeIdx(i)}
-                className={`font-mono text-[10px] px-2 py-1 rounded-sm transition-colors ${
+                className={`font-mono text-[12px] px-2 py-1 rounded-sm transition-colors ${
                   rangeIdx === i
                     ? 'bg-[#1a2e1a] border border-[#22c55e]/40 text-[#22c55e]'
                     : 'bg-[#111] border border-[#1e1e1e] text-[#555] hover:text-[#888] hover:border-[#333]'
@@ -299,10 +299,10 @@ const RemoteMetricsPage: React.FC = () => {
 
         {/* Auto-refresh toggle */}
         <div className="flex flex-col gap-0.5 ml-auto">
-          <label className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.autoRefresh')}</label>
+          <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.autoRefresh')}</label>
           <button
             onClick={() => setAutoRefresh(v => !v)}
-            className={`self-start font-mono text-[10px] px-3 py-1.5 rounded-sm border transition-colors ${
+            className={`self-start font-mono text-[12px] px-3 py-1.5 rounded-sm border transition-colors ${
               autoRefresh
                 ? 'bg-[#0d1f0d] border-[#22c55e]/40 text-[#22c55e]'
                 : 'border-[#1e1e1e] text-[#555] hover:text-[#888] hover:border-[#333]'
@@ -316,15 +316,15 @@ const RemoteMetricsPage: React.FC = () => {
       {/* ── Empty / no-selection states ── */}
       {!selectedConn && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <ChartBarIcon className="h-10 w-10 text-[#333] mb-3" />
-          <p className="text-[10px] font-mono text-[#555]">
+          <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
+          <p className="text-[12px] font-mono text-[#555]">
             {t('remoteMetrics.selectConnection')}
           </p>
-          <p className="text-[10px] font-mono text-[#444] mt-1">
+          <p className="text-[12px] font-mono text-[#444] mt-1">
             {t('remoteMetrics.metricsRecorded')}
           </p>
           {connections.length === 0 && (
-            <p className="text-[10px] font-mono text-[#f59e0b] mt-3">
+            <p className="text-[12px] font-mono text-[#f59e0b] mt-3">
               {t('remoteMetrics.noData')}
             </p>
           )}
@@ -333,7 +333,7 @@ const RemoteMetricsPage: React.FC = () => {
 
       {selectedConn && !selectedProc && (
         <div className="flex items-center justify-center py-12">
-          <p className="text-[10px] font-mono text-[#555]">{t('remoteMetrics.noProcesses')}</p>
+          <p className="text-[12px] font-mono text-[#555]">{t('remoteMetrics.noProcesses')}</p>
         </div>
       )}
 
@@ -345,8 +345,8 @@ const RemoteMetricsPage: React.FC = () => {
           <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-[10px] font-mono text-[#888]">{t('remoteMetrics.cpuUsage')}</p>
-                <p className="text-[9px] font-mono text-[#444]">{metrics.length} data points</p>
+                <p className="text-[12px] font-mono text-[#888]">{t('remoteMetrics.cpuUsage')}</p>
+                <p className="text-[11px] font-mono text-[#444]">{metrics.length} data points</p>
               </div>
               <div className="flex items-center gap-2">
                 <StatCard label={t('metricsPage.min')}  value={cpuStats.min} unit="%" color="text-[#22c55e]" />
@@ -357,7 +357,7 @@ const RemoteMetricsPage: React.FC = () => {
             <div className="h-40">
               {metrics.length > 0
                 ? <Line data={cpuChartData} options={baseChartOptions('%', 100)} />
-                : <div className="h-full flex items-center justify-center text-[10px] font-mono text-[#555]">{t('remoteMetrics.noDataRange')}</div>
+                : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">{t('remoteMetrics.noDataRange')}</div>
               }
             </div>
           </div>
@@ -366,8 +366,8 @@ const RemoteMetricsPage: React.FC = () => {
           <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
             <div className="flex items-center justify-between mb-3">
               <div>
-                <p className="text-[10px] font-mono text-[#888]">{t('remoteMetrics.memoryUsage')}</p>
-                <p className="text-[9px] font-mono text-[#444]">{metrics.length} data points</p>
+                <p className="text-[12px] font-mono text-[#888]">{t('remoteMetrics.memoryUsage')}</p>
+                <p className="text-[11px] font-mono text-[#444]">{metrics.length} data points</p>
               </div>
               <div className="flex items-center gap-2">
                 <StatCard label={t('metricsPage.min')}  value={memStats.min} unit="MB" color="text-[#22c55e]" />
@@ -378,7 +378,7 @@ const RemoteMetricsPage: React.FC = () => {
             <div className="h-40">
               {metrics.length > 0
                 ? <Line data={memChartData} options={baseChartOptions('MB')} />
-                : <div className="h-full flex items-center justify-center text-[10px] font-mono text-[#555]">{t('remoteMetrics.noDataRange')}</div>
+                : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">{t('remoteMetrics.noDataRange')}</div>
               }
             </div>
           </div>
@@ -386,33 +386,33 @@ const RemoteMetricsPage: React.FC = () => {
           {/* ── Raw data table (last 20 rows) ── */}
           <div className="bg-[#111] border border-[#1e1e1e] rounded-sm overflow-hidden">
             <div className="px-3 py-2 border-b border-[#1e1e1e]">
-              <p className="text-[10px] font-mono text-[#888]">{t('remoteMetrics.recentSamples')}</p>
+              <p className="text-[12px] font-mono text-[#888]">{t('remoteMetrics.recentSamples')}</p>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="text-left border-b border-[#1e1e1e]">
-                    <th className="px-3 py-2 font-mono text-[9px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('remoteMetrics.time')}</th>
-                    <th className="px-3 py-2 font-mono text-[9px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('common.cpu')}</th>
-                    <th className="px-3 py-2 font-mono text-[9px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('common.memory')}</th>
-                    <th className="px-3 py-2 font-mono text-[9px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory (bytes)</th>
+                    <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('remoteMetrics.time')}</th>
+                    <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('common.cpu')}</th>
+                    <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">{t('common.memory')}</th>
+                    <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory (bytes)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#1a1a1a]">
                   {[...metrics].reverse().slice(0, 20).map(m => (
                     <tr key={m.id} className="hover:bg-[#141414] transition-colors">
-                      <td className="px-3 py-1.5 font-mono text-[10px] text-[#555] tabular-nums">
+                      <td className="px-3 py-1.5 font-mono text-[12px] text-[#555] tabular-nums">
                         {new Date(m.timestamp).toLocaleString()}
                       </td>
-                      <td className="px-3 py-1.5 font-mono text-[10px] tabular-nums">
+                      <td className="px-3 py-1.5 font-mono text-[12px] tabular-nums">
                         <span className={m.cpu >= 80 ? 'text-[#ef4444]' : m.cpu >= 50 ? 'text-[#f59e0b]' : 'text-[#22c55e]'}>
                           {m.cpu.toFixed(2)}%
                         </span>
                       </td>
-                      <td className="px-3 py-1.5 font-mono text-[10px] text-[#22d3ee] tabular-nums">
+                      <td className="px-3 py-1.5 font-mono text-[12px] text-[#22d3ee] tabular-nums">
                         {m.memory_mb.toFixed(2)} MB
                       </td>
-                      <td className="px-3 py-1.5 font-mono text-[10px] text-[#444] tabular-nums">
+                      <td className="px-3 py-1.5 font-mono text-[12px] text-[#444] tabular-nums">
                         {m.memory_bytes.toLocaleString()}
                       </td>
                     </tr>

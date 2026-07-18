@@ -39,15 +39,15 @@ interface MainDashboardProps {
 // @group Render : Compact CLI-style process stat card
 const ProcessStatCard: React.FC<ProcessStatCardProps> = ({ icon: Icon, iconColor, iconBg, label, value, total }) => (
   <div className="flex items-center gap-2.5 bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2 min-w-0">
-    <div className={`shrink-0 w-7 h-7 flex items-center justify-center ${iconBg}`}>
-      <Icon className={`h-3.5 w-3.5 ${iconColor}`} />
+    <div className={`shrink-0 w-8 h-8 flex items-center justify-center ${iconBg}`}>
+      <Icon className={`h-4 w-4 ${iconColor}`} />
     </div>
     <div className="min-w-0">
-      <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
-      <p className="text-[11px] font-mono font-bold text-[#e8e8e8] leading-tight">
+      <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
+      <p className="text-[13px] font-mono font-bold text-[#e8e8e8] leading-tight">
         {value}
         {total !== undefined && (
-          <span className="text-[10px] font-mono font-normal text-[#444] ml-1">/ {total}</span>
+          <span className="text-[12px] font-mono font-normal text-[#444] ml-1">/ {total}</span>
         )}
       </p>
     </div>
@@ -84,10 +84,10 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
       {/* ── Page header ── */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[11px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+          <h1 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
             ▸ {t('mainDashboard.title')}
           </h1>
-          <p className="text-[10px] font-mono text-[#555] mt-0.5">
+          <p className="text-[12px] font-mono text-[#555] mt-0.5">
             {t('mainDashboard.subtitle')}
           </p>
         </div>
@@ -137,7 +137,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
 
           {/* Search */}
           <div className="flex-1 relative">
-            <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#444] pointer-events-none" />
+            <MagnifyingGlassIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#444] pointer-events-none" />
             <input
               type="text"
               placeholder={t('mainDashboard.searchPlaceholder')}
@@ -150,7 +150,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
           {/* Namespace filter */}
           {namespaces.length > 1 && (
             <div className="sm:w-40 relative">
-              <RectangleStackIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#444] pointer-events-none" />
+              <RectangleStackIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#444] pointer-events-none" />
               <select
                 value={namespaceFilter}
                 onChange={onNamespaceFilterChange}
@@ -166,7 +166,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
 
           {/* Status filter */}
           <div className="sm:w-40 relative">
-            <FunnelIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#444] pointer-events-none" />
+            <FunnelIcon className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#444] pointer-events-none" />
             <select
               value={statusFilter}
               onChange={onStatusFilterChange}

@@ -104,7 +104,7 @@ interface ToggleButtonProps {
 const ToggleButton: React.FC<ToggleButtonProps> = ({ active, onClick, activeClass = 'text-[#22c55e] border-[#22c55e]/40 bg-[#22c55e]/10', children }) => (
   <button
     onClick={onClick}
-    className={`px-2 py-0.5 rounded-sm border font-mono text-[10px] transition-colors ${
+    className={`px-2 py-0.5 rounded-sm border font-mono text-[12px] transition-colors ${
       active
         ? activeClass
         : 'text-[#555] border-[#1e1e1e] bg-transparent hover:text-[#888] hover:border-[#333]'
@@ -365,17 +365,17 @@ const RemoteEnhancedLogManagement: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-[#1e1e1e]">
         <div>
-          <h1 className="text-[11px] font-mono font-semibold text-[#e8e8e8] leading-tight uppercase tracking-[0.1em]">
+          <h1 className="text-[13px] font-mono font-semibold text-[#e8e8e8] leading-tight uppercase tracking-[0.1em]">
             {t('remoteEnhancedLogs.title')}
           </h1>
-          <p className="text-[10px] font-mono text-[#555] mt-0.5">{t('remoteEnhancedLogs.subtitle')}</p>
+          <p className="text-[12px] font-mono text-[#555] mt-0.5">{t('remoteEnhancedLogs.subtitle')}</p>
         </div>
 
         <div className="flex items-center gap-1">
           <button
             onClick={() => setIsStreaming(s => !s)}
             disabled={filters.serverIds.length === 0}
-            className={`px-2.5 py-1 rounded-sm border font-mono text-[10px] transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
+            className={`px-2.5 py-1 rounded-sm border font-mono text-[12px] transition-colors disabled:opacity-30 disabled:cursor-not-allowed ${
               isStreaming
                 ? 'text-[#ef4444] border-[#ef4444]/40 bg-[#ef4444]/10 hover:bg-[#ef4444]/20'
                 : 'text-[#22c55e] border-[#22c55e]/40 bg-[#22c55e]/10 hover:bg-[#22c55e]/20'
@@ -385,19 +385,19 @@ const RemoteEnhancedLogManagement: React.FC = () => {
           </button>
 
           <IconBtn onClick={fetchLogs} disabled={loading} title="Refresh">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </IconBtn>
 
           <IconBtn onClick={() => { setLogs([]); setFilteredLogs([]); }} title="Clear">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </IconBtn>
 
           <IconBtn onClick={downloadLogs} disabled={filteredLogs.length === 0} title="Download">
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
           </IconBtn>
@@ -407,10 +407,10 @@ const RemoteEnhancedLogManagement: React.FC = () => {
       {/* Error banner */}
       {error && (
         <div className="flex items-center gap-2 px-3 py-2 bg-[#ef4444]/10 border border-[#ef4444]/30 rounded-sm">
-          <span className="text-[#ef4444] text-[10px] font-mono">[ERR]</span>
-          <span className="text-[#ef4444] text-[10px] font-mono">{error}</span>
+          <span className="text-[#ef4444] text-[12px] font-mono">[ERR]</span>
+          <span className="text-[#ef4444] text-[12px] font-mono">{error}</span>
           <button onClick={() => setError('')} className="ml-auto text-[#555] hover:text-[#888]">
-            <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -423,7 +423,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
           <button
             key={i}
             onClick={() => setSelectedTab(i)}
-            className={`px-3 py-1.5 font-mono text-[10px] border-b-2 transition-colors ${
+            className={`px-3 py-1.5 font-mono text-[12px] border-b-2 transition-colors ${
               selectedTab === i
                 ? 'text-[#e8e8e8] border-[#22c55e]'
                 : 'text-[#555] border-transparent hover:text-[#888]'
@@ -443,7 +443,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
               {/* Search */}
               <div className="relative">
                 <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[#555] pointer-events-none">
-                  <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </span>
@@ -452,7 +452,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   placeholder={t('logs.searchLogs')}
                   value={filters.searchTerm}
                   onChange={e => setFilters(prev => ({ ...prev, searchTerm: e.target.value }))}
-                  className="w-full pl-6 pr-2 py-1 bg-[#0a0a0a] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-[10px] rounded-sm placeholder-[#555] focus:outline-none focus:border-[#333]"
+                  className="w-full pl-6 pr-2 py-1 bg-[#0a0a0a] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-[12px] rounded-sm placeholder-[#555] focus:outline-none focus:border-[#333]"
                 />
               </div>
 
@@ -464,7 +464,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   const selected = Array.from(e.target.selectedOptions, o => o.value);
                   setFilters(prev => ({ ...prev, serverIds: selected }));
                 }}
-                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[10px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333] h-14"
+                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[12px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333] h-14"
               >
                 {serverGroups.map(sg => (
                   <option key={sg.serverId} value={sg.serverId} className="py-0.5">
@@ -481,7 +481,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   const selected = Array.from(e.target.selectedOptions, o => o.value);
                   setFilters(prev => ({ ...prev, processIds: selected }));
                 }}
-                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[10px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333] h-14"
+                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[12px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333] h-14"
               >
                 {getAllProcessOptions().map(opt => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
@@ -492,7 +492,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
               <select
                 value={filters.timeRange}
                 onChange={e => setFilters(prev => ({ ...prev, timeRange: e.target.value as RemoteLogFilter['timeRange'] }))}
-                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[10px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333]"
+                className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#888] font-mono text-[12px] rounded-sm px-2 py-1 focus:outline-none focus:border-[#333]"
               >
                 <option value="1h">{t('remoteEnhancedLogs.lastHour')}</option>
                 <option value="6h">{t('remoteEnhancedLogs.last6Hours')}</option>
@@ -503,7 +503,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
 
             {/* Type / level toggles + auto-scroll */}
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteEnhancedLogs.logTypes')}</span>
+              <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('remoteEnhancedLogs.logTypes')}</span>
               <ToggleButton active={filters.logTypes.includes('out')} onClick={() => setFilters(prev => ({ ...prev, logTypes: prev.logTypes.includes('out') ? prev.logTypes.filter(t => t !== 'out') : [...prev.logTypes, 'out'] }))}>
                 {t('remoteEnhancedLogs.stdout')}
               </ToggleButton>
@@ -511,7 +511,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                 {t('remoteEnhancedLogs.stderr')}
               </ToggleButton>
 
-              <span className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em] ml-2">{t('remoteEnhancedLogs.levels')}</span>
+              <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em] ml-2">{t('remoteEnhancedLogs.levels')}</span>
               {(['error', 'warn', 'info', 'debug'] as const).map(level => (
                 <ToggleButton
                   key={level}
@@ -528,9 +528,9 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   onClick={() => setAutoScroll(a => !a)}
                   className={`w-6 h-3 rounded-sm flex items-center transition-colors cursor-pointer ${autoScroll ? 'bg-[#22c55e]/30 border border-[#22c55e]/40' : 'bg-[#1a1a1a] border border-[#1e1e1e]'}`}
                 >
-                  <div className={`w-2.5 h-2.5 rounded-sm transition-transform ${autoScroll ? 'translate-x-3 bg-[#22c55e]' : 'translate-x-0.5 bg-[#555]'}`} />
+                  <div className={`w-3 h-3 rounded-sm transition-transform ${autoScroll ? 'translate-x-3 bg-[#22c55e]' : 'translate-x-0.5 bg-[#555]'}`} />
                 </div>
-                <span className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('logs.autoScroll')}</span>
+                <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">{t('logs.autoScroll')}</span>
               </label>
             </div>
           </div>
@@ -539,11 +539,11 @@ const RemoteEnhancedLogManagement: React.FC = () => {
           <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm flex flex-col" style={{ height: 'calc(100vh - 400px)', minHeight: 280 }}>
             {/* Pane header */}
             <div className="flex items-center justify-between px-3 py-1.5 border-b border-[#1e1e1e]">
-              <span className="font-mono text-[10px] text-[#555]">
+              <span className="font-mono text-[12px] text-[#555]">
                 {t('remoteEnhancedLogs.logsCount', { count: filteredLogs.length })}
               </span>
               {isStreaming && (
-                <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[9px] text-[#22c55e] border-[#22c55e]/40 bg-[#22c55e]/10 animate-pulse">
+                <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[11px] text-[#22c55e] border-[#22c55e]/40 bg-[#22c55e]/10 animate-pulse">
                   {t('remoteEnhancedLogs.streaming')}
                 </span>
               )}
@@ -551,12 +551,12 @@ const RemoteEnhancedLogManagement: React.FC = () => {
 
             {loading ? (
               <div className="flex-1 flex items-center justify-center gap-2">
-                <div className="w-3 h-3 border border-[#22c55e] border-t-transparent rounded-full animate-spin" />
-                <span className="font-mono text-[10px] text-[#555]">{t('logs.loadingLogs')}</span>
+                <div className="w-3.5 h-3.5 border border-[#22c55e] border-t-transparent rounded-full animate-spin" />
+                <span className="font-mono text-[12px] text-[#555]">{t('logs.loadingLogs')}</span>
               </div>
             ) : filteredLogs.length === 0 ? (
               <div className="flex-1 flex items-center justify-center">
-                <span className="font-mono text-[10px] text-[#555]">{t('remoteEnhancedLogs.noLogsFound')}</span>
+                <span className="font-mono text-[12px] text-[#555]">{t('remoteEnhancedLogs.noLogsFound')}</span>
               </div>
             ) : (
               <div ref={logContainerRef} className="flex-1 overflow-auto bg-[#0a0a0a] px-2 py-1">
@@ -565,16 +565,16 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                     key={log.id}
                     className="flex items-baseline gap-2 py-px border-b border-[#0f0f0f] hover:bg-[#111] group"
                   >
-                    <span className="shrink-0 font-mono text-[10px] text-[#555] whitespace-nowrap">
+                    <span className="shrink-0 font-mono text-[12px] text-[#555] whitespace-nowrap">
                       {log.timestamp.toLocaleTimeString()}
                     </span>
-                    <span className="shrink-0 font-mono text-[10px] text-[#555] whitespace-nowrap">
+                    <span className="shrink-0 font-mono text-[12px] text-[#555] whitespace-nowrap">
                       {log.serverName}/{log.processName}
                     </span>
-                    <span className={`shrink-0 font-mono text-[10px] whitespace-nowrap ${levelColor(log.level)}`}>
+                    <span className={`shrink-0 font-mono text-[12px] whitespace-nowrap ${levelColor(log.level)}`}>
                       {levelPrefix(log.level)}
                     </span>
-                    <span className={`font-mono text-[10px] whitespace-pre-wrap break-all ${log.type === 'err' ? 'text-[#ef4444]' : 'text-[#e8e8e8]'}`}>
+                    <span className={`font-mono text-[12px] whitespace-pre-wrap break-all ${log.type === 'err' ? 'text-[#ef4444]' : 'text-[#e8e8e8]'}`}>
                       {log.content}
                     </span>
                   </div>
@@ -591,36 +591,36 @@ const RemoteEnhancedLogManagement: React.FC = () => {
           {logStats.map(stat => (
             <div key={stat.processId} className="bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2 flex flex-col gap-1.5">
               <div className="flex items-center gap-1.5">
-                <span className={`text-[9px] font-mono ${stat.serverId !== 'local' ? 'text-[#22d3ee]' : 'text-[#a78bfa]'}`}>
+                <span className={`text-[11px] font-mono ${stat.serverId !== 'local' ? 'text-[#22d3ee]' : 'text-[#a78bfa]'}`}>
                   {stat.serverId !== 'local' ? '☁' : '⬛'}
                 </span>
-                <span className="text-[11px] font-mono font-bold text-[#e8e8e8] truncate">{stat.processName}</span>
+                <span className="text-[13px] font-mono font-bold text-[#e8e8e8] truncate">{stat.processName}</span>
               </div>
-              <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.12em]">
+              <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">
                 {t('remoteEnhancedLogs.server', { name: stat.serverName })}
               </p>
-              <p className="text-[10px] font-mono text-[#888]">
+              <p className="text-[12px] font-mono text-[#888]">
                 {t('remoteEnhancedLogs.totalLogs', { count: stat.totalLogs })}
               </p>
               <div className="flex gap-1 flex-wrap">
                 {stat.errorCount > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[9px] text-[#ef4444] border-[#ef4444]/30 bg-[#ef4444]/10">
+                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[11px] text-[#ef4444] border-[#ef4444]/30 bg-[#ef4444]/10">
                     {t('remoteEnhancedLogs.errors', { count: stat.errorCount })}
                   </span>
                 )}
                 {stat.warningCount > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[9px] text-[#f59e0b] border-[#f59e0b]/30 bg-[#f59e0b]/10">
+                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[11px] text-[#f59e0b] border-[#f59e0b]/30 bg-[#f59e0b]/10">
                     {t('remoteEnhancedLogs.warnings', { count: stat.warningCount })}
                   </span>
                 )}
                 {stat.infoCount > 0 && (
-                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[9px] text-[#22d3ee] border-[#22d3ee]/30 bg-[#22d3ee]/10">
+                  <span className="px-1.5 py-0.5 rounded-sm border font-mono text-[11px] text-[#22d3ee] border-[#22d3ee]/30 bg-[#22d3ee]/10">
                     {t('remoteEnhancedLogs.info', { count: stat.infoCount })}
                   </span>
                 )}
               </div>
               {stat.lastLogTime && (
-                <p className="text-[9px] font-mono text-[#555]">
+                <p className="text-[11px] font-mono text-[#555]">
                   {t('remoteEnhancedLogs.lastLog', { time: stat.lastLogTime.toLocaleString() })}
                 </p>
               )}
@@ -628,7 +628,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
           ))}
           {logStats.length === 0 && (
             <div className="col-span-full flex items-center justify-center py-8">
-              <span className="font-mono text-[10px] text-[#555]">{t('remoteEnhancedLogs.noLogsFound')}</span>
+              <span className="font-mono text-[12px] text-[#555]">{t('remoteEnhancedLogs.noLogsFound')}</span>
             </div>
           )}
         </div>
@@ -637,7 +637,7 @@ const RemoteEnhancedLogManagement: React.FC = () => {
       {/* ── Tab 2: Server Tree ── */}
       {selectedTab === 2 && (
         <div className="flex flex-col gap-1.5">
-          <p className="text-[10px] font-mono font-semibold text-[#888] uppercase tracking-[0.12em] pb-2 border-b border-[#1e1e1e]">
+          <p className="text-[12px] font-mono font-semibold text-[#888] uppercase tracking-[0.12em] pb-2 border-b border-[#1e1e1e]">
             {t('remoteEnhancedLogs.serverAndAppTree')}
           </p>
 
@@ -654,14 +654,14 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   )}
                   className="w-full flex items-center gap-2 px-3 py-2 hover:bg-[#141414] transition-colors"
                 >
-                  <span className={`text-[10px] font-mono ${isExpanded ? 'text-[#888]' : 'text-[#555]'}`}>
+                  <span className={`text-[12px] font-mono ${isExpanded ? 'text-[#888]' : 'text-[#555]'}`}>
                     {isExpanded ? '▾' : '▸'}
                   </span>
-                  <span className={`text-[10px] font-mono ${serverGroup.isRemote ? 'text-[#22d3ee]' : 'text-[#a78bfa]'}`}>
+                  <span className={`text-[12px] font-mono ${serverGroup.isRemote ? 'text-[#22d3ee]' : 'text-[#a78bfa]'}`}>
                     {serverGroup.isRemote ? '☁' : '⬛'}
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-[#e8e8e8]">{serverGroup.serverName}</span>
-                  <span className="ml-auto px-1.5 py-0.5 rounded-sm border font-mono text-[9px] text-[#555] border-[#1e1e1e]">
+                  <span className="text-[12px] font-mono font-bold text-[#e8e8e8]">{serverGroup.serverName}</span>
+                  <span className="ml-auto px-1.5 py-0.5 rounded-sm border font-mono text-[11px] text-[#555] border-[#1e1e1e]">
                     {serverGroup.processes.length}
                   </span>
                 </button>
@@ -671,8 +671,8 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                   <div className="border-t border-[#1e1e1e] bg-[#0d0d0d]">
                     {serverGroup.processes.length === 0 ? (
                       <div className="px-6 py-2">
-                        <p className="font-mono text-[10px] text-[#555]">{t('remoteEnhancedLogs.noApplicationsFound')}</p>
-                        <p className="font-mono text-[9px] text-[#444] mt-0.5">
+                        <p className="font-mono text-[12px] text-[#555]">{t('remoteEnhancedLogs.noApplicationsFound')}</p>
+                        <p className="font-mono text-[11px] text-[#444] mt-0.5">
                           {serverGroup.isRemote ? t('remoteEnhancedLogs.checkRemoteConnection') : t('remoteEnhancedLogs.noPm2Running')}
                         </p>
                       </div>
@@ -683,26 +683,26 @@ const RemoteEnhancedLogManagement: React.FC = () => {
                         );
                         return (
                           <div key={process.pm_id} className="flex items-center gap-2 px-6 py-1.5 border-b border-[#1e1e1e] last:border-0 hover:bg-[#111]">
-                            <span className="text-[10px] font-mono text-[#555]">├</span>
-                            <span className="text-[10px] font-mono text-[#e8e8e8] font-medium">{process.name}</span>
-                            <span className="text-[9px] font-mono text-[#555]">#{process.pm_id}</span>
+                            <span className="text-[12px] font-mono text-[#555]">├</span>
+                            <span className="text-[12px] font-mono text-[#e8e8e8] font-medium">{process.name}</span>
+                            <span className="text-[11px] font-mono text-[#555]">#{process.pm_id}</span>
                             <div className="ml-auto flex gap-1">
                               {processLogs ? (
                                 <>
-                                  <span className="font-mono text-[9px] text-[#555]">{processLogs.totalLogs} total</span>
+                                  <span className="font-mono text-[11px] text-[#555]">{processLogs.totalLogs} total</span>
                                   {processLogs.errorCount > 0 && (
-                                    <span className="px-1 py-px rounded-sm border font-mono text-[9px] text-[#ef4444] border-[#ef4444]/30 bg-[#ef4444]/10">
+                                    <span className="px-1 py-px rounded-sm border font-mono text-[11px] text-[#ef4444] border-[#ef4444]/30 bg-[#ef4444]/10">
                                       {processLogs.errorCount} err
                                     </span>
                                   )}
                                   {processLogs.warningCount > 0 && (
-                                    <span className="px-1 py-px rounded-sm border font-mono text-[9px] text-[#f59e0b] border-[#f59e0b]/30 bg-[#f59e0b]/10">
+                                    <span className="px-1 py-px rounded-sm border font-mono text-[11px] text-[#f59e0b] border-[#f59e0b]/30 bg-[#f59e0b]/10">
                                       {processLogs.warningCount} wrn
                                     </span>
                                   )}
                                 </>
                               ) : (
-                                <span className="font-mono text-[9px] text-[#555]">{t('logs.noLogsAvailable')}</span>
+                                <span className="font-mono text-[11px] text-[#555]">{t('logs.noLogsAvailable')}</span>
                               )}
                             </div>
                           </div>

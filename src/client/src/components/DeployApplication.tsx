@@ -103,11 +103,11 @@ const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void; label
       checked ? 'text-[#e8e8e8]' : 'text-[#333] line-through'
     }`}
   >
-    <span className={`w-3.5 h-3.5 rounded-sm border flex items-center justify-center shrink-0 transition-all ${
+    <span className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 transition-all ${
       checked ? 'border-[#555] bg-[#555]' : 'border-[#2a2a2a]'
     }`}>
       {checked && (
-        <svg className="w-2.5 h-2.5 text-[#0a0a0a]" viewBox="0 0 10 10" fill="currentColor">
+        <svg className="w-3 h-3 text-[#0a0a0a]" viewBox="0 0 10 10" fill="currentColor">
           <path d="M2 5l2.5 2.5L8 3" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       )}
@@ -281,7 +281,7 @@ const DeployApplication: React.FC = () => {
                 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               {loading
-                ? <><ArrowPathIcon className="h-3 w-3 animate-spin" />{t('deploy.deploying')}</>
+                ? <><ArrowPathIcon className="h-3.5 w-3.5 animate-spin" />{t('deploy.deploying')}</>
                 : <>⏎ {t('deploy.deployBtn')}</>
               }
             </button>
@@ -353,8 +353,8 @@ const DeployApplication: React.FC = () => {
                   className="absolute right-0 top-1/2 -translate-y-1/2 text-[#333] hover:text-[#888] transition-colors disabled:opacity-30"
                 >
                   {detecting
-                    ? <ArrowPathIcon className="h-3 w-3 animate-spin" />
-                    : <MagnifyingGlassIcon className="h-3 w-3" />
+                    ? <ArrowPathIcon className="h-3.5 w-3.5 animate-spin" />
+                    : <MagnifyingGlassIcon className="h-3.5 w-3.5" />
                   }
                 </button>
               </div>
@@ -460,7 +460,7 @@ const DeployApplication: React.FC = () => {
                       onClick={() => removeEnvVar(i)}
                       className="opacity-0 group-hover/row:opacity-100 text-[#333] hover:text-red-500 transition-all"
                     >
-                      <XMarkIcon className="h-3 w-3" />
+                      <XMarkIcon className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 ))}
@@ -490,7 +490,7 @@ const DeployApplication: React.FC = () => {
                 disabled={!newEnv.key.trim()}
                 className="font-mono text-xs text-[#333] hover:text-[#888] disabled:opacity-20 transition-colors flex items-center gap-1"
               >
-                <PlusIcon className="h-3 w-3" />
+                <PlusIcon className="h-3.5 w-3.5" />
                 {t('deploy.addEnvVar')}
               </button>
             </div>
@@ -538,7 +538,7 @@ const DeployApplication: React.FC = () => {
           <div className="flex items-center gap-3">
             {loading && (
               <span className="font-mono text-xs text-[#444] flex items-center gap-1.5">
-                <ArrowPathIcon className="h-2.5 w-2.5 animate-spin" />
+                <ArrowPathIcon className="h-3 w-3 animate-spin" />
                 {t('deploy.deployingStatus')}
               </span>
             )}
@@ -555,17 +555,17 @@ const DeployApplication: React.FC = () => {
           {error && (
             <div className="pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-lg
               bg-[#0a0a0a] border border-[#2a1a1a] shadow-xl text-xs font-mono text-red-400">
-              <ExclamationCircleIcon className="h-3.5 w-3.5 shrink-0" />
+              <ExclamationCircleIcon className="h-4 w-4 shrink-0" />
               <span>{error}</span>
               <button type="button" onClick={() => setError('')} className="ml-1 text-[#444] hover:text-red-400">
-                <XMarkIcon className="h-3 w-3" />
+                <XMarkIcon className="h-3.5 w-3.5" />
               </button>
             </div>
           )}
           {success && (
             <div className="pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-lg
               bg-[#0a0a0a] border border-[#1a2a1a] shadow-xl text-xs font-mono text-green-400">
-              <CheckCircleIcon className="h-3.5 w-3.5 shrink-0" />
+              <CheckCircleIcon className="h-4 w-4 shrink-0" />
               <span>{success}</span>
             </div>
           )}

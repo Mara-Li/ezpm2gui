@@ -70,22 +70,22 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
         {/* @group DialogHeader : Title bar */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e1e1e] bg-[#0d0d0d] shrink-0">
           <div className="flex items-center gap-3">
-            <span id="process-detail-dialog-title" className="text-[11px] font-mono font-bold text-[#e8e8e8]">
+            <span id="process-detail-dialog-title" className="text-[13px] font-mono font-bold text-[#e8e8e8]">
               {process.name}
             </span>
-            <span className={`text-[9px] font-mono border rounded-sm px-2 py-0.5 ${statusPill(process.pm2_env.status)}`}>
+            <span className={`text-[11px] font-mono border rounded-sm px-2 py-0.5 ${statusPill(process.pm2_env.status)}`}>
               {process.pm2_env.status}
             </span>
-            <span className="text-[10px] font-mono text-[#555]">
+            <span className="text-[12px] font-mono text-[#555]">
               id:{process.pm_id}
             </span>
           </div>
           <button
             aria-label="close"
             onClick={onClose}
-            className="h-6 w-6 flex items-center justify-center rounded-sm text-[#555] hover:text-[#888] transition-colors"
+            className="h-7 w-7 flex items-center justify-center rounded-sm text-[#555] hover:text-[#888] transition-colors"
           >
-            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -97,7 +97,7 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
             <button
               key={tab}
               onClick={() => setActiveTab(idx)}
-              className={`px-4 py-2 text-[10px] font-mono transition-colors border-b-2
+              className={`px-4 py-2 text-[12px] font-mono transition-colors border-b-2
                           ${activeTab === idx
                             ? 'text-[#e8e8e8] border-[#22c55e] bg-[#111]'
                             : 'text-[#555] border-transparent hover:text-[#888]'}`}
@@ -116,7 +116,7 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
 
               {/* Process status card */}
               <div className="bg-[#141414] border border-[#1e1e1e] rounded-sm p-3">
-                <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Process Status</div>
+                <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Process Status</div>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { label: 'status',   value: process.pm2_env.status },
@@ -128,8 +128,8 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
                     { label: 'created',  value: formatDate(process.pm2_env.created_at) },
                   ].map(({ label, value }) => (
                     <div key={label}>
-                      <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
-                      <div className="text-[10px] font-mono text-[#e8e8e8]">{value}</div>
+                      <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
+                      <div className="text-[12px] font-mono text-[#e8e8e8]">{value}</div>
                     </div>
                   ))}
                 </div>
@@ -137,15 +137,15 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
 
               {/* Resource usage card */}
               <div className="bg-[#141414] border border-[#1e1e1e] rounded-sm p-3">
-                <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Resource Usage</div>
+                <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Resource Usage</div>
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     { label: 'cpu',    value: process.monit ? `${process.monit.cpu}%`          : 'N/A' },
                     { label: 'memory', value: process.monit ? formatMemory(process.monit.memory) : 'N/A' },
                   ].map(({ label, value }) => (
                     <div key={label}>
-                      <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
-                      <div className="text-[10px] font-mono text-[#e8e8e8] font-bold">{value}</div>
+                      <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
+                      <div className="text-[12px] font-mono text-[#e8e8e8] font-bold">{value}</div>
                     </div>
                   ))}
                 </div>
@@ -153,23 +153,23 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
 
               {/* Process details card — full width */}
               <div className="bg-[#141414] border border-[#1e1e1e] rounded-sm p-3 md:col-span-2">
-                <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Process Details</div>
+                <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Process Details</div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                   <div className="col-span-2">
-                    <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">script</div>
-                    <div className="text-[10px] font-mono text-[#e8e8e8] truncate">{process.pm2_env.pm_exec_path}</div>
+                    <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">script</div>
+                    <div className="text-[12px] font-mono text-[#e8e8e8] truncate">{process.pm2_env.pm_exec_path}</div>
                   </div>
                   <div className="col-span-2">
-                    <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">working dir</div>
-                    <div className="text-[10px] font-mono text-[#e8e8e8] truncate">{process.pm2_env.pm_cwd}</div>
+                    <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">working dir</div>
+                    <div className="text-[12px] font-mono text-[#e8e8e8] truncate">{process.pm2_env.pm_cwd}</div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">interpreter</div>
-                    <div className="text-[10px] font-mono text-[#e8e8e8]">{process.pm2_env.exec_interpreter}</div>
+                    <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">interpreter</div>
+                    <div className="text-[12px] font-mono text-[#e8e8e8]">{process.pm2_env.exec_interpreter}</div>
                   </div>
                   <div>
-                    <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">watching</div>
-                    <div className="text-[10px] font-mono text-[#e8e8e8]">{process.pm2_env.watch ? 'yes' : 'no'}</div>
+                    <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">watching</div>
+                    <div className="text-[12px] font-mono text-[#e8e8e8]">{process.pm2_env.watch ? 'yes' : 'no'}</div>
                   </div>
                 </div>
               </div>
@@ -189,7 +189,7 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
           {/* Environment tab */}
           <TabPanel active={activeTab === 3}>
             <div className="bg-[#141414] border border-[#1e1e1e] rounded-sm p-3">
-              <div className="text-[9px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Environment Variables</div>
+              <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">Environment Variables</div>
               {process.pm2_env.env ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
                   {Object.entries(process.pm2_env.env)
@@ -199,8 +199,8 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
                         key={key}
                         className="bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm p-2"
                       >
-                        <div className="text-[9px] font-mono text-[#22d3ee] mb-0.5 truncate">{key}</div>
-                        <div className="text-[10px] font-mono text-[#e8e8e8] break-all whitespace-pre-wrap">
+                        <div className="text-[11px] font-mono text-[#22d3ee] mb-0.5 truncate">{key}</div>
+                        <div className="text-[12px] font-mono text-[#e8e8e8] break-all whitespace-pre-wrap">
                           {String(value)}
                         </div>
                       </div>
@@ -208,7 +208,7 @@ const ProcessDetail: React.FC<ProcessDetailProps> = ({ process, onClose }) => {
                 </div>
               ) : (
                 <div className="text-center py-8">
-                  <span className="text-[10px] font-mono text-[#555]">No environment variables found.</span>
+                  <span className="text-[12px] font-mono text-[#555]">No environment variables found.</span>
                 </div>
               )}
             </div>

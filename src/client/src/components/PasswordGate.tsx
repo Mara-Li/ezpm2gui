@@ -115,20 +115,20 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
 
         {/* Header */}
         <div className="px-6 pt-7 pb-3 text-center">
-          <div className="inline-flex items-center justify-center w-10 h-10 rounded-sm bg-[#1a1a1a] border border-[#1e1e1e] mb-4">
-            <LockClosedIcon className="h-4 w-4 text-[#888]" />
+          <div className="inline-flex items-center justify-center w-11 h-11 rounded-sm bg-[#1a1a1a] border border-[#1e1e1e] mb-4">
+            <LockClosedIcon className="h-5 w-5 text-[#888]" />
           </div>
-          <h1 className="font-mono text-[11px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-1">
+          <h1 className="font-mono text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-1">
             EZ PM2 GUI
           </h1>
-          <p className="text-[10px] font-mono text-[#555]">
+          <p className="text-[12px] font-mono text-[#555]">
             {mode === 'pin' ? t('passwordGate.enterPin') : t('passwordGate.enterPassword')}
           </p>
         </div>
 
         {/* Mode toggle — only shown when both PIN and password are configured */}
         {pinSet && passwordSet && (
-          <div className="flex mx-5 mb-3 rounded-sm overflow-hidden border border-[#1e1e1e] text-[10px] font-mono">
+          <div className="flex mx-5 mb-3 rounded-sm overflow-hidden border border-[#1e1e1e] text-[12px] font-mono">
             <button
               onClick={() => switchMode('pin')}
               className={`flex-1 py-1.5 transition-colors ${
@@ -160,7 +160,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
               {Array.from({ length: PIN_LENGTH }).map((_, i) => (
                 <div
                   key={i}
-                  className={`w-2.5 h-2.5 rounded-full border transition-all duration-100 ${
+                  className={`w-3 h-3 rounded-full border transition-all duration-100 ${
                     i < pin.length
                       ? 'bg-[#22c55e] border-[#22c55e]'
                       : 'bg-[#1a1a1a] border-[#333]'
@@ -171,7 +171,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
 
             {/* Error */}
             {error && (
-              <p className="text-[10px] font-mono text-[#ef4444] text-center mb-3 -mt-1">{error}</p>
+              <p className="text-[12px] font-mono text-[#ef4444] text-center mb-3 -mt-1">{error}</p>
             )}
 
             {/* Numeric keypad */}
@@ -190,7 +190,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
               <button
                 onClick={() => { setPin(''); setError(''); }}
                 disabled={loading}
-                className="py-3.5 rounded-sm font-mono text-[10px] text-[#555] hover:text-[#888] transition-colors select-none disabled:opacity-40"
+                className="py-3.5 rounded-sm font-mono text-[12px] text-[#555] hover:text-[#888] transition-colors select-none disabled:opacity-40"
               >
                 {t('passwordGate.clear')}
               </button>
@@ -206,12 +206,12 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
                 disabled={loading || pin.length === 0}
                 className="py-3.5 rounded-sm flex items-center justify-center text-[#555] hover:text-[#888] transition-colors select-none disabled:opacity-30"
               >
-                <BackspaceIcon className="h-4 w-4" />
+                <BackspaceIcon className="h-5 w-5" />
               </button>
             </div>
 
             {loading && (
-              <p className="text-[10px] font-mono text-[#555] text-center mt-3">
+              <p className="text-[12px] font-mono text-[#555] text-center mt-3">
                 {t('passwordGate.verifying')}
               </p>
             )}
@@ -232,7 +232,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
               }`}
             />
             {error && (
-              <p className="text-[10px] font-mono text-[#ef4444]">{error}</p>
+              <p className="text-[12px] font-mono text-[#ef4444]">{error}</p>
             )}
             <button
               type="submit"

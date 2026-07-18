@@ -57,14 +57,14 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
       >
         {/* Title bar */}
         <div className={`px-4 pt-4 pb-2 border-l-2 ${type === 'danger' ? 'border-[#ef4444]' : type === 'warning' ? 'border-[#f59e0b]' : 'border-[#22c55e]'}`}>
-          <p className={`text-[11px] font-mono font-bold uppercase tracking-[0.1em] ${titleClass(type)}`}>
+          <p className={`text-[13px] font-mono font-bold uppercase tracking-[0.1em] ${titleClass(type)}`}>
             {title}
           </p>
         </div>
 
         {/* Message */}
         <div className="px-4 py-3">
-          <p className="text-[10px] font-mono text-[#888] leading-relaxed">{message}</p>
+          <p className="text-[12px] font-mono text-[#888] leading-relaxed">{message}</p>
         </div>
 
         {/* Actions */}

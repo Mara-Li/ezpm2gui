@@ -83,10 +83,10 @@ const MODULE_SCHEMAS: Record<string, ConfigField[]> = {
 const statusBadge = (status: string): string => {
   const s = status.toLowerCase();
   if (s.includes('online') || s.includes('enabled'))
-    return 'text-[9px] font-mono text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm';
+    return 'text-[11px] font-mono text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm';
   if (s.includes('error') || s.includes('disabled'))
-    return 'text-[9px] font-mono text-[#ef4444] border border-[#ef4444]/30 bg-[#1a0000] px-1.5 py-0.5 rounded-sm';
-  return 'text-[9px] font-mono text-[#f59e0b] border border-[#f59e0b]/30 bg-[#1a0e00] px-1.5 py-0.5 rounded-sm';
+    return 'text-[11px] font-mono text-[#ef4444] border border-[#ef4444]/30 bg-[#1a0000] px-1.5 py-0.5 rounded-sm';
+  return 'text-[11px] font-mono text-[#f59e0b] border border-[#f59e0b]/30 bg-[#1a0e00] px-1.5 py-0.5 rounded-sm';
 };
 
 // @group Utilities : Map category to a colour accent
@@ -170,11 +170,11 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
         {/* Panel header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e1e1e] shrink-0">
           <div>
-            <p className="text-[9px] uppercase tracking-[0.2em] text-[#555] mb-0.5">▸ CONFIGURE MODULE</p>
-            <p className="text-[11px] font-mono font-bold text-[#e8e8e8]">{moduleName}</p>
+            <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mb-0.5">▸ CONFIGURE MODULE</p>
+            <p className="text-[13px] font-mono font-bold text-[#e8e8e8]">{moduleName}</p>
           </div>
           <button onClick={onClose} className="text-[#444] hover:text-[#888] p-1 rounded-sm hover:bg-[#1a1a1a] transition-colors">
-            <XMarkIcon className="h-4 w-4" />
+            <XMarkIcon className="h-5 w-5" />
           </button>
         </div>
 
@@ -182,7 +182,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-4">
           {loading ? (
             <div className="flex items-center justify-center h-24 gap-2 text-xs font-mono text-[#555]">
-              <svg className="h-4 w-4 animate-spin text-[#888]" viewBox="0 0 24 24" fill="none">
+              <svg className="h-5 w-5 animate-spin text-[#888]" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
               </svg>
@@ -193,12 +193,12 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
               {/* Schema-based fields */}
               {schema.length > 0 && (
                 <div className="space-y-3">
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-[#555]">▸ SETTINGS</p>
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-[#555]">▸ SETTINGS</p>
                   {schema.map(field => {
                     const val = config[field.key] ?? field.default;
                     return (
                       <div key={field.key}>
-                        <label className="block text-[10px] font-mono text-[#888] mb-1">
+                        <label className="block text-[12px] font-mono text-[#888] mb-1">
                           {field.label}
                         </label>
                         {field.type === 'boolean' ? (
@@ -209,11 +209,11 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
                                           transition-colors duration-200 focus:outline-none cursor-pointer
                                           ${val === 'true' ? 'bg-[#22c55e]' : 'bg-[#2a2a2a]'}`}
                             >
-                              <span className={`pointer-events-none inline-block h-4 w-4 rounded-sm bg-[#0a0a0a] shadow
+                              <span className={`pointer-events-none inline-block h-5 w-5 rounded-sm bg-[#0a0a0a] shadow
                                                transform transition-transform duration-200
                                                ${val === 'true' ? 'translate-x-4' : 'translate-x-0'}`} />
                             </button>
-                            <span className="text-[10px] font-mono text-[#555]">{val === 'true' ? 'enabled' : 'disabled'}</span>
+                            <span className="text-[12px] font-mono text-[#555]">{val === 'true' ? 'enabled' : 'disabled'}</span>
                           </div>
                         ) : (
                           <input
@@ -226,7 +226,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
                           />
                         )}
                         {field.description && (
-                          <p className="mt-0.5 text-[10px] font-mono text-[#444]">{field.description}</p>
+                          <p className="mt-0.5 text-[12px] font-mono text-[#444]">{field.description}</p>
                         )}
                       </div>
                     );
@@ -237,19 +237,19 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
               {/* Free-form extra pairs */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <p className="text-[9px] uppercase tracking-[0.2em] text-[#555]">
+                  <p className="text-[11px] uppercase tracking-[0.2em] text-[#555]">
                     ▸ {schema.length > 0 ? 'ADDITIONAL KEYS' : 'CONFIGURATION KEYS'}
                   </p>
                   <button
                     onClick={() => setExtras(p => [...p, { key: '', value: '' }])}
-                    className="text-[10px] font-mono text-[#888] hover:text-[#e8e8e8] transition-colors"
+                    className="text-[12px] font-mono text-[#888] hover:text-[#e8e8e8] transition-colors"
                   >
                     + add key
                   </button>
                 </div>
 
                 {extras.length === 0 && schema.length > 0 ? (
-                  <p className="text-[10px] font-mono text-[#444] italic">no additional keys</p>
+                  <p className="text-[12px] font-mono text-[#444] italic">no additional keys</p>
                 ) : (
                   extras.map((e, i) => (
                     <div key={i} className="flex items-center gap-1.5">
@@ -273,7 +273,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
                         onClick={() => setExtras(p => p.filter((_, idx) => idx !== i))}
                         className="shrink-0 text-[#444] hover:text-[#ef4444] transition-colors"
                       >
-                        <XMarkIcon className="h-3.5 w-3.5" />
+                        <XMarkIcon className="h-4 w-4" />
                       </button>
                     </div>
                   ))
@@ -281,7 +281,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
               </div>
 
               {schema.length === 0 && extras.length === 0 && (
-                <p className="text-[10px] font-mono text-[#444] italic text-center py-4">
+                <p className="text-[12px] font-mono text-[#444] italic text-center py-4">
                   no configuration found — use "+ add key" to add custom settings
                 </p>
               )}
@@ -305,7 +305,7 @@ const ConfigPanel: React.FC<ConfigPanelProps> = ({ moduleName, onClose, onNotify
           >
             {saving ? (
               <>
-                <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                   <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                 </svg>
@@ -400,7 +400,7 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
               className="h-7 px-3 text-xs font-mono border border-[#1e1e1e] text-[#555] hover:text-[#888] hover:border-[#333]
                          rounded-sm disabled:opacity-40 transition-colors flex items-center gap-1.5"
             >
-              <ArrowPathIcon className={`h-3.5 w-3.5 ${loading ? 'animate-spin' : ''}`} />
+              <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
               {t('common.refresh')}
             </button>
             <button
@@ -408,7 +408,7 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
               className="h-7 px-3 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold rounded-sm
                          hover:bg-[#ccc] transition-colors flex items-center gap-1.5"
             >
-              <PlusIcon className="h-3.5 w-3.5" />
+              <PlusIcon className="h-4 w-4" />
               install module
             </button>
           </div>
@@ -417,12 +417,12 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
 
       {/* ── Installed Modules ── */}
       <section className="mb-6">
-        <p className="text-[9px] uppercase tracking-[0.2em] text-[#555] mb-2">▸ INSTALLED</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mb-2">▸ INSTALLED</p>
 
         <div className="border border-[#1e1e1e] rounded-sm overflow-hidden bg-[#111]">
           {loading ? (
             <div className="flex items-center justify-center h-24 gap-2 text-xs font-mono text-[#555]">
-              <svg className="h-4 w-4 animate-spin text-[#888]" viewBox="0 0 24 24" fill="none">
+              <svg className="h-5 w-5 animate-spin text-[#888]" viewBox="0 0 24 24" fill="none">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
               </svg>
@@ -430,17 +430,17 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
             </div>
           ) : modules.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-24 gap-1 text-[#555]">
-              <PuzzlePieceIcon className="h-5 w-5 opacity-40" />
-              <span className="text-[10px] font-mono">no PM2 modules installed</span>
+              <PuzzlePieceIcon className="h-6 w-6 opacity-40" />
+              <span className="text-[12px] font-mono">no PM2 modules installed</span>
             </div>
           ) : (
             <table className="w-full text-xs">
               <thead>
                 <tr className="border-b border-[#1e1e1e] bg-[#0d0d0d] text-[#555]">
-                  <th className="px-3 py-2 text-left text-[9px] font-mono uppercase tracking-[0.15em]">Name</th>
-                  <th className="px-3 py-2 text-left text-[9px] font-mono uppercase tracking-[0.15em]">Version</th>
-                  <th className="px-3 py-2 text-left text-[9px] font-mono uppercase tracking-[0.15em]">Status</th>
-                  <th className="px-3 py-2 text-right text-[9px] font-mono uppercase tracking-[0.15em]">Actions</th>
+                  <th className="px-3 py-2 text-left text-[11px] font-mono uppercase tracking-[0.15em]">Name</th>
+                  <th className="px-3 py-2 text-left text-[11px] font-mono uppercase tracking-[0.15em]">Version</th>
+                  <th className="px-3 py-2 text-left text-[11px] font-mono uppercase tracking-[0.15em]">Status</th>
+                  <th className="px-3 py-2 text-right text-[11px] font-mono uppercase tracking-[0.15em]">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -449,8 +449,8 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
                     key={mod.name}
                     className={`border-b last:border-0 border-[#1a1a1a] ${i % 2 === 0 ? '' : 'bg-[#0d0d0d]/50'}`}
                   >
-                    <td className="px-3 py-2 font-mono font-bold text-[11px] text-[#e8e8e8]">{mod.name}</td>
-                    <td className="px-3 py-2 font-mono text-[10px] text-[#555]">{mod.version}</td>
+                    <td className="px-3 py-2 font-mono font-bold text-[13px] text-[#e8e8e8]">{mod.name}</td>
+                    <td className="px-3 py-2 font-mono text-[12px] text-[#555]">{mod.version}</td>
                     <td className="px-3 py-2">
                       <span className={`inline-block ${statusBadge(mod.status)}`}>
                         {mod.status}
@@ -461,18 +461,18 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
                         <button
                           onClick={() => setConfigModule(mod.name)}
                           title="Configure"
-                          className="inline-flex items-center justify-center h-6 w-6 rounded-sm
+                          className="inline-flex items-center justify-center h-7 w-7 rounded-sm
                                      text-[#444] hover:text-[#888] hover:bg-[#1a1a1a] transition-colors"
                         >
-                          <Cog6ToothIcon className="h-3.5 w-3.5" />
+                          <Cog6ToothIcon className="h-4 w-4" />
                         </button>
                         <button
                           onClick={() => handleUninstall(mod.name)}
                           title="Uninstall"
-                          className="inline-flex items-center justify-center h-6 w-6 rounded-sm
+                          className="inline-flex items-center justify-center h-7 w-7 rounded-sm
                                      text-[#444] hover:text-[#ef4444] hover:bg-[#1a0000] transition-colors"
                         >
-                          <TrashIcon className="h-3.5 w-3.5" />
+                          <TrashIcon className="h-4 w-4" />
                         </button>
                       </div>
                     </td>
@@ -486,7 +486,7 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
 
       {/* ── Available Modules Catalog ── */}
       <section>
-        <p className="text-[9px] uppercase tracking-[0.2em] text-[#555] mb-2">▸ AVAILABLE MODULES</p>
+        <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mb-2">▸ AVAILABLE MODULES</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {KNOWN_MODULES.map(mod => {
@@ -497,23 +497,23 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
                 className="flex items-start gap-3 bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm p-3
                            hover:border-[#333] transition-colors"
               >
-                <div className="shrink-0 mt-0.5 h-7 w-7 rounded-sm flex items-center justify-center bg-[#1a1a1a]">
-                  <PuzzlePieceIcon className="h-4 w-4 text-[#444]" />
+                <div className="shrink-0 mt-0.5 h-8 w-8 rounded-sm flex items-center justify-center bg-[#1a1a1a]">
+                  <PuzzlePieceIcon className="h-5 w-5 text-[#444]" />
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-1.5 flex-wrap">
-                    <span className="text-[11px] font-mono font-bold text-[#e8e8e8]">{mod.name}</span>
-                    <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded-sm ${categoryColor[mod.category] ?? categoryColor.Utilities}`}>
+                    <span className="text-[13px] font-mono font-bold text-[#e8e8e8]">{mod.name}</span>
+                    <span className={`text-[11px] font-mono px-1.5 py-0.5 rounded-sm ${categoryColor[mod.category] ?? categoryColor.Utilities}`}>
                       {mod.category}
                     </span>
                     {isInstalled && (
-                      <span className="text-[9px] font-mono text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm">
+                      <span className="text-[11px] font-mono text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm">
                         installed
                       </span>
                     )}
                   </div>
-                  <p className="text-[10px] font-mono text-[#555] mt-0.5 leading-relaxed">{mod.description}</p>
+                  <p className="text-[12px] font-mono text-[#555] mt-0.5 leading-relaxed">{mod.description}</p>
                 </div>
 
                 <div className="flex flex-col gap-1 shrink-0 mt-0.5">
@@ -521,21 +521,21 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
                     <button
                       onClick={() => setConfigModule(mod.name)}
                       title="Configure"
-                      className="h-7 w-7 flex items-center justify-center rounded-sm
+                      className="h-8 w-8 flex items-center justify-center rounded-sm
                                  border border-[#1e1e1e] text-[#555]
                                  hover:text-[#888] hover:border-[#333] transition-colors"
                     >
-                      <Cog6ToothIcon className="h-3.5 w-3.5" />
+                      <Cog6ToothIcon className="h-4 w-4" />
                     </button>
                   ) : (
                     <button
                       onClick={() => handleQuickInstall(mod.name)}
                       title="Install"
-                      className="h-7 w-7 flex items-center justify-center rounded-sm
+                      className="h-8 w-8 flex items-center justify-center rounded-sm
                                  border border-[#1e1e1e] text-[#555]
                                  hover:text-[#888] hover:border-[#333] transition-colors"
                     >
-                      <ArrowDownTrayIcon className="h-3.5 w-3.5" />
+                      <ArrowDownTrayIcon className="h-4 w-4" />
                     </button>
                   )}
                 </div>
@@ -552,12 +552,12 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e1e1e]">
               <p className="font-mono text-xs text-[#e8e8e8] font-semibold">▸ INSTALL PM2 MODULE</p>
               <button onClick={() => setDialogOpen(false)} className="text-[#444] hover:text-[#888] p-1 rounded-sm hover:bg-[#1a1a1a] transition-colors">
-                <XMarkIcon className="h-4 w-4" />
+                <XMarkIcon className="h-5 w-5" />
               </button>
             </div>
 
             <div className="px-4 py-4">
-              <label className="block text-[10px] font-mono text-[#555] mb-1">Module Name</label>
+              <label className="block text-[12px] font-mono text-[#555] mb-1">Module Name</label>
               <input
                 autoFocus
                 type="text"
@@ -568,7 +568,7 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
                 className="w-full h-8 px-3 bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm
                            placeholder-[#333] focus:outline-none focus:border-[#333]"
               />
-              <p className="mt-1.5 text-[10px] font-mono text-[#444]">enter any npm-published PM2 module name</p>
+              <p className="mt-1.5 text-[12px] font-mono text-[#444]">enter any npm-published PM2 module name</p>
             </div>
 
             <div className="flex justify-end gap-2 px-4 py-3 border-t border-[#1e1e1e]">
@@ -586,14 +586,14 @@ const ModuleManagement: React.FC<{ onNotify: NotifyFn }> = ({ onNotify }) => {
               >
                 {installing ? (
                   <>
-                    <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none">
+                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
                     </svg>
                     installing…
                   </>
                 ) : (
-                  <><ArrowDownTrayIcon className="h-3.5 w-3.5" />install</>
+                  <><ArrowDownTrayIcon className="h-4 w-4" />install</>
                 )}
               </button>
             </div>

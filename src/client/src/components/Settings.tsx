@@ -54,9 +54,9 @@ const SettingRow: React.FC<{
   <>
     <div className="flex items-center justify-between py-3 gap-6">
       <div className="min-w-0">
-        <span className="text-[10px] font-mono text-[#e8e8e8] block">{label}</span>
+        <span className="text-[12px] font-mono text-[#e8e8e8] block">{label}</span>
         {description && (
-          <span className="text-[9px] font-mono text-[#555] block mt-0.5">{description}</span>
+          <span className="text-[11px] font-mono text-[#555] block mt-0.5">{description}</span>
         )}
       </div>
       <div className="shrink-0">{control}</div>
@@ -70,7 +70,7 @@ const SettingRow: React.FC<{
 const SectionCard: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="bg-[#111] border border-[#1e1e1e] rounded-sm mb-3">
     <div className="px-4 py-2.5 border-b border-[#1a1a1a] flex items-center gap-2">
-      <span className="text-[9px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">{title}</span>
+      <span className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">{title}</span>
     </div>
     <div className="px-4">{children}</div>
   </div>
@@ -90,7 +90,7 @@ const CliToggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void }> 
   >
     <span
       className={[
-        'pointer-events-none inline-block h-3 w-3 rounded-sm bg-[#0a0a0a] shadow transition-transform duration-150 mt-0.5',
+        'pointer-events-none inline-block h-3.5 w-3.5 rounded-sm bg-[#0a0a0a] shadow transition-transform duration-150 mt-0.5',
         checked ? 'translate-x-3.5' : 'translate-x-0.5',
       ].join(' ')}
     />
@@ -101,7 +101,7 @@ const CliToggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void }> 
 const StatusBadge: React.FC<{ active: boolean; labelOn: string; labelOff: string }> = ({ active, labelOn, labelOff }) => (
   <span
     className={[
-      'inline-flex items-center gap-1 px-2 py-0.5 rounded-sm font-mono text-[9px] border',
+      'inline-flex items-center gap-1 px-2 py-0.5 rounded-sm font-mono text-[11px] border',
       active
         ? 'border-[#22c55e]/40 text-[#22c55e] bg-[#22c55e]/5'
         : 'border-[#333] text-[#555] bg-transparent',
@@ -575,7 +575,7 @@ const Settings: React.FC = () => {
             </SectionCard>
 
             <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-              <span className="text-[9px] font-mono text-[#555] block">
+              <span className="text-[11px] font-mono text-[#555] block">
                 {t('settings.notes.darkModeToggle')}
               </span>
             </div>
@@ -640,7 +640,7 @@ const Settings: React.FC = () => {
             </SectionCard>
 
             <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-              <span className="text-[9px] font-mono text-[#555] block">
+              <span className="text-[11px] font-mono text-[#555] block">
                 {t('settings.notes.clearDataNote')}
               </span>
             </div>
@@ -661,7 +661,7 @@ const Settings: React.FC = () => {
                 label={t('settings.rows.currentVersion')}
                 description={t('settings.rows.currentVersionDesc')}
                 control={
-                  <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[10px] text-[#22d3ee] px-2 py-1 rounded-sm">
+                  <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#22d3ee] px-2 py-1 rounded-sm">
                     {versionInfo ? `v${versionInfo.currentVersion}` : 'unknown'}
                   </span>
                 }
@@ -673,7 +673,7 @@ const Settings: React.FC = () => {
                   versionInfo ? (
                     <span
                       className={[
-                        'bg-[#0a0a0a] border font-mono text-[10px] px-2 py-1 rounded-sm',
+                        'bg-[#0a0a0a] border font-mono text-[12px] px-2 py-1 rounded-sm',
                         versionInfo.updateAvailable
                           ? 'border-[#f59e0b]/40 text-[#f59e0b]'
                           : 'border-[#22c55e]/40 text-[#22c55e]',
@@ -682,7 +682,7 @@ const Settings: React.FC = () => {
                       v{versionInfo.latestVersion}
                     </span>
                   ) : (
-                    <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[10px] text-[#555] px-2 py-1 rounded-sm">
+                    <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#555] px-2 py-1 rounded-sm">
                       —
                     </span>
                   )
@@ -711,7 +711,7 @@ const Settings: React.FC = () => {
             {/* ── Check error ── */}
             {checkError && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2 mb-3">
-                <span className="text-[10px] font-mono text-[#ef4444]">{checkError}</span>
+                <span className="text-[12px] font-mono text-[#ef4444]">{checkError}</span>
               </div>
             )}
 
@@ -727,7 +727,7 @@ const Settings: React.FC = () => {
               >
                 <span
                   className={[
-                    'text-[10px] font-mono',
+                    'text-[12px] font-mono',
                     versionInfo.updateAvailable ? 'text-[#f59e0b]' : 'text-[#22c55e]',
                   ].join(' ')}
                 >
@@ -762,14 +762,14 @@ const Settings: React.FC = () => {
             {installLines.length > 0 && (
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm mb-3">
                 <div className="px-4 py-2.5 border-b border-[#1a1a1a] flex items-center justify-between">
-                  <span className="text-[9px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">
+                  <span className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">
                     {t('settings.cards.installOutput')}
                   </span>
                   {installing && (
                     <div className="flex gap-0.5 items-center">
-                      <span className="w-1 h-1 bg-[#22c55e] rounded-full animate-pulse" />
-                      <span className="w-1 h-1 bg-[#22c55e] rounded-full animate-pulse delay-75" />
-                      <span className="w-1 h-1 bg-[#22c55e] rounded-full animate-pulse delay-150" />
+                      <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse" />
+                      <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse delay-75" />
+                      <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse delay-150" />
                     </div>
                   )}
                 </div>
@@ -778,7 +778,7 @@ const Settings: React.FC = () => {
                     <div
                       key={i}
                       className={[
-                        'font-mono text-[10px] leading-relaxed whitespace-pre-wrap break-all',
+                        'font-mono text-[12px] leading-relaxed whitespace-pre-wrap break-all',
                         line.type === 'error' || line.type === 'fail' ? 'text-[#ef4444]'
                           : line.type === 'done' ? 'text-[#22c55e]'
                           : 'text-[#555]',
@@ -826,9 +826,9 @@ const Settings: React.FC = () => {
 
             {installFailed && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2">
-                <span className="text-[10px] font-mono text-[#ef4444]">
+                <span className="text-[12px] font-mono text-[#ef4444]">
                   Update failed. Check the output above. You can also run{' '}
-                  <code className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[10px] text-[#22d3ee] px-1 rounded-sm">
+                  <code className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#22d3ee] px-1 rounded-sm">
                     npm install -g ezpm2gui@latest
                   </code>{' '}
                   manually.
@@ -846,20 +846,20 @@ const Settings: React.FC = () => {
           <>
             {secError && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2 mb-3 flex items-start justify-between gap-2">
-                <span className="text-[10px] font-mono text-[#ef4444]">{secError}</span>
-                <button onClick={() => setSecError(null)} className="text-[#ef4444] text-[10px] font-mono shrink-0 hover:text-[#ff6666]">✕</button>
+                <span className="text-[12px] font-mono text-[#ef4444]">{secError}</span>
+                <button onClick={() => setSecError(null)} className="text-[#ef4444] text-[12px] font-mono shrink-0 hover:text-[#ff6666]">✕</button>
               </div>
             )}
             {secSuccess && (
               <div className="bg-[#001a08] border border-[#22c55e]/30 rounded-sm px-3 py-2 mb-3 flex items-start justify-between gap-2">
-                <span className="text-[10px] font-mono text-[#22c55e]">{secSuccess}</span>
-                <button onClick={() => setSecSuccess(null)} className="text-[#22c55e] text-[10px] font-mono shrink-0 hover:text-[#66ff99]">✕</button>
+                <span className="text-[12px] font-mono text-[#22c55e]">{secSuccess}</span>
+                <button onClick={() => setSecSuccess(null)} className="text-[#22c55e] text-[12px] font-mono shrink-0 hover:text-[#66ff99]">✕</button>
               </div>
             )}
 
             {isLoading ? (
               <div className="flex justify-center py-8">
-                <span className="text-[10px] font-mono text-[#555] animate-pulse">loading...</span>
+                <span className="text-[12px] font-mono text-[#555] animate-pulse">loading...</span>
               </div>
             ) : (
               <>
@@ -1057,7 +1057,7 @@ const Settings: React.FC = () => {
                             max={480}
                             step={1}
                           />
-                          <span className="text-[10px] font-mono text-[#555]">{t('settings.messages.min')}</span>
+                          <span className="text-[12px] font-mono text-[#555]">{t('settings.messages.min')}</span>
                           <button
                             className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                             onClick={() => handleAutoLockSave(autoLockMinutes)}
@@ -1072,7 +1072,7 @@ const Settings: React.FC = () => {
                 )}
 
                 <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-                  <span className="text-[9px] font-mono text-[#555] block">
+                  <span className="text-[11px] font-mono text-[#555] block">
                     {t('settings.notes.securityNote')}
                   </span>
                 </div>
@@ -1099,13 +1099,13 @@ const Settings: React.FC = () => {
               type="button"
               onClick={() => setActiveSection(s.id)}
               className={[
-                'w-full flex items-center gap-2 px-3 py-2.5 text-left font-mono text-[10px] border-l-2 transition-colors',
+                'w-full flex items-center gap-2 px-3 py-2.5 text-left font-mono text-[12px] border-l-2 transition-colors',
                 activeSection === s.id
                   ? 'border-[#22c55e] text-[#e8e8e8] bg-[#141414]'
                   : 'border-transparent text-[#555] hover:text-[#888] hover:bg-[#141414]',
               ].join(' ')}
             >
-              <span className="text-[9px] shrink-0">{s.icon}</span>
+              <span className="text-[11px] shrink-0">{s.icon}</span>
               <span>{s.label}</span>
             </button>
           ))}
@@ -1114,10 +1114,10 @@ const Settings: React.FC = () => {
         {/* ── Right content ── */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[11px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+            <span className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
               ▸ {SECTIONS.find(s => s.id === activeSection)?.label}
             </span>
-            <span className="text-[9px] font-mono text-[#333] border border-[#222] rounded-sm px-1.5 py-0.5">
+            <span className="text-[11px] font-mono text-[#333] border border-[#222] rounded-sm px-1.5 py-0.5">
               {t('settings.autoSaved')}
             </span>
           </div>
@@ -1130,11 +1130,11 @@ const Settings: React.FC = () => {
       {toastOpen && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
           <div className="bg-[#111] border border-[#22c55e]/40 rounded-sm px-4 py-2 flex items-center gap-2 shadow-lg">
-            <span className="text-[10px] font-mono text-[#22c55e]">✓</span>
-            <span className="text-[10px] font-mono text-[#e8e8e8]">{toastMsg}</span>
+            <span className="text-[12px] font-mono text-[#22c55e]">✓</span>
+            <span className="text-[12px] font-mono text-[#e8e8e8]">{toastMsg}</span>
             <button
               onClick={() => setToastOpen(false)}
-              className="text-[#555] text-[10px] font-mono ml-2 hover:text-[#888]"
+              className="text-[#555] text-[12px] font-mono ml-2 hover:text-[#888]"
             >
               ✕
             </button>

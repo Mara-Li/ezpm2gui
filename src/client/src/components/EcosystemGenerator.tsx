@@ -51,9 +51,9 @@ const EcosystemGenerator: React.FC = () => {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#555] mb-1">pm2 / tools</p>
+          <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-[#555] mb-1">pm2 / tools</p>
           <h1 className="text-sm font-mono font-bold text-[#e8e8e8]">▸ ECOSYSTEM GENERATOR</h1>
-          <p className="text-[10px] font-mono text-[#555] mt-0.5">{t('ecosystem.subtitle')}</p>
+          <p className="text-[12px] font-mono text-[#555] mt-0.5">{t('ecosystem.subtitle')}</p>
         </div>
         <div className="flex items-center gap-2">
           <button
@@ -76,26 +76,26 @@ const EcosystemGenerator: React.FC = () => {
       {/* Toast notifications */}
       {error && (
         <div className="flex items-center gap-2 border border-[#ef4444]/30 bg-[#1a0000] px-3 py-2 rounded-sm">
-          <span className="flex-1 text-[10px] font-mono text-[#ef4444]">{error}</span>
+          <span className="flex-1 text-[12px] font-mono text-[#ef4444]">{error}</span>
           <button onClick={() => setError('')} className="text-[#ef4444] hover:text-[#f87171] text-xs">✕</button>
         </div>
       )}
       {success && (
         <div className="flex items-center gap-2 border border-[#22c55e]/30 bg-[#001a00] px-3 py-2 rounded-sm">
-          <span className="flex-1 text-[10px] font-mono text-[#22c55e]">{success}</span>
+          <span className="flex-1 text-[12px] font-mono text-[#22c55e]">{success}</span>
           <button onClick={() => setSuccess('')} className="text-[#22c55e] hover:text-[#4ade80] text-xs">✕</button>
         </div>
       )}
 
       {/* Output options */}
       <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-4">
-        <p className="text-[9px] font-mono text-[#555] uppercase tracking-[0.2em] mb-3 block">
+        <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.2em] mb-3 block">
           {t('ecosystem.outputOptions')}
         </p>
 
         <form onSubmit={e => { e.preventDefault(); generateEcosystem(false); }} className="space-y-3">
           <div>
-            <label className="text-[9px] font-mono text-[#555] uppercase tracking-[0.2em] mb-1.5 block">
+            <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.2em] mb-1.5 block">
               {t('ecosystem.savePath')}
             </label>
             <input
@@ -105,7 +105,7 @@ const EcosystemGenerator: React.FC = () => {
               onChange={e => setFilePath(e.target.value)}
               className="bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full"
             />
-            <p className="text-[9px] font-mono text-[#555] mt-1">{t('ecosystem.savePathHelper')}</p>
+            <p className="text-[11px] font-mono text-[#555] mt-1">{t('ecosystem.savePathHelper')}</p>
           </div>
 
           <label className="flex items-center gap-2 cursor-pointer">
@@ -113,13 +113,13 @@ const EcosystemGenerator: React.FC = () => {
               type="checkbox"
               checked={includeAllProcesses}
               onChange={e => setIncludeAllProcesses(e.target.checked)}
-              className="accent-[#22c55e] w-3 h-3"
+              className="accent-[#22c55e] w-3.5 h-3.5"
             />
-            <span className="text-[10px] font-mono text-[#888]">{t('ecosystem.includeStopped')}</span>
+            <span className="text-[12px] font-mono text-[#888]">{t('ecosystem.includeStopped')}</span>
           </label>
         </form>
 
-        <p className="text-[9px] font-mono text-[#555] mt-4 leading-relaxed border-t border-[#1e1e1e] pt-3">
+        <p className="text-[11px] font-mono text-[#555] mt-4 leading-relaxed border-t border-[#1e1e1e] pt-3">
           The generated file can be used to redeploy and manage your processes across environments with{' '}
           <span className="text-[#22d3ee]">pm2 start ecosystem.config.js</span>.
         </p>
@@ -132,7 +132,7 @@ const EcosystemGenerator: React.FC = () => {
 
             {/* Modal header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-[#1e1e1e]">
-              <span className="text-[10px] font-mono font-bold text-[#e8e8e8]">ecosystem.config.js — Preview</span>
+              <span className="text-[12px] font-mono font-bold text-[#e8e8e8]">ecosystem.config.js — Preview</span>
               <button
                 onClick={() => setPreviewOpen(false)}
                 className="text-[#555] hover:text-[#888] font-mono text-xs"
@@ -143,7 +143,7 @@ const EcosystemGenerator: React.FC = () => {
 
             {/* Modal body */}
             <div className="overflow-auto flex-1 p-3">
-              <pre className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[10px] text-[#e8e8e8] p-3 rounded-sm whitespace-pre-wrap break-all">
+              <pre className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#e8e8e8] p-3 rounded-sm whitespace-pre-wrap break-all">
                 {generatedContent}
               </pre>
             </div>

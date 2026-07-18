@@ -87,7 +87,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({
   return (
     <div>
       {/* @group Toolbar : Label row */}
-      <div className="mb-1 font-mono text-[10px] font-semibold text-[#888] uppercase tracking-widest">
+      <div className="mb-1 font-mono text-[12px] font-semibold text-[#888] uppercase tracking-widest">
         {t('scriptEditor.title')}
       </div>
 
@@ -98,7 +98,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={resolvedPlaceholder}
           spellCheck={false}
-          className="w-full font-mono text-[10px] leading-relaxed text-[#e8e8e8]
+          className="w-full font-mono text-[12px] leading-relaxed text-[#e8e8e8]
                      bg-[#0a0a0a] placeholder-[#333] border-none outline-none
                      resize-y p-3 min-h-[300px] whitespace-pre overflow-x-auto"
           style={{ overflowWrap: 'normal' }}
@@ -106,7 +106,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({
       </div>
 
       {/* @group Footer : Tip text */}
-      <div className="mt-1 font-mono text-[10px] text-[#555]">
+      <div className="mt-1 font-mono text-[12px] text-[#555]">
         {t('scriptEditor.tip')}
       </div>
     </div>

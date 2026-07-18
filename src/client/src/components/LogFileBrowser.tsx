@@ -259,7 +259,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
   if (groups.length === 0) {
     return (
       <Box sx={{ textAlign: 'center', py: 6, border: '1px solid', borderColor: 'divider', borderRadius: 1 }}>
-        <FolderOpenIcon sx={{ fontSize: 40, opacity: 0.3, mb: 1 }} />
+        <FolderOpenIcon sx={{ fontSize: 46, opacity: 0.3, mb: 1 }} />
         <Typography variant="body2" color="text.secondary">
           No log files found for <strong>{processName}</strong>.
         </Typography>
@@ -363,7 +363,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                               sx={{ minWidth: 0, px: 1, fontSize: '0.7rem' }}
                               onClick={() => download(group.stdout!)}
                             >
-                              <DownloadIcon sx={{ fontSize: 13, mr: 0.4 }} />out
+                              <DownloadIcon sx={{ fontSize: 15, mr: 0.4 }} />out
                             </Button>
                           </Tooltip>
                         )}
@@ -376,7 +376,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                               sx={{ minWidth: 0, px: 1, fontSize: '0.7rem' }}
                               onClick={() => download(group.stderr!)}
                             >
-                              <DownloadIcon sx={{ fontSize: 13, mr: 0.4 }} />err
+                              <DownloadIcon sx={{ fontSize: 15, mr: 0.4 }} />err
                             </Button>
                           </Tooltip>
                         )}
@@ -389,7 +389,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                               sx={{ minWidth: 0, px: 1, fontSize: '0.7rem' }}
                               onClick={() => downloadBoth(group)}
                             >
-                              <DownloadIcon sx={{ fontSize: 13, mr: 0.4 }} />both
+                              <DownloadIcon sx={{ fontSize: 15, mr: 0.4 }} />both
                             </Button>
                           </Tooltip>
                         )}

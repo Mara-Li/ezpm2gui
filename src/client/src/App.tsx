@@ -690,7 +690,7 @@ const App: React.FC = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
         <div className="flex items-center gap-2.5">
-          <div className="animate-spin rounded-full h-5 w-5 border-2 border-[#22c55e] border-t-transparent"></div>
+          <div className="animate-spin rounded-full h-6 w-6 border-2 border-[#22c55e] border-t-transparent"></div>
           <span className="text-[#888] font-mono text-xs">
             Loading PM2 data…
           </span>
@@ -831,14 +831,14 @@ const App: React.FC = () => {
                 onClick={toggleMenu}
                 className="sm:hidden p-1 rounded text-[#555] hover:text-[#e8e8e8] hover:bg-[#1a1a1a] transition-colors"
               >
-                <Bars3Icon className="h-4 w-4" />
+                <Bars3Icon className="h-5 w-5" />
               </button>
               <button
                 onClick={toggleSidebar}
                 title={sidebarCollapsed ? t('header.expandSidebar') : t('header.collapseSidebar')}
                 className="hidden sm:flex items-center justify-center p-1 rounded transition-colors text-[#555] hover:text-[#e8e8e8] hover:bg-[#1a1a1a]"
               >
-                <Bars3Icon className="h-4 w-4" />
+                <Bars3Icon className="h-5 w-5" />
               </button>
 
               {/* @group Branding : App logo and wordmark */}
@@ -849,7 +849,7 @@ const App: React.FC = () => {
                 <img
                   src={`${process.env.PUBLIC_URL}/logo192.svg`}
                   alt=""
-                  className="h-4 w-4 rounded-[3px] shrink-0"
+                  className="h-5 w-5 rounded-[3px] shrink-0"
                 />
                 <span>EZ PM2 GUI</span>
               </Link>
@@ -859,9 +859,9 @@ const App: React.FC = () => {
                 <Link
                   to="/settings?section=security"
                   title={t('header.enablePasswordProtection')}
-                  className="hidden sm:flex items-center gap-1 px-2 py-0.5 rounded-full no-underline border transition-colors bg-[#2d1500] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[10px] hover:bg-[#3d1e00]"
+                  className="hidden sm:flex items-center gap-1 px-2 py-0.5 rounded-full no-underline border transition-colors bg-[#2d1500] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[12px] hover:bg-[#3d1e00]"
                 >
-                  <ShieldExclamationIcon className="h-3.5 w-3.5" />
+                  <ShieldExclamationIcon className="h-4 w-4" />
                   <span>{t('header.noPasswordSet')}</span>
                 </Link>
               )}
@@ -874,7 +874,7 @@ const App: React.FC = () => {
                 const conn = remoteConnections.find(c => c.id === activeServerId);
                 return (
                   <div className="hidden sm:flex items-center gap-1.5 font-mono text-xs">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#22d3ee] animate-pulse shrink-0" />
+                    <div className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse shrink-0" />
                     <span className="text-[#22d3ee] font-medium">
                       <strong>{conn?.name || 'Remote Server'}</strong>
                       {conn && <span className="text-[#555] font-normal"> · {conn.username}@{conn.host}</span>}
@@ -897,13 +897,13 @@ const App: React.FC = () => {
                   <Link
                     to="/settings"
                     title={t('header.updateAvailable')}
-                    className="relative flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#1a1200] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[10px] hover:bg-[#251900]"
+                    className="relative flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#1a1200] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[12px] hover:bg-[#251900]"
                   >
-                    <ArrowUpCircleIcon className="h-3.5 w-3.5" />
+                    <ArrowUpCircleIcon className="h-4 w-4" />
                     <span>{t('header.update')}</span>
-                    <span className="flex h-1.5 w-1.5 ml-0.5">
-                      <span className="animate-ping absolute inline-flex h-1.5 w-1.5 rounded-full bg-[#f59e0b] opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#f59e0b]"></span>
+                    <span className="flex h-2 w-2 ml-0.5">
+                      <span className="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-[#f59e0b] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#f59e0b]"></span>
                     </span>
                   </Link>
                 )}
@@ -915,7 +915,7 @@ const App: React.FC = () => {
                     title={t('header.lockApp')}
                     className="p-1 rounded transition-colors text-[#22c55e] hover:text-[#ef4444]"
                   >
-                    <LockClosedIcon className="h-3.5 w-3.5" />
+                    <LockClosedIcon className="h-4 w-4" />
                   </button>
                 )}
 
@@ -928,9 +928,9 @@ const App: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={t('header.starTooltip')}
-                  className="flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#111] border-[#1e1e1e] text-[#888] hover:border-[#f59e0b]/60 hover:text-[#f59e0b] font-mono text-[10px]"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#111] border-[#1e1e1e] text-[#888] hover:border-[#f59e0b]/60 hover:text-[#f59e0b] font-mono text-[12px]"
                 >
-                  <StarIcon className="h-3.5 w-3.5" />
+                  <StarIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">{t('header.star')}</span>
                 </a>
 
@@ -942,7 +942,7 @@ const App: React.FC = () => {
                   title={t('header.viewOnGitHub')}
                   className="p-1 rounded transition-colors text-[#555] hover:text-[#e8e8e8]"
                 >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
                     <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
                 </a>
@@ -967,7 +967,7 @@ const App: React.FC = () => {
                   title={t('header.whatsNew')}
                   className="p-1 rounded transition-colors text-[#a78bfa] hover:text-[#c4b5fd]"
                 >
-                  <SparklesIcon className="h-4 w-4" />
+                  <SparklesIcon className="h-5 w-5" />
                 </button>
 
                 {/* About */}
@@ -976,7 +976,7 @@ const App: React.FC = () => {
                   title={t('header.about')}
                   className="p-1 rounded transition-colors text-[#555] hover:text-[#e8e8e8]"
                 >
-                  <InformationCircleIcon className="h-4 w-4" />
+                  <InformationCircleIcon className="h-5 w-5" />
                 </button>
 
                 {/* Settings */}
@@ -985,7 +985,7 @@ const App: React.FC = () => {
                   title={t('header.settings')}
                   className="p-1 rounded transition-colors text-[#555] hover:text-[#e8e8e8]"
                 >
-                  <Cog6ToothIcon className="h-4 w-4" />
+                  <Cog6ToothIcon className="h-5 w-5" />
                 </Link>
 
                 {/* Dark-mode toggle */}
@@ -994,7 +994,7 @@ const App: React.FC = () => {
                   className="p-1 rounded transition-colors text-[#555] hover:text-[#e8e8e8]"
                   title={darkMode ? t('header.lightMode') : t('header.darkMode')}
                 >
-                  {darkMode ? <SunIcon className="h-4 w-4" /> : <MoonIcon className="h-4 w-4" />}
+                  {darkMode ? <SunIcon className="h-5 w-5" /> : <MoonIcon className="h-5 w-5" />}
                 </button>
 
                 {/* Language Switcher */}
@@ -1157,7 +1157,7 @@ const App: React.FC = () => {
               rel="noopener noreferrer"
               style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: '0.8125rem', color: '#6366f1', textDecoration: 'none' }}
             >
-              <GitHubIcon sx={{ fontSize: 15 }} />
+              <GitHubIcon sx={{ fontSize: 17 }} />
               GitHub Repository ↗
             </a>
           </DialogContent>

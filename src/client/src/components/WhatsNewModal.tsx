@@ -111,26 +111,26 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-center gap-3">
               {/* Icon */}
-              <div className="w-8 h-8 bg-[#1a1a1a] border border-[#2a1a4a] rounded-sm flex items-center justify-center shrink-0">
-                <SparklesIcon className="h-4 w-4 text-[#a78bfa]" />
+              <div className="w-9 h-9 bg-[#1a1a1a] border border-[#2a1a4a] rounded-sm flex items-center justify-center shrink-0">
+                <SparklesIcon className="h-5 w-5 text-[#a78bfa]" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[11px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+                  <h2 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
                     {t('whatsNew.title')}
                   </h2>
-                  <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-[#16003a] text-[#a78bfa] border border-[#a78bfa]/25">
+                  <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-[#16003a] text-[#a78bfa] border border-[#a78bfa]/25">
                     v{APP_RELEASE_VERSION}
                   </span>
                 </div>
-                <p className="text-[10px] font-mono text-[#555] mt-0.5">{APP_RELEASE_SUBTITLE}</p>
+                <p className="text-[12px] font-mono text-[#555] mt-0.5">{APP_RELEASE_SUBTITLE}</p>
               </div>
             </div>
             <button
               onClick={onClose}
               className="text-[#444] hover:text-[#888] p-1 rounded-sm hover:bg-[#1a1a1a] transition-colors"
             >
-              <XMarkIcon className="h-4 w-4" />
+              <XMarkIcon className="h-5 w-5" />
             </button>
           </div>
         </div>
@@ -141,14 +141,14 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
             const Icon = item.icon;
             return (
               <div key={item.titleKey} className="flex items-start gap-3">
-                <div className="shrink-0 w-6 h-6 rounded-sm bg-[#1a1a1a] flex items-center justify-center">
-                  <Icon className={`h-3.5 w-3.5 ${item.iconColor}`} />
+                <div className="shrink-0 w-7 h-7 rounded-sm bg-[#1a1a1a] flex items-center justify-center">
+                  <Icon className={`h-4 w-4 ${item.iconColor}`} />
                 </div>
                 <div>
-                  <p className="text-[11px] font-mono font-semibold text-[#e8e8e8] leading-tight">
+                  <p className="text-[13px] font-mono font-semibold text-[#e8e8e8] leading-tight">
                     {t(item.titleKey)}
                   </p>
-                  <p className="text-[10px] font-mono text-[#555] leading-relaxed mt-0.5">
+                  <p className="text-[12px] font-mono text-[#555] leading-relaxed mt-0.5">
                     {t(item.descKey)}
                   </p>
                 </div>
@@ -162,10 +162,10 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
           <Link
             to="/whats-new"
             onClick={onClose}
-            className="text-[10px] font-mono text-[#555] hover:text-[#888] flex items-center gap-1 transition-colors"
+            className="text-[12px] font-mono text-[#555] hover:text-[#888] flex items-center gap-1 transition-colors"
           >
             {t('whatsNew.fullChangelog')}
-            <ArrowRightIcon className="h-3 w-3" />
+            <ArrowRightIcon className="h-3.5 w-3.5" />
           </Link>
           <button
             onClick={onClose}
