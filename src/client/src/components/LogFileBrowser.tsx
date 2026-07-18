@@ -29,6 +29,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import DownloadIcon from '@mui/icons-material/Download';
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import AnsiText from './AnsiText';
 
 // @group Types
 interface LogFile {
@@ -478,7 +479,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                                       ? <Typography variant="caption" color="text.secondary">File is empty.</Typography>
                                       : fileContent[activeFile.path].map((line, i) => (
                                           <Box key={i} sx={{ whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
-                                            {line}
+                                            <AnsiText text={line} />
                                           </Box>
                                         ))
                                     }

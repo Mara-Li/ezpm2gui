@@ -23,6 +23,7 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { LogEntry } from '../types/pm2';
+import AnsiText from './AnsiText';
 
 // @group Types
 interface ProcessLogsProps {
@@ -266,7 +267,7 @@ const ProcessLogs: React.FC<ProcessLogsProps> = ({ processId, processName, conne
                 wordBreak: 'break-word',
               }}
             >
-              {log.content}
+              <AnsiText text={log.content} />
             </Box>
           ))}
         </Paper>

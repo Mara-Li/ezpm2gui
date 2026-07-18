@@ -9,6 +9,8 @@ import {
 import axios from 'axios';
 import { io } from 'socket.io-client';
 import PageHeader from './PageHeader';
+import AnsiText from './AnsiText';
+import { stripAnsi } from '../utils/ansi';
 import { useTranslation } from 'react-i18next';
 
 // @group Constants : Backend API URL — must match App.tsx
@@ -19,10 +21,10 @@ interface LogStreamEnhancedProps {
   logType?: 'out' | 'err';
 }
 
-// @group Utilities : Classify a log line for coloring
+// @group Utilities : Classify a log line for coloring (fallback for text with no ANSI colors of its own)
 const lineColor = (logType: 'out' | 'err', line: string): string => {
   if (logType === 'err') return 'text-red-400';
-  const l = line.toLowerCase();
+  const l = stripAnsi(line).toLowerCase();
   if (l.includes('error') || l.includes('err ') || l.includes('exception')) return 'text-red-400';
   if (l.includes('warn')) return 'text-amber-400';
   return 'text-neutral-300';
@@ -98,11 +100,6 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
     setAppliedFrom('');
     setAppliedTo('');
   };
-
-  // @group Utilities : Strip ANSI escape codes so the regex reliably matches timestamps
-  // even when log lines are prefixed with terminal colour codes.
-  // eslint-disable-next-line no-control-regex
-  const stripAnsi = (str: string) => str.replace(/\x1B\[[0-9;]*[mGKHFABCDsuJK]/g, '');
 
   // @group Utilities : Try to extract a Date from the start of a log line
   const parseLineTimestamp = (line: string): Date | null => {
@@ -290,22 +287,6 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
       return textOk(l);
     });
   })();
-
-  // Highlight matched search term within a line
-  const highlightLine = (line: string): React.ReactNode => {
-    if (!filter) return line;
-    const escaped = filter.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const parts = line.split(new RegExp(`(${escaped})`, 'gi'));
-    return (
-      <>
-        {parts.map((part, idx) =>
-          part.toLowerCase() === filter.toLowerCase()
-            ? <mark key={idx} style={{ backgroundColor: '#fef08a', color: '#1a1a1a', borderRadius: 2, padding: '0 1px' }}>{part}</mark>
-            : part
-        )}
-      </>
-    );
-  };
 
   // @group Render
   return (
@@ -512,7 +493,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
                   key={i}
                   className={`whitespace-pre-wrap break-all ${lineColor(selectedLogType, line)}`}
                 >
-                  {highlightLine(line)}
+                  <AnsiText text={line} highlight={filter} />
                 </div>
               ))
             )}
