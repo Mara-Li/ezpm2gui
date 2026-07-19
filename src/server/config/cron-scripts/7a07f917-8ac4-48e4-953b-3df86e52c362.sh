@@ -1,1 +1,0 @@
-npm install -g ms-rule-engine
