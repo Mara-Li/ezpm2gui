@@ -90,8 +90,8 @@ const CliToggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void }> 
   >
     <span
       className={[
-        'pointer-events-none inline-block h-3.5 w-3.5 rounded-sm bg-[#0a0a0a] shadow transition-transform duration-150 mt-0.5',
-        checked ? 'translate-x-3.5' : 'translate-x-0.5',
+        'pointer-events-none absolute left-0.5 top-0.5 inline-block h-3 w-3 rounded-sm bg-[#0a0a0a] shadow transition-transform duration-150',
+        checked ? 'translate-x-3' : 'translate-x-0',
       ].join(' ')}
     />
   </button>
@@ -470,7 +470,10 @@ const Settings: React.FC = () => {
   const inputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none';
   // Same as inputCls but monospace — for fields holding technical/code values (e.g. binary paths)
   const monoInputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none';
-  const selectCls = inputCls;
+  // Same as inputCls but with extra right padding — @tailwindcss/forms draws its
+  // chevron icon over a <select>'s padding-right regardless of our own padding, so a
+  // plain symmetric px-* leaves too little room and the arrow overlaps the text.
+  const selectCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] text-xs rounded-sm pl-2.5 pr-7 py-1.5 focus:border-[#555] focus:outline-none';
 
   // @group Render : Section content panels
   const renderSection = () => {
