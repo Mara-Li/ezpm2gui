@@ -9,6 +9,8 @@ import axios from 'axios';
 // @group Constants : Storage keys (mirrors the unlock flag used in App.tsx)
 const TOKEN_KEY = 'ezpm2_token';
 const UNLOCK_KEY = 'ezpm2_unlocked';
+// Survives across reloads within the tab (sessionStorage) — see handleUnauthorized.
+const RELOAD_GUARD_KEY = 'ezpm2_unauthorized_reload';
 
 // @group Authentication : Read the stored session token
 export function getToken(): string | null {
@@ -25,6 +27,12 @@ export function setToken(token: string): void {
     localStorage.setItem(TOKEN_KEY, token);
   } catch {
     /* ignore storage failures */
+  }
+  // A fresh token means we're unlocked again — let a future 401 reload once more.
+  try {
+    sessionStorage.removeItem(RELOAD_GUARD_KEY);
+  } catch {
+    /* ignore */
   }
   applyAxiosAuth();
 }
@@ -61,6 +69,13 @@ function isApiUrl(url: string): boolean {
 }
 
 // @group ErrorHandling : Drop the session and return to the lock screen (once)
+//
+// handlingUnauthorized only guards against duplicate 401s within a single page
+// load — it resets on every reload, so on its own it can't stop a request that
+// races ahead of the auth check and 401s again right after the fresh reload
+// (an infinite reload loop). RELOAD_GUARD_KEY closes that gap: a second
+// unauthorized response within the same tab session drops the token/unlock
+// flag without reloading again.
 let handlingUnauthorized = false;
 function handleUnauthorized(): void {
   if (handlingUnauthorized) return;
@@ -71,6 +86,16 @@ function handleUnauthorized(): void {
   } catch {
     /* ignore */
   }
+
+  let alreadyReloaded = false;
+  try {
+    alreadyReloaded = sessionStorage.getItem(RELOAD_GUARD_KEY) === '1';
+    sessionStorage.setItem(RELOAD_GUARD_KEY, '1');
+  } catch {
+    /* ignore storage failures — fall through to reloading once */
+  }
+  if (alreadyReloaded) return;
+
   // Reload so App re-reads /api/auth/status and renders the PasswordGate.
   window.location.reload();
 }

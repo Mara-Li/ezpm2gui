@@ -242,6 +242,14 @@ const App: React.FC = () => {
     processId: null
   });
   useEffect(() => {
+    // Don't touch protected endpoints until we know whether a password/PIN is
+    // required and, if so, until the user has actually unlocked. Otherwise this
+    // races ahead of the auth check on every mount, 401s, and the auth
+    // interceptor's handleUnauthorized() reloads the page — which just re-runs
+    // this same race, looping forever instead of failing once.
+    if (passwordSet === null) return;
+    if ((passwordSet || pinSet) && !appUnlocked) return;
+
     // Track last data update timestamp to detect if data is actually flowing
     let lastDataUpdate = Date.now();
     let connectionErrorTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -346,7 +354,7 @@ const App: React.FC = () => {
       socket.off('disconnect');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enqueueNotification, loadLocalProcessesAndMetrics]);
+  }, [enqueueNotification, loadLocalProcessesAndMetrics, passwordSet, pinSet, appUnlocked]);
 
   // Filter processes when search, status, or namespace filter changes
   useEffect(() => {
