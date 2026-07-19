@@ -745,7 +745,7 @@ const Settings: React.FC = () => {
               <SectionCard title={t('settings.cards.installUpdate')}>
                 <SettingRow
                   label={`Install v${versionInfo.latestVersion}`}
-                  description="Runs npm install -g @mara-li/ezpm2gui@latest. Frontend assets update immediately; restart the server to apply backend changes."
+                  description="Runs npm install -g ezpm2gui@npm:@mara-li/ezpm2gui@latest. Frontend assets update immediately; restart the server to apply backend changes."
                   last
                   control={
                     <button
@@ -831,7 +831,7 @@ const Settings: React.FC = () => {
                 <span className="text-[12px] text-[#ef4444]">
                   Update failed. Check the output above. You can also run{' '}
                   <code className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#22d3ee] px-1 rounded-sm">
-                    npm install -g @mara-li/ezpm2gui@latest
+                    npm install -g ezpm2gui@npm:@mara-li/ezpm2gui@latest
                   </code>{' '}
                   manually.
                 </span>

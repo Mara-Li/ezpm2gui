@@ -4,8 +4,16 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 
-// @group Constants : npm package this fork publishes as — update checks/installs target this name
+// @group Constants : npm package this fork publishes as — the registry check and the
+// installed package.json's `name` field both use this real (scoped) name.
 const PACKAGE_NAME = '@mara-li/ezpm2gui';
+
+// @group Constants : Local alias the package is installed under (`npm install -g
+// <alias>@npm:<real-name>`), so `bin` commands and the install directory keep the
+// original unscoped "ezpm2gui" name. The install/update command must target this
+// alias spec — installing PACKAGE_NAME directly would create a second, separate
+// global package instead of updating the existing aliased one in place.
+const NPM_INSTALL_SPEC = `ezpm2gui@npm:${PACKAGE_NAME}`;
 
 // @group Types : Update check response shape
 interface VersionInfo {
@@ -119,11 +127,11 @@ router.post('/install', (req, res) => {
     res.write(JSON.stringify({ type, message }) + '\n');
   };
 
-  send('log', `Starting update — running npm install -g ${PACKAGE_NAME}@latest...`);
+  send('log', `Starting update — running npm install -g ${NPM_INSTALL_SPEC}@latest...`);
 
   // Use `npm` with execFile for safety — no shell injection possible
   const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-  const child = spawn(npmCmd, ['install', '-g', `${PACKAGE_NAME}@latest`], {
+  const child = spawn(npmCmd, ['install', '-g', `${NPM_INSTALL_SPEC}@latest`], {
     stdio: ['ignore', 'pipe', 'pipe'],
     shell: false,
   });
