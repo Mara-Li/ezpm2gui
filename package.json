@@ -37,12 +37,19 @@
     "process-manager",
     "dashboard"
   ],
-  "author": "Chandan Bhagat",
+  "author": "Mara-Li",
+  "contributors": [
+    "Chandan Bhagat (original author, https://github.com/thechandanbhagat)"
+  ],
   "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thechandanbhagat/ezpm2gui.git"
+    "url": "git+https://github.com/Mara-Li/ezpm2gui.git"
   },
+  "bugs": {
+    "url": "https://github.com/Mara-Li/ezpm2gui/issues"
+  },
+  "homepage": "https://github.com/Mara-Li/ezpm2gui#readme",
   "description": "A modern web-based GUI for PM2 process manager",
   "files": [
     "dist/",

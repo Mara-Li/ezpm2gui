@@ -151,7 +151,7 @@ EZ PM2 GUI 使用 Tailwind CSS 打造时尚、紧凑且完全响应式的界面�
 ### 全局安装
 
 ```bash
-npm install -g ezpm2gui
+npm install -g @mara-li/ezpm2gui
 ```
 
 ### 本地安装

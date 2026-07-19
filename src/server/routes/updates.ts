@@ -4,6 +4,9 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 
+// @group Constants : npm package this fork publishes as — update checks/installs target this name
+const PACKAGE_NAME = '@mara-li/ezpm2gui';
+
 // @group Types : Update check response shape
 interface VersionInfo {
   currentVersion: string;
@@ -25,7 +28,7 @@ const getCurrentVersion = (): string => {
     for (const p of candidates) {
       if (fs.existsSync(p)) {
         const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
-        if (pkg.name === 'ezpm2gui') return pkg.version as string;
+        if (pkg.name === PACKAGE_NAME) return pkg.version as string;
       }
     }
   } catch {
@@ -38,7 +41,7 @@ const getCurrentVersion = (): string => {
 const fetchNpmLatest = (): Promise<{ version: string; description?: string; publishedAt?: string }> =>
   new Promise((resolve, reject) => {
     const req = https.get(
-      'https://registry.npmjs.org/ezpm2gui/latest',
+      `https://registry.npmjs.org/${PACKAGE_NAME.replace('/', '%2f')}/latest`,
       { headers: { Accept: 'application/json' } },
       (res) => {
         let data = '';
@@ -104,7 +107,7 @@ router.get('/check', async (_req, res) => {
   }
 });
 
-// @group InstallUpdate : POST /api/update/install — installs ezpm2gui@latest globally
+// @group InstallUpdate : POST /api/update/install — installs the latest published version globally
 // Streams progress lines as newline-delimited JSON (ndjson) so the client can read incrementally.
 router.post('/install', (req, res) => {
   res.setHeader('Content-Type', 'application/x-ndjson');
@@ -116,11 +119,11 @@ router.post('/install', (req, res) => {
     res.write(JSON.stringify({ type, message }) + '\n');
   };
 
-  send('log', 'Starting update — running npm install -g ezpm2gui@latest...');
+  send('log', `Starting update — running npm install -g ${PACKAGE_NAME}@latest...`);
 
   // Use `npm` with execFile for safety — no shell injection possible
   const npmCmd = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-  const child = spawn(npmCmd, ['install', '-g', 'ezpm2gui@latest'], {
+  const child = spawn(npmCmd, ['install', '-g', `${PACKAGE_NAME}@latest`], {
     stdio: ['ignore', 'pipe', 'pipe'],
     shell: false,
   });
