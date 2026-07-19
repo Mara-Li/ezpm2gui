@@ -221,8 +221,12 @@
   -webkit-backdrop-filter: blur(16px);
 }
 
-/* Accessibility focus ring */
-*:focus-visible {
+/* Accessibility focus ring — skipped on elements that opt out via Tailwind's
+   focus:outline-none, since those already show focus through their own
+   border/ring color change instead (e.g. the log-type select). Without this
+   exclusion, this rule's higher specificity than the Tailwind utility (see the
+   accent override below) makes the ring show up anyway. */
+*:focus-visible:not([class*="focus:outline-none"]) {
   outline: 2px solid #555555;
   outline-offset: 2px;
 }
@@ -445,6 +449,6 @@ html[data-accent] [class~="accent-[#22c55e]"] {
   accent-color: var(--ez-accent) !important;
 }
 
-html[data-accent] *:focus-visible {
+html[data-accent] *:focus-visible:not([class*="focus:outline-none"]) {
   outline-color: var(--ez-accent);
 }
