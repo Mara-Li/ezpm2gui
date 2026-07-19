@@ -691,7 +691,7 @@ const App: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
         <div className="flex items-center gap-2.5">
           <div className="animate-spin rounded-full h-6 w-6 border-2 border-[#22c55e] border-t-transparent"></div>
-          <span className="text-[#888] font-mono text-xs">
+          <span className="text-[#888] text-xs">
             Loading PM2 data…
           </span>
         </div>
@@ -844,7 +844,7 @@ const App: React.FC = () => {
               {/* @group Branding : App logo and wordmark */}
               <Link
                 to="/"
-                className="flex items-center gap-1.5 font-mono text-xs font-bold text-[#e8e8e8] tracking-tight no-underline"
+                className="flex items-center gap-1.5 text-xs font-bold text-[#e8e8e8] tracking-tight no-underline"
               >
                 <img
                   src={`${process.env.PUBLIC_URL}/logo192.svg`}
@@ -859,7 +859,7 @@ const App: React.FC = () => {
                 <Link
                   to="/settings?section=security"
                   title={t('header.enablePasswordProtection')}
-                  className="hidden sm:flex items-center gap-1 px-2 py-0.5 rounded-full no-underline border transition-colors bg-[#2d1500] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[12px] hover:bg-[#3d1e00]"
+                  className="hidden sm:flex items-center gap-1 px-2 py-0.5 rounded-full no-underline border transition-colors bg-[#2d1500] border-[#f59e0b]/30 text-[#f59e0b] text-[12px] hover:bg-[#3d1e00]"
                 >
                   <ShieldExclamationIcon className="h-4 w-4" />
                   <span>{t('header.noPasswordSet')}</span>
@@ -873,7 +873,7 @@ const App: React.FC = () => {
               {activeServerId !== 'local' && (() => {
                 const conn = remoteConnections.find(c => c.id === activeServerId);
                 return (
-                  <div className="hidden sm:flex items-center gap-1.5 font-mono text-xs">
+                  <div className="hidden sm:flex items-center gap-1.5 text-xs">
                     <div className="w-2 h-2 rounded-full bg-[#22d3ee] animate-pulse shrink-0" />
                     <span className="text-[#22d3ee] font-medium">
                       <strong>{conn?.name || 'Remote Server'}</strong>
@@ -897,7 +897,7 @@ const App: React.FC = () => {
                   <Link
                     to="/settings"
                     title={t('header.updateAvailable')}
-                    className="relative flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#1a1200] border-[#f59e0b]/30 text-[#f59e0b] font-mono text-[12px] hover:bg-[#251900]"
+                    className="relative flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#1a1200] border-[#f59e0b]/30 text-[#f59e0b] text-[12px] hover:bg-[#251900]"
                   >
                     <ArrowUpCircleIcon className="h-4 w-4" />
                     <span>{t('header.update')}</span>
@@ -928,7 +928,7 @@ const App: React.FC = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={t('header.starTooltip')}
-                  className="flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#111] border-[#1e1e1e] text-[#888] hover:border-[#f59e0b]/60 hover:text-[#f59e0b] font-mono text-[12px]"
+                  className="flex items-center gap-1 px-2 py-0.5 rounded no-underline border transition-colors bg-[#111] border-[#1e1e1e] text-[#888] hover:border-[#f59e0b]/60 hover:text-[#f59e0b] text-[12px]"
                 >
                   <StarIcon className="h-4 w-4" />
                   <span className="hidden sm:inline">{t('header.star')}</span>

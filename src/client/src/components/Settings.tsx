@@ -54,9 +54,9 @@ const SettingRow: React.FC<{
   <>
     <div className="flex items-center justify-between py-3 gap-6">
       <div className="min-w-0">
-        <span className="text-[12px] font-mono text-[#e8e8e8] block">{label}</span>
+        <span className="text-[12px] text-[#e8e8e8] block">{label}</span>
         {description && (
-          <span className="text-[11px] font-mono text-[#555] block mt-0.5">{description}</span>
+          <span className="text-[11px] text-[#555] block mt-0.5">{description}</span>
         )}
       </div>
       <div className="shrink-0">{control}</div>
@@ -70,7 +70,7 @@ const SettingRow: React.FC<{
 const SectionCard: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
   <div className="bg-[#111] border border-[#1e1e1e] rounded-sm mb-3">
     <div className="px-4 py-2.5 border-b border-[#1a1a1a] flex items-center gap-2">
-      <span className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">{title}</span>
+      <span className="text-[11px] font-bold text-[#555] uppercase tracking-[0.15em]">{title}</span>
     </div>
     <div className="px-4">{children}</div>
   </div>
@@ -101,7 +101,7 @@ const CliToggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void }> 
 const StatusBadge: React.FC<{ active: boolean; labelOn: string; labelOff: string }> = ({ active, labelOn, labelOff }) => (
   <span
     className={[
-      'inline-flex items-center gap-1 px-2 py-0.5 rounded-sm font-mono text-[11px] border',
+      'inline-flex items-center gap-1 px-2 py-0.5 rounded-sm text-[11px] border',
       active
         ? 'border-[#22c55e]/40 text-[#22c55e] bg-[#22c55e]/5'
         : 'border-[#333] text-[#555] bg-transparent',
@@ -467,7 +467,9 @@ const Settings: React.FC = () => {
   };
 
   // @group Utilities : Shared input class
-  const inputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none';
+  const inputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none';
+  // Same as inputCls but monospace — for fields holding technical/code values (e.g. binary paths)
+  const monoInputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none';
   const selectCls = inputCls;
 
   // @group Render : Section content panels
@@ -575,7 +577,7 @@ const Settings: React.FC = () => {
             </SectionCard>
 
             <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-              <span className="text-[11px] font-mono text-[#555] block">
+              <span className="text-[11px] text-[#555] block">
                 {t('settings.notes.darkModeToggle')}
               </span>
             </div>
@@ -592,7 +594,7 @@ const Settings: React.FC = () => {
               last
               control={
                 <input
-                  className={`${inputCls} w-48`}
+                  className={`${monoInputCls} w-48`}
                   value={pm2Path}
                   onChange={e => setPm2Path(e.target.value)}
                   onBlur={e => save('pm2Path', e.target.value)}
@@ -614,7 +616,7 @@ const Settings: React.FC = () => {
                 last
                 control={
                   <button
-                    className="border border-[#1e1e1e] text-[#888] font-mono text-xs px-4 py-1.5 rounded-sm hover:text-[#e8e8e8] hover:border-[#555] transition-colors"
+                    className="border border-[#1e1e1e] text-[#888] text-xs px-4 py-1.5 rounded-sm hover:text-[#e8e8e8] hover:border-[#555] transition-colors"
                     onClick={handleResetDefaults}
                   >
                     {t('settings.buttons.reset')}
@@ -630,7 +632,7 @@ const Settings: React.FC = () => {
                 last
                 control={
                   <button
-                    className="border border-[#ef4444]/40 text-[#ef4444] font-mono text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] transition-colors"
+                    className="border border-[#ef4444]/40 text-[#ef4444] text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] transition-colors"
                     onClick={handleClearData}
                   >
                     {t('settings.buttons.clearAll')}
@@ -640,7 +642,7 @@ const Settings: React.FC = () => {
             </SectionCard>
 
             <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-              <span className="text-[11px] font-mono text-[#555] block">
+              <span className="text-[11px] text-[#555] block">
                 {t('settings.notes.clearDataNote')}
               </span>
             </div>
@@ -661,7 +663,7 @@ const Settings: React.FC = () => {
                 label={t('settings.rows.currentVersion')}
                 description={t('settings.rows.currentVersionDesc')}
                 control={
-                  <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#22d3ee] px-2 py-1 rounded-sm">
+                  <span className="bg-[#0a0a0a] border border-[#1e1e1e] text-[12px] text-[#22d3ee] px-2 py-1 rounded-sm">
                     {versionInfo ? `v${versionInfo.currentVersion}` : 'unknown'}
                   </span>
                 }
@@ -673,7 +675,7 @@ const Settings: React.FC = () => {
                   versionInfo ? (
                     <span
                       className={[
-                        'bg-[#0a0a0a] border font-mono text-[12px] px-2 py-1 rounded-sm',
+                        'bg-[#0a0a0a] border text-[12px] px-2 py-1 rounded-sm',
                         versionInfo.updateAvailable
                           ? 'border-[#f59e0b]/40 text-[#f59e0b]'
                           : 'border-[#22c55e]/40 text-[#22c55e]',
@@ -682,7 +684,7 @@ const Settings: React.FC = () => {
                       v{versionInfo.latestVersion}
                     </span>
                   ) : (
-                    <span className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#555] px-2 py-1 rounded-sm">
+                    <span className="bg-[#0a0a0a] border border-[#1e1e1e] text-[12px] text-[#555] px-2 py-1 rounded-sm">
                       —
                     </span>
                   )
@@ -698,7 +700,7 @@ const Settings: React.FC = () => {
                 last
                 control={
                   <button
-                    className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                    className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                     onClick={handleCheckUpdate}
                     disabled={checkingUpdate || installing}
                   >
@@ -711,7 +713,7 @@ const Settings: React.FC = () => {
             {/* ── Check error ── */}
             {checkError && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2 mb-3">
-                <span className="text-[12px] font-mono text-[#ef4444]">{checkError}</span>
+                <span className="text-[12px] text-[#ef4444]">{checkError}</span>
               </div>
             )}
 
@@ -727,7 +729,7 @@ const Settings: React.FC = () => {
               >
                 <span
                   className={[
-                    'text-[12px] font-mono',
+                    'text-[12px]',
                     versionInfo.updateAvailable ? 'text-[#f59e0b]' : 'text-[#22c55e]',
                   ].join(' ')}
                 >
@@ -747,7 +749,7 @@ const Settings: React.FC = () => {
                   last
                   control={
                     <button
-                      className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                      className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                       onClick={handleInstallUpdate}
                       disabled={installing}
                     >
@@ -762,7 +764,7 @@ const Settings: React.FC = () => {
             {installLines.length > 0 && (
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm mb-3">
                 <div className="px-4 py-2.5 border-b border-[#1a1a1a] flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">
+                  <span className="text-[11px] font-bold text-[#555] uppercase tracking-[0.15em]">
                     {t('settings.cards.installOutput')}
                   </span>
                   {installing && (
@@ -800,7 +802,7 @@ const Settings: React.FC = () => {
                   description={t('settings.rows.reloadPageDesc')}
                   control={
                     <button
-                      className="border border-[#1e1e1e] text-[#888] font-mono text-xs px-4 py-1.5 rounded-sm hover:text-[#e8e8e8] hover:border-[#555] transition-colors"
+                      className="border border-[#1e1e1e] text-[#888] text-xs px-4 py-1.5 rounded-sm hover:text-[#e8e8e8] hover:border-[#555] transition-colors"
                       onClick={() => window.location.reload()}
                     >
                       {t('settings.buttons.reload')}
@@ -813,7 +815,7 @@ const Settings: React.FC = () => {
                   last
                   control={
                     <button
-                      className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                      className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                       onClick={handleRestartServer}
                       disabled={restarting}
                     >
@@ -826,7 +828,7 @@ const Settings: React.FC = () => {
 
             {installFailed && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2">
-                <span className="text-[12px] font-mono text-[#ef4444]">
+                <span className="text-[12px] text-[#ef4444]">
                   Update failed. Check the output above. You can also run{' '}
                   <code className="bg-[#0a0a0a] border border-[#1e1e1e] font-mono text-[12px] text-[#22d3ee] px-1 rounded-sm">
                     npm install -g ezpm2gui@latest
@@ -846,20 +848,20 @@ const Settings: React.FC = () => {
           <>
             {secError && (
               <div className="bg-[#1a0000] border border-[#ef4444]/30 rounded-sm px-3 py-2 mb-3 flex items-start justify-between gap-2">
-                <span className="text-[12px] font-mono text-[#ef4444]">{secError}</span>
-                <button onClick={() => setSecError(null)} className="text-[#ef4444] text-[12px] font-mono shrink-0 hover:text-[#ff6666]">✕</button>
+                <span className="text-[12px] text-[#ef4444]">{secError}</span>
+                <button onClick={() => setSecError(null)} className="text-[#ef4444] text-[12px] shrink-0 hover:text-[#ff6666]">✕</button>
               </div>
             )}
             {secSuccess && (
               <div className="bg-[#001a08] border border-[#22c55e]/30 rounded-sm px-3 py-2 mb-3 flex items-start justify-between gap-2">
-                <span className="text-[12px] font-mono text-[#22c55e]">{secSuccess}</span>
-                <button onClick={() => setSecSuccess(null)} className="text-[#22c55e] text-[12px] font-mono shrink-0 hover:text-[#66ff99]">✕</button>
+                <span className="text-[12px] text-[#22c55e]">{secSuccess}</span>
+                <button onClick={() => setSecSuccess(null)} className="text-[#22c55e] text-[12px] shrink-0 hover:text-[#66ff99]">✕</button>
               </div>
             )}
 
             {isLoading ? (
               <div className="flex justify-center py-8">
-                <span className="text-[12px] font-mono text-[#555] animate-pulse">loading...</span>
+                <span className="text-[12px] text-[#555] animate-pulse">loading...</span>
               </div>
             ) : (
               <>
@@ -923,7 +925,7 @@ const Settings: React.FC = () => {
                           placeholder="Confirm password"
                         />
                         <button
-                          className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                          className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                           onClick={handleSecSave}
                           disabled={secSaving || !secNewPassword || !secConfirmPassword}
                         >
@@ -951,7 +953,7 @@ const Settings: React.FC = () => {
                             placeholder="Current password"
                           />
                           <button
-                            className="border border-[#ef4444]/40 text-[#ef4444] font-mono text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] disabled:opacity-40 transition-colors"
+                            className="border border-[#ef4444]/40 text-[#ef4444] text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] disabled:opacity-40 transition-colors"
                             onClick={handleSecRemove}
                             disabled={secRemoving || !secRemovePassword}
                           >
@@ -1001,7 +1003,7 @@ const Settings: React.FC = () => {
                             maxLength={4}
                           />
                           <button
-                            className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                            className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                             onClick={handlePinSave}
                             disabled={pinSaving || pinNew.length !== 4 || pinConfirm.length !== 4}
                           >
@@ -1025,7 +1027,7 @@ const Settings: React.FC = () => {
                               placeholder="Current password"
                             />
                             <button
-                              className="border border-[#ef4444]/40 text-[#ef4444] font-mono text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] disabled:opacity-40 transition-colors"
+                              className="border border-[#ef4444]/40 text-[#ef4444] text-xs px-4 py-1.5 rounded-sm hover:bg-[#1a0000] disabled:opacity-40 transition-colors"
                               onClick={handlePinRemove}
                               disabled={pinRemoving || !pinRemovePassword}
                             >
@@ -1057,9 +1059,9 @@ const Settings: React.FC = () => {
                             max={480}
                             step={1}
                           />
-                          <span className="text-[12px] font-mono text-[#555]">{t('settings.messages.min')}</span>
+                          <span className="text-[12px] text-[#555]">{t('settings.messages.min')}</span>
                           <button
-                            className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
+                            className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40 transition-colors"
                             onClick={() => handleAutoLockSave(autoLockMinutes)}
                             disabled={autoLockSaving}
                           >
@@ -1072,7 +1074,7 @@ const Settings: React.FC = () => {
                 )}
 
                 <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-                  <span className="text-[11px] font-mono text-[#555] block">
+                  <span className="text-[11px] text-[#555] block">
                     {t('settings.notes.securityNote')}
                   </span>
                 </div>
@@ -1099,7 +1101,7 @@ const Settings: React.FC = () => {
               type="button"
               onClick={() => setActiveSection(s.id)}
               className={[
-                'w-full flex items-center gap-2 px-3 py-2.5 text-left font-mono text-[12px] border-l-2 transition-colors',
+                'w-full flex items-center gap-2 px-3 py-2.5 text-left text-[12px] border-l-2 transition-colors',
                 activeSection === s.id
                   ? 'border-[#22c55e] text-[#e8e8e8] bg-[#141414]'
                   : 'border-transparent text-[#555] hover:text-[#888] hover:bg-[#141414]',
@@ -1114,10 +1116,10 @@ const Settings: React.FC = () => {
         {/* ── Right content ── */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-3">
-            <span className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+            <span className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
               ▸ {SECTIONS.find(s => s.id === activeSection)?.label}
             </span>
-            <span className="text-[11px] font-mono text-[#333] border border-[#222] rounded-sm px-1.5 py-0.5">
+            <span className="text-[11px] text-[#333] border border-[#222] rounded-sm px-1.5 py-0.5">
               {t('settings.autoSaved')}
             </span>
           </div>
@@ -1130,11 +1132,11 @@ const Settings: React.FC = () => {
       {toastOpen && (
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50">
           <div className="bg-[#111] border border-[#22c55e]/40 rounded-sm px-4 py-2 flex items-center gap-2 shadow-lg">
-            <span className="text-[12px] font-mono text-[#22c55e]">✓</span>
-            <span className="text-[12px] font-mono text-[#e8e8e8]">{toastMsg}</span>
+            <span className="text-[12px] text-[#22c55e]">✓</span>
+            <span className="text-[12px] text-[#e8e8e8]">{toastMsg}</span>
             <button
               onClick={() => setToastOpen(false)}
-              className="text-[#555] text-[12px] font-mono ml-2 hover:text-[#888]"
+              className="text-[#555] text-[12px] ml-2 hover:text-[#888]"
             >
               ✕
             </button>

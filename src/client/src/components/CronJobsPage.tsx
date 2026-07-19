@@ -111,14 +111,14 @@ const CronJobsPage: React.FC = () => {
             <button
               onClick={fetchJobs}
               disabled={loading}
-              className="flex items-center gap-1.5 border border-[#333] text-[#888] text-xs font-mono px-3 py-1 rounded-sm hover:border-[#555] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="flex items-center gap-1.5 border border-[#333] text-[#888] text-xs px-3 py-1 rounded-sm hover:border-[#555] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               <ArrowPathIcon className={`h-4 w-4 ${loading ? 'animate-spin' : ''}`} />
               {t('common.refresh')}
             </button>
             <button
               onClick={handleCreate}
-              className="flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
+              className="flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
             >
               <PlusIcon className="h-4 w-4" />
               {t('cronJobs.createJob')}
@@ -136,8 +136,8 @@ const CronJobsPage: React.FC = () => {
           { id: 'scheduled', label: t('cronJobs.scheduled'), value: jobs.filter(j => j.config.enabled && !j.isRunning).length, color: 'text-[#f59e0b]' },
         ].map(({ id, label, value, color }) => (
           <div key={id} className="bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2">
-            <p className={`text-[13px] font-mono font-bold leading-none ${color}`}>{value}</p>
-            <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mt-1">{label}</p>
+            <p className={`text-[13px] font-bold leading-none ${color}`}>{value}</p>
+            <p className="text-[11px] text-[#555] uppercase tracking-[0.15em] mt-1">{label}</p>
           </div>
         ))}
       </div>
@@ -146,13 +146,13 @@ const CronJobsPage: React.FC = () => {
       {jobs.length === 0 ? (
         <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-10 text-center">
           <ClockIcon className="mx-auto h-9 w-9 text-[#333] mb-3" />
-          <p className="text-[12px] font-mono text-[#555]">{t('cronJobs.noJobs')}</p>
-          <p className="text-[12px] font-mono text-[#444] mt-1 mb-4">
+          <p className="text-[12px] text-[#555]">{t('cronJobs.noJobs')}</p>
+          <p className="text-[12px] text-[#444] mt-1 mb-4">
             Create your first scheduled task to automate your workflows
           </p>
           <button
             onClick={handleCreate}
-            className="inline-flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
+            className="inline-flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-3 py-1 rounded-sm transition-colors hover:bg-white"
           >
             <PlusIcon className="h-4 w-4" />
             Create First Job
@@ -172,7 +172,7 @@ const CronJobsPage: React.FC = () => {
                   { id: 'enabled', label: t('cronJobs.enabled') },
                   { id: 'actions', label: '' },
                 ].map(({ id, label }) => (
-                  <th key={id} className="px-3 py-2.5 text-left text-[11px] font-mono text-[#444] uppercase tracking-[0.15em] whitespace-nowrap">
+                  <th key={id} className="px-3 py-2.5 text-left text-[11px] text-[#444] uppercase tracking-[0.15em] whitespace-nowrap">
                     {label}
                   </th>
                 ))}
@@ -183,15 +183,15 @@ const CronJobsPage: React.FC = () => {
                 <tr key={job.config.id} className="bg-[#0a0a0a] hover:bg-[#111] transition-colors">
                   {/* Name */}
                   <td className="px-3 py-2.5">
-                    <p className="text-[12px] font-mono font-semibold text-[#e8e8e8]">{job.config.name}</p>
+                    <p className="text-[12px] font-semibold text-[#e8e8e8]">{job.config.name}</p>
                     {job.config.description && (
-                      <p className="text-[12px] font-mono text-[#555] mt-0.5">{job.config.description}</p>
+                      <p className="text-[12px] text-[#555] mt-0.5">{job.config.description}</p>
                     )}
                   </td>
 
                   {/* Type */}
                   <td className="px-3 py-2.5">
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium ${scriptTypeBadge(job.config.scriptType)}`}>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-medium ${scriptTypeBadge(job.config.scriptType)}`}>
                       <CodeBracketIcon className="h-3.5 w-3.5 shrink-0" />
                       {job.config.scriptType.toUpperCase()}
                     </span>
@@ -203,22 +203,22 @@ const CronJobsPage: React.FC = () => {
                   </td>
 
                   {/* Next Run */}
-                  <td className="px-3 py-2.5 text-[12px] font-mono text-[#888] whitespace-nowrap">
+                  <td className="px-3 py-2.5 text-[12px] text-[#888] whitespace-nowrap">
                     {job.nextExecution ? new Date(job.nextExecution).toLocaleString() : '—'}
                   </td>
 
                   {/* Status */}
                   <td className="px-3 py-2.5">
                     {job.isRunning ? (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e]/20">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-medium bg-[#22c55e]/10 text-[#22c55e] border-[#22c55e]/20">
                         <CheckCircleIcon className="h-3.5 w-3.5" /> {t('common.running')}
                       </span>
                     ) : job.config.enabled ? (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#1e1e1e] text-[#888] border-[#333]">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-medium bg-[#1e1e1e] text-[#888] border-[#333]">
                         {t('common.scheduled')}
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-mono font-medium bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/20">
+                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-sm border text-[12px] font-medium bg-[#ef4444]/10 text-[#ef4444] border-[#ef4444]/20">
                         <XCircleIcon className="h-3.5 w-3.5" /> {t('cronJobs.disabled')}
                       </span>
                     )}

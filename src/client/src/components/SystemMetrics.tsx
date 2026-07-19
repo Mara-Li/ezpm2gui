@@ -46,8 +46,8 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, iconColor, label, value
   <div className="flex items-center gap-2.5 bg-[#111] border border-[#1e1e1e] rounded-sm px-3 py-2 min-w-0">
     <Icon className={`shrink-0 h-4 w-4 ${iconColor}`} />
     <div className="min-w-0">
-      <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
-      <p className="text-[13px] font-mono font-bold text-[#e8e8e8] leading-tight truncate">{value}</p>
+      <p className="text-[11px] text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
+      <p className="text-[13px] font-bold text-[#e8e8e8] leading-tight truncate">{value}</p>
       {sub && <div className="mt-0.5">{sub}</div>}
     </div>
   </div>
@@ -72,7 +72,7 @@ const SystemMetrics: React.FC<{ metrics: SystemMetricsData }> = ({ metrics }) =>
         label={t('systemMetrics.loadAvg')}
         value={metrics.loadAvg[0].toFixed(2)}
         sub={
-          <p className="text-[12px] font-mono text-[#555] leading-none">
+          <p className="text-[12px] text-[#555] leading-none">
             {metrics.loadAvg[1].toFixed(2)} · {metrics.loadAvg[2].toFixed(2)}
           </p>
         }

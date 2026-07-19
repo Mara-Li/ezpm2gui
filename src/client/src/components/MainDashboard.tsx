@@ -43,11 +43,11 @@ const ProcessStatCard: React.FC<ProcessStatCardProps> = ({ icon: Icon, iconColor
       <Icon className={`h-4 w-4 ${iconColor}`} />
     </div>
     <div className="min-w-0">
-      <p className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
-      <p className="text-[13px] font-mono font-bold text-[#e8e8e8] leading-tight">
+      <p className="text-[11px] text-[#555] uppercase tracking-[0.15em] leading-none mb-0.5">{label}</p>
+      <p className="text-[13px] font-bold text-[#e8e8e8] leading-tight">
         {value}
         {total !== undefined && (
-          <span className="text-[12px] font-mono font-normal text-[#444] ml-1">/ {total}</span>
+          <span className="text-[12px] font-normal text-[#444] ml-1">/ {total}</span>
         )}
       </p>
     </div>
@@ -84,10 +84,10 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
       {/* ── Page header ── */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+          <h1 className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
             ▸ {t('mainDashboard.title')}
           </h1>
-          <p className="text-[12px] font-mono text-[#555] mt-0.5">
+          <p className="text-[12px] text-[#555] mt-0.5">
             {t('mainDashboard.subtitle')}
           </p>
         </div>
@@ -143,7 +143,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
               placeholder={t('mainDashboard.searchPlaceholder')}
               value={searchTerm}
               onChange={onSearchChange}
-              className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs font-mono text-[#e8e8e8] placeholder-[#333] focus:border-[#555] focus:outline-none pl-8 pr-3 py-1.5 w-full"
+              className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs text-[#e8e8e8] placeholder-[#333] focus:border-[#555] focus:outline-none pl-8 pr-3 py-1.5 w-full"
             />
           </div>
 
@@ -154,7 +154,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
               <select
                 value={namespaceFilter}
                 onChange={onNamespaceFilterChange}
-                className="w-full pl-8 pr-6 py-1.5 bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs font-mono text-[#888] focus:border-[#555] focus:outline-none cursor-pointer"
+                className="w-full pl-8 pr-6 py-1.5 bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs text-[#888] focus:border-[#555] focus:outline-none cursor-pointer"
               >
                 <option value="all">{t('mainDashboard.allNamespaces')}</option>
                 {namespaces.map(ns => (
@@ -170,7 +170,7 @@ const MainDashboard: React.FC<MainDashboardProps> = ({
             <select
               value={statusFilter}
               onChange={onStatusFilterChange}
-              className="w-full pl-8 pr-6 py-1.5 bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs font-mono text-[#888] focus:border-[#555] focus:outline-none cursor-pointer"
+              className="w-full pl-8 pr-6 py-1.5 bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm text-xs text-[#888] focus:border-[#555] focus:outline-none cursor-pointer"
             >
               <option value="all">{t('mainDashboard.allProcesses')}</option>
               <option value="online">{t('mainDashboard.onlineOnly')}</option>

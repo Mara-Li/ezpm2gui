@@ -690,10 +690,10 @@ const RemoteConnections: React.FC = () => {
       {/* @group Render > Header : Page header with actions */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1e1e1e]">
         <div>
-          <h1 className="font-mono text-xs font-semibold text-[#e8e8e8] leading-tight tracking-wide">
+          <h1 className="text-xs font-semibold text-[#e8e8e8] leading-tight tracking-wide">
             ▸ {t('remoteConnections.title').toUpperCase()}
           </h1>
-          <p className="font-mono text-[0.625rem] text-[#555] mt-0.5">{t('remoteConnections.subtitle')}</p>
+          <p className="text-[0.625rem] text-[#555] mt-0.5">{t('remoteConnections.subtitle')}</p>
         </div>
         <Box sx={{ display: 'flex', gap: 1 }}>
           {connections.some(c => !c.connected) && (

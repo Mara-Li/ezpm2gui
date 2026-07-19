@@ -111,7 +111,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
         </svg>
-        <span className="text-[12px] font-mono text-[#555]">{t('processDetail.loadingDetails')}</span>
+        <span className="text-[12px] text-[#555]">{t('processDetail.loadingDetails')}</span>
       </div>
     );
   }
@@ -121,13 +121,13 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
     return (
       <div className="flex flex-col gap-3 p-4">
         {error && (
-          <div className="text-[12px] font-mono text-[#ef4444] border border-[#ef4444]/20 bg-[#ef4444]/5 rounded-sm px-3 py-2">
+          <div className="text-[12px] text-[#ef4444] border border-[#ef4444]/20 bg-[#ef4444]/5 rounded-sm px-3 py-2">
             <span className="text-[#555]">err:</span> {error}
           </div>
         )}
         <button
           onClick={() => navigate('/')}
-          className="w-fit h-7 px-3 text-[12px] font-mono rounded-sm border border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors"
+          className="w-fit h-7 px-3 text-[12px] rounded-sm border border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors"
         >
           &larr; {t('processDetail.backToList')}
         </button>
@@ -161,14 +161,14 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
         actions={
           <div className="flex items-center gap-2 flex-wrap">
             {/* Status badge */}
-            <span className={`text-[11px] font-mono border rounded-sm px-2 py-0.5 ${statusPill(process.pm2_env.status)}`}>
+            <span className={`text-[11px] border rounded-sm px-2 py-0.5 ${statusPill(process.pm2_env.status)}`}>
               {process.pm2_env.status}
             </span>
 
             {/* Back */}
             <button
               onClick={() => navigate('/')}
-              className="h-7 px-2.5 text-[12px] font-mono rounded-sm border border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors"
+              className="h-7 px-2.5 text-[12px] rounded-sm border border-[#1e1e1e] text-[#555] hover:text-[#888] transition-colors"
               title="Back to process list"
             >
               &larr; back
@@ -178,7 +178,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
             <button
               onClick={() => executeAction('start')}
               disabled={process.pm2_env.status === 'online'}
-              className="h-7 px-3 text-[12px] font-mono rounded-sm border border-[#22c55e]/50 text-[#22c55e]
+              className="h-7 px-3 text-[12px] rounded-sm border border-[#22c55e]/50 text-[#22c55e]
                          hover:bg-[#22c55e]/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {t('common.start')}
@@ -188,7 +188,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
             <button
               onClick={() => executeAction('stop')}
               disabled={process.pm2_env.status === 'stopped'}
-              className="h-7 px-3 text-[12px] font-mono rounded-sm border border-[#ef4444]/50 text-[#ef4444]
+              className="h-7 px-3 text-[12px] rounded-sm border border-[#ef4444]/50 text-[#ef4444]
                          hover:bg-[#ef4444]/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
               {t('common.stop')}
@@ -197,7 +197,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
             {/* Restart */}
             <button
               onClick={() => executeAction('restart')}
-              className="h-7 px-3 text-[12px] font-mono rounded-sm border border-[#f59e0b]/50 text-[#f59e0b]
+              className="h-7 px-3 text-[12px] rounded-sm border border-[#f59e0b]/50 text-[#f59e0b]
                          hover:bg-[#f59e0b]/10 transition-colors"
             >
               {t('common.restart')}
@@ -206,7 +206,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
             {/* Delete */}
             <button
               onClick={() => executeAction('delete')}
-              className="h-7 px-3 text-[12px] font-mono rounded-sm border border-[#ef4444]/30 text-[#ef4444]/70
+              className="h-7 px-3 text-[12px] rounded-sm border border-[#ef4444]/30 text-[#ef4444]/70
                          hover:border-[#ef4444]/60 hover:text-[#ef4444] transition-colors"
             >
               {t('common.delete')}
@@ -219,8 +219,8 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-px bg-[#1e1e1e] border border-[#1e1e1e] rounded-sm mb-3 overflow-hidden">
         {quickStats.map(({ label, value }) => (
           <div key={label} className="bg-[#111] px-3 py-2.5">
-            <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
-            <div className="text-[12px] font-mono text-[#e8e8e8] font-bold">{value}</div>
+            <div className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
+            <div className="text-[12px] text-[#e8e8e8] font-bold">{value}</div>
           </div>
         ))}
       </div>
@@ -233,7 +233,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
             <button
               key={tab}
               onClick={() => setActiveTab(idx)}
-              className={`px-4 py-2 text-[12px] font-mono transition-colors border-b-2
+              className={`px-4 py-2 text-[12px] transition-colors border-b-2
                           ${activeTab === idx
                             ? 'text-[#e8e8e8] border-[#22c55e] bg-[#111]'
                             : 'text-[#555] border-transparent hover:text-[#888]'}`}
@@ -248,7 +248,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Process info column */}
             <div>
-              <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">
+              <div className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
                 {t('processDetail.processDetails')}
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -260,12 +260,12 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
                   { label: t('common.restarts'),         value: String(process.pm2_env.restart_time) },
                 ].map(({ label, value }) => (
                   <div key={label}>
-                    <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
-                    <div className="text-[12px] font-mono text-[#e8e8e8]">{value}</div>
+                    <div className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-0.5">{label}</div>
+                    <div className="text-[12px] text-[#e8e8e8]">{value}</div>
                   </div>
                 ))}
                 <div className="col-span-2">
-                  <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-0.5">
+                  <div className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-0.5">
                     {t('processDetail.scriptPath')}
                   </div>
                   <div className="text-[12px] font-mono text-[#e8e8e8] break-all">
@@ -277,7 +277,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
 
             {/* Env vars column */}
             <div>
-              <div className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em] mb-3">
+              <div className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
                 {t('processDetail.environmentVariables')}
               </div>
               <div className="bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm p-3 max-h-60 overflow-auto">
@@ -286,7 +286,7 @@ const ProcessDetailPage: React.FC<ProcessDetailPageProps> = ({ onAction, connect
                     {JSON.stringify(process.pm2_env.env, null, 2)}
                   </pre>
                 ) : (
-                  <span className="text-[12px] font-mono text-[#555]">{t('processDetail.noEnvVars')}</span>
+                  <span className="text-[12px] text-[#555]">{t('processDetail.noEnvVars')}</span>
                 )}
               </div>
             </div>

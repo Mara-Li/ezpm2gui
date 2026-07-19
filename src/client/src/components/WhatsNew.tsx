@@ -89,9 +89,9 @@ const RELEASES: Release[] = [
 
 // @group Helpers : Tag badge styles
 const TAG_STYLES: Record<ChangeItem['tag'], string> = {
-  New:      'text-[11px] font-mono text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm',
-  Improved: 'text-[11px] font-mono text-[#22d3ee] border border-[#22d3ee]/30 bg-[#001a1f] px-1.5 py-0.5 rounded-sm',
-  Fix:      'text-[11px] font-mono text-[#f59e0b] border border-[#f59e0b]/30 bg-[#1a0e00] px-1.5 py-0.5 rounded-sm',
+  New:      'text-[11px] text-[#22c55e] border border-[#22c55e]/30 bg-[#022c00] px-1.5 py-0.5 rounded-sm',
+  Improved: 'text-[11px] text-[#22d3ee] border border-[#22d3ee]/30 bg-[#001a1f] px-1.5 py-0.5 rounded-sm',
+  Fix:      'text-[11px] text-[#f59e0b] border border-[#f59e0b]/30 bg-[#1a0e00] px-1.5 py-0.5 rounded-sm',
 };
 
 // @group Component : What's New changelog page
@@ -103,7 +103,7 @@ const WhatsNew: React.FC = () => {
       {/* ── Page header ── */}
       <div className="mb-8">
         <p className="text-[11px] uppercase tracking-[0.2em] text-[#555] mb-1">▸ WHAT'S NEW</p>
-        <p className="text-[12px] font-mono text-[#555]">
+        <p className="text-[12px] text-[#555]">
           {t('whatsNew.pageSubtitle')}
         </p>
       </div>
@@ -114,13 +114,13 @@ const WhatsNew: React.FC = () => {
 
           {/* Version header */}
           <div className="flex items-center gap-3 mb-3">
-            <span className="font-mono text-[11px] font-bold px-2 py-0.5 border border-[#a78bfa]/30 text-[#a78bfa] bg-[#16003a] rounded-sm">
+            <span className="text-[11px] font-bold px-2 py-0.5 border border-[#a78bfa]/30 text-[#a78bfa] bg-[#16003a] rounded-sm">
               v{release.version}
             </span>
-            <span className="text-[13px] font-mono font-bold text-[#888] uppercase tracking-[0.1em]">
+            <span className="text-[13px] font-bold text-[#888] uppercase tracking-[0.1em]">
               {release.headline}
             </span>
-            <span className="ml-auto text-[12px] font-mono text-[#444]">
+            <span className="ml-auto text-[12px] text-[#444]">
               {release.date}
             </span>
           </div>
@@ -144,14 +144,14 @@ const WhatsNew: React.FC = () => {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-[13px] font-mono font-semibold text-[#e8e8e8]">
+                        <span className="text-[13px] font-semibold text-[#e8e8e8]">
                           {change.title}
                         </span>
                         <span className={`shrink-0 ${TAG_STYLES[change.tag]}`}>
                           {change.tag}
                         </span>
                       </div>
-                      <p className="text-[12px] font-mono text-[#555] leading-relaxed mt-0.5">
+                      <p className="text-[12px] text-[#555] leading-relaxed mt-0.5">
                         {change.description}
                       </p>
                     </div>
@@ -166,16 +166,16 @@ const WhatsNew: React.FC = () => {
       {/* ── Footer CTA ── */}
       <div className="mt-6 border border-[#1e1e1e] bg-[#0d0d0d] rounded-sm p-4 flex items-center justify-between">
         <div>
-          <p className="text-[13px] font-mono font-bold text-[#e8e8e8] mb-0.5">
+          <p className="text-[13px] font-bold text-[#e8e8e8] mb-0.5">
             {t('whatsNew.configureSecurity')}
           </p>
-          <p className="text-[12px] font-mono text-[#555]">
+          <p className="text-[12px] text-[#555]">
             {t('whatsNew.configureSecurityDesc')}
           </p>
         </div>
         <Link
           to="/settings"
-          className="flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-3 py-1.5 rounded-sm
+          className="flex items-center gap-1.5 bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-3 py-1.5 rounded-sm
                      hover:bg-[#ccc] transition-colors"
         >
           {t('whatsNew.openSettings')}

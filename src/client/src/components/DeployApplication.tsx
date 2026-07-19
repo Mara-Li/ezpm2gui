@@ -38,7 +38,7 @@ const Pill: React.FC<{ active: boolean; onClick: () => void; children: React.Rea
   <button
     type="button"
     onClick={onClick}
-    className={`px-2.5 py-0.5 rounded text-xs font-mono transition-all ${
+    className={`px-2.5 py-0.5 rounded text-xs transition-all ${
       active
         ? 'bg-[#e8e8e8] text-[#0a0a0a] font-semibold'
         : 'text-[#555] hover:text-[#999] hover:bg-[#1a1a1a]'
@@ -56,21 +56,23 @@ const InlineField: React.FC<{
   error?: string;
 }> = ({ label, children, hint, error }) => (
   <div className="flex items-start gap-0 group">
-    <span className="font-mono text-xs text-[#444] w-28 shrink-0 pt-1.5 select-none">{label}</span>
+    <span className="text-xs text-[#444] w-28 shrink-0 pt-1.5 select-none">{label}</span>
     <div className="flex-1 min-w-0">
       {children}
-      {hint  && <p className="text-xs font-mono text-[#333] mt-0.5">{hint}</p>}
-      {error && <p className="text-xs font-mono text-red-400 mt-0.5">{error}</p>}
+      {hint  && <p className="text-xs text-[#333] mt-0.5">{hint}</p>}
+      {error && <p className="text-xs text-red-400 mt-0.5">{error}</p>}
     </div>
   </div>
 );
 
-// @group PromptInput : Minimal dark input
-const PromptInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { hasError?: boolean }> = ({ hasError, className = '', ...props }) => (
+// @group PromptInput : Minimal dark input. `mono` opts in to a monospace face for
+// fields holding technical/code values (paths, ports) rather than free-form prose.
+const PromptInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { hasError?: boolean; mono?: boolean }> = ({ hasError, mono, className = '', ...props }) => (
   <input
     {...props}
-    className={`w-full bg-transparent font-mono text-xs text-[#e8e8e8] placeholder-[#2e2e2e]
+    className={`w-full bg-transparent text-xs text-[#e8e8e8] placeholder-[#2e2e2e]
       border-b border-[#222] focus:border-[#444] outline-none py-1 transition-colors
+      ${mono ? 'font-mono' : ''}
       ${hasError ? 'border-red-800 focus:border-red-600' : ''}
       ${className}`}
   />
@@ -80,7 +82,7 @@ const PromptInput: React.FC<React.InputHTMLAttributes<HTMLInputElement> & { hasE
 const PromptSelect: React.FC<React.SelectHTMLAttributes<HTMLSelectElement>> = ({ className = '', ...props }) => (
   <select
     {...props}
-    className={`bg-transparent font-mono text-xs text-[#e8e8e8] border-b border-[#222]
+    className={`bg-transparent text-xs text-[#e8e8e8] border-b border-[#222]
       focus:border-[#444] outline-none py-1 transition-colors cursor-pointer ${className}`}
   />
 );
@@ -88,8 +90,8 @@ const PromptSelect: React.FC<React.SelectHTMLAttributes<HTMLSelectElement>> = ({
 // @group SectionHeader : ▸ prompt-style section label
 const SectionHeader: React.FC<{ children: React.ReactNode }> = ({ children }) => (
   <div className="flex items-center gap-2 mt-5 mb-3">
-    <span className="text-[#444] font-mono text-xs select-none">▸</span>
-    <span className="font-mono text-xs text-[#666] uppercase tracking-widest">{children}</span>
+    <span className="text-[#444] text-xs select-none">▸</span>
+    <span className="text-xs text-[#666] uppercase tracking-widest">{children}</span>
     <div className="flex-1 border-t border-[#1a1a1a]" />
   </div>
 );
@@ -99,7 +101,7 @@ const Toggle: React.FC<{ checked: boolean; onChange: (v: boolean) => void; label
   <button
     type="button"
     onClick={() => onChange(!checked)}
-    className={`flex items-center gap-1.5 font-mono text-xs transition-colors ${
+    className={`flex items-center gap-1.5 text-xs transition-colors ${
       checked ? 'text-[#e8e8e8]' : 'text-[#333] line-through'
     }`}
   >
@@ -269,14 +271,14 @@ const DeployApplication: React.FC = () => {
             <button
               type="button"
               onClick={() => navigate('/processes')}
-              className="font-mono text-xs text-[#444] hover:text-[#888] transition-colors px-2 py-1"
+              className="text-xs text-[#444] hover:text-[#888] transition-colors px-2 py-1"
             >
               esc
             </button>
             <button
               type="submit"
               disabled={loading || !!portError}
-              className="flex items-center gap-1.5 font-mono text-xs px-3 py-1 rounded
+              className="flex items-center gap-1.5 text-xs px-3 py-1 rounded
                 bg-[#e8e8e8] text-[#0a0a0a] font-semibold hover:bg-white
                 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
@@ -330,6 +332,7 @@ const DeployApplication: React.FC = () => {
             <InlineField label={t(`deploy.scriptLabel${appType.charAt(0).toUpperCase() + appType.slice(1)}`)} hint={cfg.scriptHelp}>
               <PromptInput
                 required
+                mono
                 name="script"
                 value={form.script}
                 onChange={handleChange}
@@ -339,6 +342,7 @@ const DeployApplication: React.FC = () => {
             <InlineField label={t('deploy.fieldDirectory')} hint={t('deploy.workingDirectoryHelper')}>
               <div className="relative">
                 <PromptInput
+                  mono
                   name="cwd"
                   value={form.cwd}
                   onChange={handleChange}
@@ -362,6 +366,7 @@ const DeployApplication: React.FC = () => {
             {cfg.requiresInterpreter && (
               <InlineField label={t('deploy.fieldInterpreter')} hint={cfg.interpreterHelp}>
                 <PromptInput
+                  mono
                   name="interpreter"
                   value={form.interpreter}
                   onChange={handleChange}
@@ -407,6 +412,7 @@ const DeployApplication: React.FC = () => {
               </InlineField>
               <InlineField label={t('deploy.fieldPort')} error={portError}>
                 <PromptInput
+                  mono
                   name="port"
                   value={form.port}
                   onChange={handleChange}
@@ -425,7 +431,7 @@ const DeployApplication: React.FC = () => {
             </div>
 
             {+form.instances > 1 && (
-              <p className="font-mono text-xs text-[#444] mt-1">
+              <p className="text-xs text-[#444] mt-1">
                 <span className="text-[#888]">→</span>{' '}
                 {form.exec_mode === 'cluster'
                   ? t('deploy.instancesCluster', { count: form.instances })
@@ -488,14 +494,14 @@ const DeployApplication: React.FC = () => {
                 type="button"
                 onClick={addEnvVar}
                 disabled={!newEnv.key.trim()}
-                className="font-mono text-xs text-[#333] hover:text-[#888] disabled:opacity-20 transition-colors flex items-center gap-1"
+                className="text-xs text-[#333] hover:text-[#888] disabled:opacity-20 transition-colors flex items-center gap-1"
               >
                 <PlusIcon className="h-3.5 w-3.5" />
                 {t('deploy.addEnvVar')}
               </button>
             </div>
             {envVars.length === 0 && (
-              <p className="font-mono text-xs text-[#2a2a2a] mt-2">
+              <p className="text-xs text-[#2a2a2a] mt-2">
                 {t('deploy.noEnvVarsHint')}
               </p>
             )}
@@ -528,7 +534,7 @@ const DeployApplication: React.FC = () => {
         {/* Bottom status bar */}
         <div className="flex items-center justify-between px-6 py-2 border-t border-[#1a1a1a] bg-[#0d0d0d]">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs text-[#2a2a2a]">
+            <span className="text-xs text-[#2a2a2a]">
               {form.name ? <span className="text-[#555]">{form.name}</span> : t('deploy.unnamed')}
               <span className="text-[#222]"> · </span>
               <span className="text-[#333]">{APP_CONFIGS[appType].label}</span>
@@ -537,12 +543,12 @@ const DeployApplication: React.FC = () => {
           </div>
           <div className="flex items-center gap-3">
             {loading && (
-              <span className="font-mono text-xs text-[#444] flex items-center gap-1.5">
+              <span className="text-xs text-[#444] flex items-center gap-1.5">
                 <ArrowPathIcon className="h-3 w-3 animate-spin" />
                 {t('deploy.deployingStatus')}
               </span>
             )}
-            <span className="font-mono text-xs text-[#2a2a2a]">
+            <span className="text-xs text-[#2a2a2a]">
               {envVars.length > 0 && t('deploy.envCount', { count: envVars.length })}
             </span>
           </div>
@@ -554,7 +560,7 @@ const DeployApplication: React.FC = () => {
         <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 flex flex-col gap-2 items-center pointer-events-none">
           {error && (
             <div className="pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-lg
-              bg-[#0a0a0a] border border-[#2a1a1a] shadow-xl text-xs font-mono text-red-400">
+              bg-[#0a0a0a] border border-[#2a1a1a] shadow-xl text-xs text-red-400">
               <ExclamationCircleIcon className="h-4 w-4 shrink-0" />
               <span>{error}</span>
               <button type="button" onClick={() => setError('')} className="ml-1 text-[#444] hover:text-red-400">
@@ -564,7 +570,7 @@ const DeployApplication: React.FC = () => {
           )}
           {success && (
             <div className="pointer-events-auto flex items-center gap-2 px-3 py-2 rounded-lg
-              bg-[#0a0a0a] border border-[#1a2a1a] shadow-xl text-xs font-mono text-green-400">
+              bg-[#0a0a0a] border border-[#1a2a1a] shadow-xl text-xs text-green-400">
               <CheckCircleIcon className="h-4 w-4 shrink-0" />
               <span>{success}</span>
             </div>

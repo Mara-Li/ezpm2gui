@@ -11,11 +11,11 @@ interface PageHeaderProps {
 const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle, actions }) => (
   <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#1e1e1e]">
     <div>
-      <h1 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em] leading-tight">
+      <h1 className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] leading-tight">
         ▸ {title}
       </h1>
       {subtitle && (
-        <p className="text-[12px] font-mono text-[#555] mt-0.5">{subtitle}</p>
+        <p className="text-[12px] text-[#555] mt-0.5">{subtitle}</p>
       )}
     </div>
     {actions && (

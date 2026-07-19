@@ -23,9 +23,11 @@ interface ConfigData {
 }
 
 // @group Utilities : Reusable input/label primitives
-const inputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
-const labelCls = 'text-[12px] font-mono text-[#888] mb-1 block';
-const helpCls  = 'text-[11px] font-mono text-[#555] mt-0.5';
+const inputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
+// Same as inputCls but monospace — for fields holding technical/code values (paths, env vars)
+const monoInputCls = 'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
+const labelCls = 'text-[12px] text-[#888] mb-1 block';
+const helpCls  = 'text-[11px] text-[#555] mt-0.5';
 const sectionCls = 'bg-[#111] border border-[#1e1e1e] rounded-sm p-4';
 
 // @group ProcessConfiguration : Form for editing a PM2 process configuration
@@ -111,14 +113,14 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
   // @group Render : Loading and error states
   if (loading) {
     return (
-      <div className="font-mono text-xs text-[#555] p-4">
+      <div className="text-xs text-[#555] p-4">
         {t('processConfig.loading')}
       </div>
     );
   }
   if (!config) {
     return (
-      <div className="font-mono text-xs text-[#ef4444] p-4">
+      <div className="text-xs text-[#ef4444] p-4">
         {t('processConfig.notFound')}
       </div>
     );
@@ -131,7 +133,7 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-mono text-xs font-semibold text-[#e8e8e8] tracking-[0.15em] uppercase">
+          <h1 className="text-xs font-semibold text-[#e8e8e8] tracking-[0.15em] uppercase">
             ▸ {t('processConfig.title')}
           </h1>
           <p className="font-mono text-[12px] text-[#555] mt-0.5">
@@ -142,13 +144,13 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
 
       {/* Inline feedback banners */}
       {error && (
-        <div className="bg-[#111] border border-[#ef4444]/40 rounded-sm px-3 py-2 font-mono text-[12px] text-[#ef4444] flex items-center justify-between">
+        <div className="bg-[#111] border border-[#ef4444]/40 rounded-sm px-3 py-2 text-[12px] text-[#ef4444] flex items-center justify-between">
           <span>{error}</span>
           <button onClick={() => setError('')} className="text-[#555] hover:text-[#888] ml-4">✕</button>
         </div>
       )}
       {success && (
-        <div className="bg-[#111] border border-[#22c55e]/40 rounded-sm px-3 py-2 font-mono text-[12px] text-[#22c55e] flex items-center justify-between">
+        <div className="bg-[#111] border border-[#22c55e]/40 rounded-sm px-3 py-2 text-[12px] text-[#22c55e] flex items-center justify-between">
           <span>{success}</span>
           <button onClick={() => setSuccess('')} className="text-[#555] hover:text-[#888] ml-4">✕</button>
         </div>
@@ -156,7 +158,7 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
 
       {/* General settings section */}
       <div className={sectionCls}>
-        <p className="font-mono text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
+        <p className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
           general
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -174,7 +176,7 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
           <div>
             <label className={labelCls}>{t('processConfig.scriptPath')}</label>
             <input
-              className={inputCls}
+              className={monoInputCls}
               name="script"
               value={config.script}
               onChange={handleInputChange}
@@ -184,7 +186,7 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
           <div className="sm:col-span-2">
             <label className={labelCls}>{t('processConfig.workingDir')}</label>
             <input
-              className={inputCls}
+              className={monoInputCls}
               name="cwd"
               value={config.cwd}
               onChange={handleInputChange}
@@ -238,7 +240,7 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
               onChange={handleInputChange}
               className="accent-[#22c55e]"
             />
-            <span className="font-mono text-[12px] text-[#888]">{t('processConfig.autoRestart')}</span>
+            <span className="text-[12px] text-[#888]">{t('processConfig.autoRestart')}</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input
@@ -248,14 +250,14 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
               onChange={handleInputChange}
               className="accent-[#22c55e]"
             />
-            <span className="font-mono text-[12px] text-[#888]">{t('processConfig.watchChanges')}</span>
+            <span className="text-[12px] text-[#888]">{t('processConfig.watchChanges')}</span>
           </label>
         </div>
       </div>
 
       {/* Environment variables section */}
       <div className={sectionCls}>
-        <p className="font-mono text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
+        <p className="text-[11px] text-[#555] uppercase tracking-[0.15em] mb-3">
           {t('processConfig.envVars')}
         </p>
 
@@ -263,18 +265,18 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
           {envKeys.map(key => (
             <div key={key} className="flex items-center gap-2">
               <input
-                className={`${inputCls} w-1/3 opacity-50`}
+                className={`${monoInputCls} w-1/3 opacity-50`}
                 value={key}
                 readOnly
               />
               <input
-                className={`${inputCls} flex-1`}
+                className={`${monoInputCls} flex-1`}
                 value={config.env[key]}
                 onChange={(e) => handleEnvChange(key, e.target.value)}
               />
               <button
                 onClick={() => removeEnvVar(key)}
-                className="font-mono text-[12px] text-[#555] hover:text-[#ef4444] px-2 py-1.5 border border-[#1e1e1e] rounded-sm transition-colors shrink-0"
+                className="text-[12px] text-[#555] hover:text-[#ef4444] px-2 py-1.5 border border-[#1e1e1e] rounded-sm transition-colors shrink-0"
               >
                 {t('processConfig.remove')}
               </button>
@@ -285,20 +287,20 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
         {/* Add new env var */}
         <div className="flex items-center gap-2 mt-3 pt-3 border-t border-[#1e1e1e]">
           <input
-            className={`${inputCls} w-1/3`}
+            className={`${monoInputCls} w-1/3`}
             placeholder={t('processConfig.newKey')}
             value={newEnvKey}
             onChange={(e) => setNewEnvKey(e.target.value)}
           />
           <input
-            className={`${inputCls} flex-1`}
+            className={`${monoInputCls} flex-1`}
             placeholder={t('processConfig.newValue')}
             value={newEnvValue}
             onChange={(e) => setNewEnvValue(e.target.value)}
           />
           <button
             onClick={addNewEnvVar}
-            className="font-mono text-[12px] text-[#888] hover:text-[#e8e8e8] px-3 py-1.5 border border-[#1e1e1e] hover:border-[#333] rounded-sm transition-colors shrink-0"
+            className="text-[12px] text-[#888] hover:text-[#e8e8e8] px-3 py-1.5 border border-[#1e1e1e] hover:border-[#333] rounded-sm transition-colors shrink-0"
           >
             + add
           </button>
@@ -309,13 +311,13 @@ const ProcessConfiguration: React.FC<ConfigurationProps> = ({ procId: propProcId
       <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => navigate('/processes')}
-          className="font-mono text-xs text-[#555] hover:text-[#888] px-4 py-1.5 border border-[#1e1e1e] hover:border-[#333] rounded-sm transition-colors"
+          className="text-xs text-[#555] hover:text-[#888] px-4 py-1.5 border border-[#1e1e1e] hover:border-[#333] rounded-sm transition-colors"
         >
           {t('common.cancel')}
         </button>
         <button
           onClick={saveConfig}
-          className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-white transition-colors"
+          className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-white transition-colors"
         >
           {t('processConfig.saveConfig')}
         </button>

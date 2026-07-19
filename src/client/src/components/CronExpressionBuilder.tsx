@@ -129,13 +129,13 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
   return (
     <div className="space-y-3">
       {/* Section title */}
-      <p className="text-[12px] font-mono font-bold text-[#888] uppercase tracking-[0.1em]">
+      <p className="text-[12px] font-bold text-[#888] uppercase tracking-[0.1em]">
         {t('cronJobs.cronSchedule')}
       </p>
 
       {/* @group Rendering : Preset buttons */}
       <div>
-        <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.1em] mb-1.5 block">
+        <span className="text-[11px] text-[#555] uppercase tracking-[0.1em] mb-1.5 block">
           {t('cronJobs.usePreset')}
         </span>
         <div className="flex flex-wrap gap-1">
@@ -147,7 +147,7 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
                 type="button"
                 onClick={() => handlePreset(expr, label)}
                 className={[
-                  'text-[11px] font-mono border px-2 py-0.5 rounded-sm transition-colors',
+                  'text-[11px] border px-2 py-0.5 rounded-sm transition-colors',
                   isActive
                     ? 'border-[#22c55e]/40 text-[#22c55e] bg-[#022c00]'
                     : 'border-[#1e1e1e] text-[#555] hover:border-[#333] hover:text-[#888]',
@@ -162,7 +162,7 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
 
       {/* @group Rendering : Direct expression input + preview */}
       <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3 space-y-2">
-        <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.1em] block">
+        <span className="text-[11px] text-[#555] uppercase tracking-[0.1em] block">
           Cron Expression
         </span>
         <input
@@ -176,22 +176,22 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
           ].join(' ')}
         />
         {validation.valid && validation.description && (
-          <p className="text-[12px] font-mono text-[#888]">{validation.description}</p>
+          <p className="text-[12px] text-[#888]">{validation.description}</p>
         )}
         {!validation.valid && validation.error && (
-          <p className="text-[12px] font-mono text-[#ef4444]">{validation.error}</p>
+          <p className="text-[12px] text-[#ef4444]">{validation.error}</p>
         )}
       </div>
 
       {/* @group Rendering : Visual field builder */}
       <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
-        <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.1em] mb-2 block">
+        <span className="text-[11px] text-[#555] uppercase tracking-[0.1em] mb-2 block">
           {t('cronJobs.buildVisually')}
         </span>
         <div className="grid grid-cols-5 gap-2">
           {CRON_FIELDS.map(({ key, labelKey, placeholder, hint }) => (
             <div key={key}>
-              <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.1em] mb-1 block">
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.1em] mb-1 block">
                 {t(labelKey)}
               </label>
               <input
@@ -201,7 +201,7 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
                 onChange={(e) => handlePartChange(key, e.target.value)}
                 placeholder={placeholder}
               />
-              <p className="text-[11px] font-mono text-[#555] mt-0.5">{hint}</p>
+              <p className="text-[11px] text-[#555] mt-0.5">{hint}</p>
             </div>
           ))}
         </div>
@@ -210,8 +210,8 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
       {/* @group Rendering : Next run display */}
       {validation.valid && validation.nextRun && (
         <div className="flex items-center gap-2">
-          <span className="text-[12px] font-mono text-[#555]">{t('cronJobs.nextRunLabel')}</span>
-          <span className="font-mono text-[12px] text-[#22c55e] bg-[#022c00] border border-[#22c55e]/20 px-2 py-0.5 rounded-sm">
+          <span className="text-[12px] text-[#555]">{t('cronJobs.nextRunLabel')}</span>
+          <span className="text-[12px] text-[#22c55e] bg-[#022c00] border border-[#22c55e]/20 px-2 py-0.5 rounded-sm">
             {new Date(validation.nextRun).toLocaleString()}
           </span>
         </div>
@@ -219,10 +219,10 @@ const CronExpressionBuilder: React.FC<CronExpressionBuilderProps> = ({
 
       {/* @group Rendering : Format help text */}
       <div className="bg-[#0a0a0a] border border-[#1e1e1e] rounded-sm px-3 py-2 space-y-1">
-        <p className="text-[11px] font-mono text-[#555]">
+        <p className="text-[11px] text-[#555]">
           <span className="text-[#888]">format:</span> minute hour day-of-month month day-of-week
         </p>
-        <p className="text-[11px] font-mono text-[#555]">
+        <p className="text-[11px] text-[#555]">
           <span className="text-[#888]">syntax:</span> * = any &nbsp; */5 = every 5 &nbsp; 1-5 = range &nbsp; 1,3,5 = list
         </p>
       </div>

@@ -15,13 +15,13 @@ interface ConfirmationDialogProps {
 // @group Utilities : Derive confirm button classes from dialog type
 const confirmButtonClass = (type: 'danger' | 'warning' | 'info'): string => {
   if (type === 'warning') {
-    return 'bg-[#1a0e00] border border-[#f59e0b]/30 text-[#f59e0b] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#261500] transition-colors';
+    return 'bg-[#1a0e00] border border-[#f59e0b]/30 text-[#f59e0b] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#261500] transition-colors';
   }
   if (type === 'info') {
-    return 'bg-[#0d1a0d] border border-[#22c55e]/30 text-[#22c55e] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#0f220f] transition-colors';
+    return 'bg-[#0d1a0d] border border-[#22c55e]/30 text-[#22c55e] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#0f220f] transition-colors';
   }
   // danger (default)
-  return 'bg-[#7f1d1d] border border-[#ef4444]/30 text-[#ef4444] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#991b1b] transition-colors';
+  return 'bg-[#7f1d1d] border border-[#ef4444]/30 text-[#ef4444] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#991b1b] transition-colors';
 };
 
 // @group Utilities : Derive title color from dialog type
@@ -57,21 +57,21 @@ const ConfirmationDialog: React.FC<ConfirmationDialogProps> = ({
       >
         {/* Title bar */}
         <div className={`px-4 pt-4 pb-2 border-l-2 ${type === 'danger' ? 'border-[#ef4444]' : type === 'warning' ? 'border-[#f59e0b]' : 'border-[#22c55e]'}`}>
-          <p className={`text-[13px] font-mono font-bold uppercase tracking-[0.1em] ${titleClass(type)}`}>
+          <p className={`text-[13px] font-bold uppercase tracking-[0.1em] ${titleClass(type)}`}>
             {title}
           </p>
         </div>
 
         {/* Message */}
         <div className="px-4 py-3">
-          <p className="text-[12px] font-mono text-[#888] leading-relaxed">{message}</p>
+          <p className="text-[12px] text-[#888] leading-relaxed">{message}</p>
         </div>
 
         {/* Actions */}
         <div className="flex items-center justify-end gap-2 px-4 pb-4">
           <button
             onClick={onCancel}
-            className="border border-[#333] text-[#888] font-mono text-xs px-4 py-1.5 rounded-sm hover:border-[#555] hover:text-[#aaa] transition-colors"
+            className="border border-[#333] text-[#888] text-xs px-4 py-1.5 rounded-sm hover:border-[#555] hover:text-[#aaa] transition-colors"
           >
             {cancelLabel}
           </button>

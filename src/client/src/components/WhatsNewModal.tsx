@@ -116,14 +116,14 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
+                  <h2 className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em]">
                     {t('whatsNew.title')}
                   </h2>
-                  <span className="text-[11px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-[#16003a] text-[#a78bfa] border border-[#a78bfa]/25">
+                  <span className="text-[11px] font-bold px-1.5 py-0.5 rounded-sm bg-[#16003a] text-[#a78bfa] border border-[#a78bfa]/25">
                     v{APP_RELEASE_VERSION}
                   </span>
                 </div>
-                <p className="text-[12px] font-mono text-[#555] mt-0.5">{APP_RELEASE_SUBTITLE}</p>
+                <p className="text-[12px] text-[#555] mt-0.5">{APP_RELEASE_SUBTITLE}</p>
               </div>
             </div>
             <button
@@ -145,10 +145,10 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
                   <Icon className={`h-4 w-4 ${item.iconColor}`} />
                 </div>
                 <div>
-                  <p className="text-[13px] font-mono font-semibold text-[#e8e8e8] leading-tight">
+                  <p className="text-[13px] font-semibold text-[#e8e8e8] leading-tight">
                     {t(item.titleKey)}
                   </p>
-                  <p className="text-[12px] font-mono text-[#555] leading-relaxed mt-0.5">
+                  <p className="text-[12px] text-[#555] leading-relaxed mt-0.5">
                     {t(item.descKey)}
                   </p>
                 </div>
@@ -162,14 +162,14 @@ const WhatsNewModal: React.FC<WhatsNewModalProps> = ({ open, onClose }) => {
           <Link
             to="/whats-new"
             onClick={onClose}
-            className="text-[12px] font-mono text-[#555] hover:text-[#888] flex items-center gap-1 transition-colors"
+            className="text-[12px] text-[#555] hover:text-[#888] flex items-center gap-1 transition-colors"
           >
             {t('whatsNew.fullChangelog')}
             <ArrowRightIcon className="h-3.5 w-3.5" />
           </Link>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-sm bg-[#e8e8e8] text-[#0a0a0a] text-xs font-mono font-semibold hover:bg-[#ccc] transition-colors"
+            className="px-4 py-1.5 rounded-sm bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold hover:bg-[#ccc] transition-colors"
           >
             {t('whatsNew.gotIt')}
           </button>

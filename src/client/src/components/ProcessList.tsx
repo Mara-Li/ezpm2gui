@@ -83,16 +83,16 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
       <table className="min-w-full">
         <thead className="bg-[#0d0d0d]">
           <tr>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-8">#</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em]">{t('common.name')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-24">{t('common.status')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.pid')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-32">{t('common.cpu')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-24">{t('common.memory')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-20">{t('common.uptime')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.restarts')}</th>
-            <th className="px-3 py-1.5 text-left text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.mode')}</th>
-            <th className="px-3 py-1.5 text-right text-[11px] font-mono font-bold text-[#444] uppercase tracking-[0.15em] w-32">{t('common.actions')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-8">#</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em]">{t('common.name')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-24">{t('common.status')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.pid')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-32">{t('common.cpu')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-24">{t('common.memory')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-20">{t('common.uptime')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.restarts')}</th>
+            <th className="px-3 py-1.5 text-left text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-16">{t('common.mode')}</th>
+            <th className="px-3 py-1.5 text-right text-[11px] font-bold text-[#444] uppercase tracking-[0.15em] w-32">{t('common.actions')}</th>
           </tr>
         </thead>
 
@@ -104,7 +104,7 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
               {multipleNS && (
                 <tr className="bg-[#0d0d0d]">
                   <td colSpan={10} className="px-3 py-1">
-                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-mono border rounded-sm ${nsColor(ns)}`}>
+                    <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] border rounded-sm ${nsColor(ns)}`}>
                       <span className="opacity-50">#</span>
                       {ns}
                       <span className="opacity-40 font-normal ml-1">
@@ -135,9 +135,9 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
                     {/* Name + namespace inline badge */}
                     <td className="px-3 py-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-[13px] font-mono font-semibold text-[#e8e8e8]">{process.name}</span>
+                        <span className="text-[13px] font-semibold text-[#e8e8e8]">{process.name}</span>
                         {!multipleNS && ns !== 'default' && (
-                          <span className={`inline-flex items-center px-1.5 py-0 text-[11px] font-mono border rounded-sm ${nsColor(ns)}`}>{ns}</span>
+                          <span className={`inline-flex items-center px-1.5 py-0 text-[11px] border rounded-sm ${nsColor(ns)}`}>{ns}</span>
                         )}
                       </div>
                       <p className="text-[11px] font-mono text-[#444] truncate max-w-xs mt-0.5">
@@ -147,7 +147,7 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
 
                     {/* Status */}
                     <td className="px-3 py-2">
-                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-mono font-bold border rounded-sm ${
+                      <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 text-[11px] font-bold border rounded-sm ${
                         isOnline  ? 'text-[#22c55e] border-[#22c55e]/30 bg-[#022c00]' :
                         isStopped ? 'text-[#ef4444] border-[#ef4444]/30 bg-[#1a0000]'
                                   : 'text-[#f59e0b] border-[#f59e0b]/30 bg-[#1a0e00]'
@@ -175,7 +175,7 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
                             style={{ width: `${Math.min(cpu, 100)}%` }}
                           />
                         </div>
-                        <span className="text-[12px] font-mono text-[#888] tabular-nums w-7">
+                        <span className="text-[12px] text-[#888] tabular-nums w-7">
                           {process.monit ? `${cpu}%` : '—'}
                         </span>
                       </div>
@@ -183,21 +183,21 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
 
                     {/* Memory */}
                     <td className="px-3 py-2">
-                      <span className="text-[12px] font-mono text-[#888]">
+                      <span className="text-[12px] text-[#888]">
                         {process.monit ? formatMemory(process.monit.memory) : '—'}
                       </span>
                     </td>
 
                     {/* Uptime */}
                     <td className="px-3 py-2">
-                      <span className="text-[12px] font-mono text-[#555]">
+                      <span className="text-[12px] text-[#555]">
                         {isOnline ? formatUptime(process.pm2_env.pm_uptime) : '—'}
                       </span>
                     </td>
 
                     {/* Restarts */}
                     <td className="px-3 py-2">
-                      <span className={`text-[12px] font-mono tabular-nums ${
+                      <span className={`text-[12px] tabular-nums ${
                         process.pm2_env.restart_time > 10
                           ? 'text-[#ef4444]'
                           : process.pm2_env.restart_time > 3
@@ -210,7 +210,7 @@ const ProcessTable: React.FC<ProcessTableProps> = ({ processes, onAction }) => {
 
                     {/* Exec mode */}
                     <td className="px-3 py-2">
-                      <span className={`inline-flex items-center px-1.5 py-0 text-[11px] font-mono border rounded-sm ${
+                      <span className={`inline-flex items-center px-1.5 py-0 text-[11px] border rounded-sm ${
                         execMode === 'cluster'
                           ? 'text-[#a78bfa] border-[#a78bfa]/30 bg-[#16003a]'
                           : 'text-[#555] border-[#222]'
@@ -296,10 +296,10 @@ const ProcessList: React.FC<ProcessListProps> = ({ processes, onAction }) => {
         <div className="mx-auto flex items-center justify-center h-18 w-18 mb-6">
           <InformationCircleIcon className="h-9 w-9 text-[#333]" />
         </div>
-        <h3 className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-2">
+        <h3 className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-2">
           {t('processList.noProcessesTitle')}
         </h3>
-        <p className="text-[12px] font-mono text-[#555] max-w-sm mx-auto">
+        <p className="text-[12px] text-[#555] max-w-sm mx-auto">
           {t('processList.noProcessesDesc')}
         </p>
       </div>
@@ -313,15 +313,15 @@ const ProcessList: React.FC<ProcessListProps> = ({ processes, onAction }) => {
       {/* ── Application Processes ── */}
       <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm">
         <div className="px-4 py-2 border-b border-[#1e1e1e] flex items-center justify-between">
-          <h2 className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">
+          <h2 className="text-[11px] font-bold text-[#555] uppercase tracking-[0.15em]">
             {t('processList.appProcesses')}
           </h2>
-          <span className="text-[12px] font-mono text-[#555] bg-[#111] border border-[#1e1e1e] px-2 py-0.5 rounded-sm">
+          <span className="text-[12px] text-[#555] bg-[#111] border border-[#1e1e1e] px-2 py-0.5 rounded-sm">
             {appProcesses.length}
           </span>
         </div>
         {appProcesses.length === 0 ? (
-          <div className="px-4 py-8 text-center text-[12px] font-mono text-[#444]">
+          <div className="px-4 py-8 text-center text-[12px] text-[#444]">
             {t('processList.noAppProcesses')}
           </div>
         ) : (
@@ -333,8 +333,8 @@ const ProcessList: React.FC<ProcessListProps> = ({ processes, onAction }) => {
       {moduleProcesses.length > 0 && (
         <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-sm">
           <div className="px-4 py-2 border-b border-[#1e1e1e] flex items-center justify-between">
-            <h2 className="text-[11px] font-mono font-bold text-[#555] uppercase tracking-[0.15em]">PM2 Modules</h2>
-            <span className="text-[12px] font-mono text-[#a78bfa] bg-[#16003a] border border-[#a78bfa]/30 px-2 py-0.5 rounded-sm">
+            <h2 className="text-[11px] font-bold text-[#555] uppercase tracking-[0.15em]">PM2 Modules</h2>
+            <span className="text-[12px] text-[#a78bfa] bg-[#16003a] border border-[#a78bfa]/30 px-2 py-0.5 rounded-sm">
               {moduleProcesses.length}
             </span>
           </div>

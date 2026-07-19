@@ -87,7 +87,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({
   return (
     <div>
       {/* @group Toolbar : Label row */}
-      <div className="mb-1 font-mono text-[12px] font-semibold text-[#888] uppercase tracking-widest">
+      <div className="mb-1 text-[12px] font-semibold text-[#888] uppercase tracking-widest">
         {t('scriptEditor.title')}
       </div>
 
@@ -106,7 +106,7 @@ const ScriptEditor: React.FC<ScriptEditorProps> = ({
       </div>
 
       {/* @group Footer : Tip text */}
-      <div className="mt-1 font-mono text-[12px] text-[#555]">
+      <div className="mt-1 text-[12px] text-[#555]">
         {t('scriptEditor.tip')}
       </div>
     </div>

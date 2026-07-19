@@ -182,7 +182,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
       {/* ── Process Management ── */}
       <nav className="px-1.5 py-2 overflow-x-hidden shrink-0">
         {!collapsed && (
-          <p className="px-2 mb-1 font-mono font-bold text-[11px] text-[#333] uppercase tracking-[0.2em] whitespace-nowrap">
+          <p className="px-2 mb-1 font-bold text-[11px] text-[#333] uppercase tracking-[0.2em] whitespace-nowrap">
             {t('nav.management')}
           </p>
         )}
@@ -198,7 +198,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                 onClick={handleItemClick}
                 title={collapsed ? item.label : undefined}
                 className={`
-                  flex items-center gap-2 font-mono text-[13px]
+                  flex items-center gap-2 text-[13px]
                   transition-colors duration-100
                   ${collapsed ? 'px-0 py-1.5 justify-center w-full' : 'px-2 py-1.5'}
                   ${
@@ -224,7 +224,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
       {/* ── Process Tree ── */}
       {!collapsed && (
         <div className="flex-1 min-h-0 flex flex-col">
-          <p className="px-3 pt-2 pb-1 font-mono text-[11px] text-[#333] uppercase tracking-[0.2em] shrink-0">
+          <p className="px-3 pt-2 pb-1 text-[11px] text-[#333] uppercase tracking-[0.2em] shrink-0">
             {t('sidebar.processes')}
           </p>
           <div className="flex-1 overflow-y-auto">
@@ -253,7 +253,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                         ? <CloudIcon className="h-4 w-4 text-[#22d3ee] shrink-0" />
                         : <ServerIcon className="h-4 w-4 text-[#22c55e] shrink-0" />
                       }
-                      <span className="flex-1 font-mono text-[13px] text-[#888] truncate">
+                      <span className="flex-1 text-[13px] text-[#888] truncate">
                         {group.serverName}
                       </span>
                       {group.isRemote && (
@@ -265,11 +265,11 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                     {expanded && (
                       <div className="pb-0.5">
                         {!group.connected ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] italic">{t('sidebar.notConnected')}</p>
+                          <p className="pl-8 pr-2 py-1 text-[12px] text-[#444] italic">{t('sidebar.notConnected')}</p>
                         ) : group.loading ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] animate-pulse">{t('sidebar.loading')}</p>
+                          <p className="pl-8 pr-2 py-1 text-[12px] text-[#444] animate-pulse">{t('sidebar.loading')}</p>
                         ) : group.processes.length === 0 ? (
-                          <p className="pl-8 pr-2 py-1 font-mono text-[12px] text-[#444] italic">{t('sidebar.noProcesses')}</p>
+                          <p className="pl-8 pr-2 py-1 text-[12px] text-[#444] italic">{t('sidebar.noProcesses')}</p>
                         ) : (
                           group.processes.map(proc => {
                             const remoteMatch = currentPath.startsWith('/logs/remote/');
@@ -299,7 +299,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
                                         : 'bg-[#555]'
                                   }`} />
                                   <CpuChipIcon className="h-3.5 w-3.5 shrink-0 opacity-40" />
-                                  <span className={`font-mono text-[12px] truncate ${active ? 'text-[#e8e8e8]' : 'text-[#666]'}`}>
+                                  <span className={`text-[12px] truncate ${active ? 'text-[#e8e8e8]' : 'text-[#666]'}`}>
                                     {proc.name}
                                   </span>
                                 </button>

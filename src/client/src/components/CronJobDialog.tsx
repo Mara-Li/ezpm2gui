@@ -29,11 +29,16 @@ const DEFAULT_FORM = {
 
 // @group Utilities : Shared input class string
 const INPUT_CLS =
+  'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
+
+// Same as INPUT_CLS but monospace — for fields holding technical/code values
+// (file paths, CLI arguments, env vars) rather than free-form prose.
+const MONO_INPUT_CLS =
   'bg-[#0d0d0d] border border-[#1e1e1e] text-[#e8e8e8] font-mono text-xs rounded-sm px-2.5 py-1.5 focus:border-[#555] focus:outline-none w-full';
 
-const LABEL_CLS = 'text-[12px] font-mono text-[#888] mb-1 block';
-const HELP_CLS = 'text-[11px] font-mono text-[#555] mt-0.5';
-const SECTION_TITLE_CLS = 'text-[12px] font-mono font-bold text-[#888] uppercase tracking-[0.1em] mb-3';
+const LABEL_CLS = 'text-[12px] text-[#888] mb-1 block';
+const HELP_CLS = 'text-[11px] text-[#555] mt-0.5';
+const SECTION_TITLE_CLS = 'text-[12px] font-bold text-[#888] uppercase tracking-[0.1em] mb-3';
 
 // @group Component : CronJobDialog modal
 const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, editJob }) => {
@@ -136,11 +141,11 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
         onClick={(e) => e.stopPropagation()}
       >
         {/* @group Rendering : Dialog title bar */}
-        <div className="text-[13px] font-mono font-bold text-[#e8e8e8] uppercase tracking-[0.1em] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between shrink-0">
+        <div className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between shrink-0">
           <span>{editJob ? t('cronJobs.editJob') : t('cronJobs.createJob')}</span>
           <button
             onClick={onClose}
-            className="text-[#555] hover:text-[#888] font-mono text-xs leading-none"
+            className="text-[#555] hover:text-[#888] text-xs leading-none"
             aria-label="Close"
           >
             ✕
@@ -184,7 +189,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                     ].join(' ')}
                   />
                 </button>
-                <span className="text-[12px] font-mono text-[#888]">
+                <span className="text-[12px] text-[#888]">
                   {formData.enabled ? 'Enabled' : 'Disabled'}
                 </span>
               </div>
@@ -239,7 +244,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                     <label className={LABEL_CLS}>{t('cronJobs.scriptPath')} *</label>
                     <input
                       type="text"
-                      className={INPUT_CLS}
+                      className={MONO_INPUT_CLS}
                       value={formData.scriptPath}
                       onChange={(e) => setField('scriptPath', e.target.value)}
                       placeholder="/path/to/script.js"
@@ -250,7 +255,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                     <label className={LABEL_CLS}>{t('cronJobs.workingDir')}</label>
                     <input
                       type="text"
-                      className={INPUT_CLS}
+                      className={MONO_INPUT_CLS}
                       value={formData.cwd}
                       onChange={(e) => setField('cwd', e.target.value)}
                       placeholder="/path/to/working/directory"
@@ -289,7 +294,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
             <div className="flex gap-2 mb-2">
               <input
                 type="text"
-                className={INPUT_CLS}
+                className={MONO_INPUT_CLS}
                 placeholder={t('cronJobs.addArgument')}
                 value={newArg}
                 onChange={(e) => setNewArg(e.target.value)}
@@ -298,7 +303,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
               <button
                 type="button"
                 onClick={addArg}
-                className="border border-[#333] text-[#888] font-mono text-xs px-3 py-1.5 rounded-sm hover:border-[#555] shrink-0"
+                className="border border-[#333] text-[#888] text-xs px-3 py-1.5 rounded-sm hover:border-[#555] shrink-0"
               >
                 +
               </button>
@@ -333,14 +338,14 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
             <div className="flex gap-2 mb-2">
               <input
                 type="text"
-                className={INPUT_CLS}
+                className={MONO_INPUT_CLS}
                 placeholder={t('common.key')}
                 value={newEnvKey}
                 onChange={(e) => setNewEnvKey(e.target.value)}
               />
               <input
                 type="text"
-                className={INPUT_CLS}
+                className={MONO_INPUT_CLS}
                 placeholder={t('common.value')}
                 value={newEnvValue}
                 onChange={(e) => setNewEnvValue(e.target.value)}
@@ -349,7 +354,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
               <button
                 type="button"
                 onClick={addEnv}
-                className="border border-[#333] text-[#888] font-mono text-xs px-3 py-1.5 rounded-sm hover:border-[#555] shrink-0"
+                className="border border-[#333] text-[#888] text-xs px-3 py-1.5 rounded-sm hover:border-[#555] shrink-0"
               >
                 +
               </button>
@@ -366,7 +371,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
                     <button
                       type="button"
                       onClick={() => removeEnv(key)}
-                      className="text-[#555] hover:text-[#ef4444] font-mono text-xs leading-none shrink-0"
+                      className="text-[#555] hover:text-[#ef4444] text-xs leading-none shrink-0"
                     >
                       ×
                     </button>
@@ -383,7 +388,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
             type="button"
             onClick={onClose}
             disabled={saving}
-            className="border border-[#333] text-[#888] font-mono text-xs px-4 py-1.5 rounded-sm hover:border-[#555] disabled:opacity-40"
+            className="border border-[#333] text-[#888] text-xs px-4 py-1.5 rounded-sm hover:border-[#555] disabled:opacity-40"
           >
             {t('common.cancel')}
           </button>
@@ -391,7 +396,7 @@ const CronJobDialog: React.FC<CronJobDialogProps> = ({ open, onClose, onSave, ed
             type="button"
             onClick={handleSubmit}
             disabled={saving || !validation.valid}
-            className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40"
+            className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-1.5 rounded-sm hover:bg-[#ccc] disabled:opacity-40"
           >
             {saving
               ? t('cronJobs.saving')

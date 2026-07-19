@@ -97,7 +97,7 @@ const Sparkline = ({
       ? { display: 'block', width: '100%', height }
       : { display: 'inline-block', width, height, lineHeight: `${height}px` };
     return (
-      <span style={style} className="text-center text-[#555] text-[11px] font-mono">
+      <span style={style} className="text-center text-[#555] text-[11px]">
         —
       </span>
     );
@@ -380,8 +380,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
     label, value, unit, color,
   }: { label: string; value: number; unit: string; color: string }) => (
     <div className="bg-[#111] border border-[#1e1e1e] rounded-sm px-2.5 py-1.5 flex flex-col gap-0.5">
-      <span className="text-[11px] font-mono text-[#555] uppercase tracking-[0.15em]">{label}</span>
-      <span className={`text-[13px] font-mono font-bold ${color}`}>
+      <span className="text-[11px] text-[#555] uppercase tracking-[0.15em]">{label}</span>
+      <span className={`text-[13px] font-bold ${color}`}>
         {value.toFixed(2)}
         <span className="text-[11px] font-normal text-[#555] ml-0.5">{unit}</span>
       </span>
@@ -392,7 +392,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   const TabButton = ({ id, label, icon: Icon }: { id: 'live' | 'history'; label: string; icon: React.ElementType }) => (
     <button
       onClick={() => setTab(id)}
-      className={`flex items-center gap-1.5 px-3 py-1.5 font-mono text-[12px] border-b-2 transition-colors ${
+      className={`flex items-center gap-1.5 px-3 py-1.5 text-[12px] border-b-2 transition-colors ${
         tab === id
           ? 'border-[#22c55e] text-[#e8e8e8]'
           : 'border-transparent text-[#555] hover:text-[#888]'
@@ -404,7 +404,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   );
 
   // @group SelectStyles : CLI-styled select element class
-  const selectCls = `font-mono text-[12px] px-2 py-1.5 rounded-sm border border-[#1e1e1e]
+  const selectCls = `text-[12px] px-2 py-1.5 rounded-sm border border-[#1e1e1e]
     bg-[#111] text-[#e8e8e8]
     focus:outline-none focus:ring-1 focus:ring-[#22c55e] disabled:opacity-40`;
 
@@ -441,7 +441,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             <button
               onClick={fetchHistory}
               disabled={histLoading}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm font-mono text-[12px]
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-sm text-[12px]
                 bg-[#111] border border-[#1e1e1e] text-[#888] hover:text-[#e8e8e8] hover:border-[#333]
                 disabled:opacity-40 transition-colors"
             >
@@ -463,8 +463,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
         processes.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16 text-center">
             <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
-            <p className="text-[12px] font-mono text-[#555]">No processes found</p>
-            <p className="text-[12px] font-mono text-[#444] mt-1">
+            <p className="text-[12px] text-[#555]">No processes found</p>
+            <p className="text-[12px] text-[#444] mt-1">
               Make sure PM2 is running and connected
             </p>
           </div>
@@ -482,7 +482,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               style={{ width: `${splitPct}%` }}
             >
               <div className="px-3 py-2 border-b border-[#1e1e1e] shrink-0">
-                <p className="text-[12px] font-mono text-[#555] uppercase tracking-[0.15em]">Processes</p>
+                <p className="text-[12px] text-[#555] uppercase tracking-[0.15em]">Processes</p>
               </div>
               <div className="overflow-y-auto flex-1">
                 {processes.map(proc => {
@@ -504,7 +504,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                           proc.pm2_env.status === 'online' ? 'bg-[#22c55e]' :
                           proc.pm2_env.status === 'errored' ? 'bg-[#ef4444]' : 'bg-[#444]'
                         }`} />
-                        <span className="text-[13px] font-mono text-[#e8e8e8] truncate flex-1 min-w-0">
+                        <span className="text-[13px] text-[#e8e8e8] truncate flex-1 min-w-0">
                           {proc.name}
                         </span>
 
@@ -550,16 +550,16 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
 
                       {/* CPU + MEM sparklines in one row */}
                       <div className="flex items-center gap-2 pointer-events-none">
-                        <span className="text-[11px] font-mono text-[#555] shrink-0">CPU</span>
-                        <span className={`text-[11px] font-mono tabular-nums shrink-0 ${
+                        <span className="text-[11px] text-[#555] shrink-0">CPU</span>
+                        <span className={`text-[11px] tabular-nums shrink-0 ${
                           proc.monit.cpu >= 80 ? 'text-[#ef4444]' :
                           proc.monit.cpu >= 50 ? 'text-[#f59e0b]' : 'text-[#22c55e]'
                         }`}>{proc.monit.cpu.toFixed(1)}%</span>
                         <div className="flex-1 min-w-0">
                           <Sparkline values={procBuf.map(p => p.cpu)} color={isSelected ? '#22c55e' : '#333'} max={100} height={20} fluid />
                         </div>
-                        <span className="text-[11px] font-mono text-[#555] shrink-0">MEM</span>
-                        <span className="text-[11px] font-mono tabular-nums shrink-0 text-[#22d3ee]">{fmtMem(proc.monit.memory)}</span>
+                        <span className="text-[11px] text-[#555] shrink-0">MEM</span>
+                        <span className="text-[11px] tabular-nums shrink-0 text-[#22d3ee]">{fmtMem(proc.monit.memory)}</span>
                         <div className="flex-1 min-w-0">
                           <Sparkline values={procBuf.map(p => p.memMb)} color={isSelected ? '#22d3ee' : '#333'} height={20} fluid />
                         </div>
@@ -580,9 +580,9 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             <div className="flex flex-col gap-3 min-w-0 flex-1 bg-[#0a0a0a] pl-3">
               {/* Selected process status bar */}
               {currentProc && (
-                <div className="flex items-center gap-3 font-mono text-[12px] px-1">
+                <div className="flex items-center gap-3 text-[12px] px-1">
                   <span className="text-[#e8e8e8]">{currentProc.name}</span>
-                  <span className={`px-1.5 py-0.5 rounded-sm font-mono text-[11px] ${
+                  <span className={`px-1.5 py-0.5 rounded-sm text-[11px] ${
                     currentProc.pm2_env.status === 'online'
                       ? 'bg-[#0d1f0d] text-[#22c55e] border border-[#22c55e]/30'
                       : 'bg-[#111] text-[#555] border border-[#1e1e1e]'
@@ -590,15 +590,15 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                     {currentProc.pm2_env.status}
                   </span>
                   <span className="text-[#555]">
-                    CPU: <span className={`font-mono ${
+                    CPU: <span className={`${
                       currentProc.monit.cpu >= 80 ? 'text-[#ef4444]' :
                       currentProc.monit.cpu >= 50 ? 'text-[#f59e0b]' : 'text-[#22c55e]'
                     }`}>{currentProc.monit.cpu.toFixed(1)}%</span>
                   </span>
                   <span className="text-[#555]">
-                    Mem: <span className="font-mono text-[#22d3ee]">{fmtMem(currentProc.monit.memory)}</span>
+                    Mem: <span className="text-[#22d3ee]">{fmtMem(currentProc.monit.memory)}</span>
                   </span>
-                  <span className="text-[#444] ml-auto font-mono">
+                  <span className="text-[#444] ml-auto">
                     {livePoints.length} pts · updates every 3s
                   </span>
                 </div>
@@ -608,8 +608,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3 flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="text-[12px] font-mono text-[#888]">CPU Usage</p>
-                    <p className="text-[11px] font-mono text-[#444]">rolling {livePoints.length} pts</p>
+                    <p className="text-[12px] text-[#888]">CPU Usage</p>
+                    <p className="text-[11px] text-[#444]">rolling {livePoints.length} pts</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <StatCard label="Min" value={liveCpuStats.min} unit="%" color="text-[#22c55e]" />
@@ -620,7 +620,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 <div className="h-36">
                   {livePoints.length > 0
                     ? <Line data={liveCpuChart} options={chartOptions('%', 100)} />
-                    : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">
+                    : <div className="h-full flex items-center justify-center text-[12px] text-[#555]">
                         Waiting for data...
                       </div>
                   }
@@ -631,8 +631,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3 flex-1">
                 <div className="flex items-center justify-between mb-2">
                   <div>
-                    <p className="text-[12px] font-mono text-[#888]">Memory Usage</p>
-                    <p className="text-[11px] font-mono text-[#444]">rolling {livePoints.length} pts</p>
+                    <p className="text-[12px] text-[#888]">Memory Usage</p>
+                    <p className="text-[11px] text-[#444]">rolling {livePoints.length} pts</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <StatCard label="Min" value={liveMemStats.min} unit="MB" color="text-[#22c55e]" />
@@ -643,7 +643,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 <div className="h-36">
                   {livePoints.length > 0
                     ? <Line data={liveMemChart} options={chartOptions('MB')} />
-                    : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">
+                    : <div className="h-full flex items-center justify-center text-[12px] text-[#555]">
                         Waiting for data...
                       </div>
                   }
@@ -661,7 +661,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
           {/* Controls */}
           <div className="flex flex-wrap items-end gap-3">
             <div className="flex flex-col gap-0.5">
-              <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">Connection</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Connection</label>
               <select
                 value={selectedConn}
                 onChange={e => setSelectedConn(e.target.value)}
@@ -675,7 +675,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             </div>
 
             <div className="flex flex-col gap-0.5">
-              <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">Process</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Process</label>
               <select
                 value={selectedHistProc}
                 onChange={e => setSelectedHistProc(e.target.value)}
@@ -690,13 +690,13 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             </div>
 
             <div className="flex flex-col gap-0.5">
-              <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">Range</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Range</label>
               <div className="flex gap-1">
                 {TIME_RANGES.map((r, i) => (
                   <button
                     key={r.label}
                     onClick={() => setRangeIdx(i)}
-                    className={`font-mono text-[12px] px-2 py-1 rounded-sm transition-colors ${
+                    className={`text-[12px] px-2 py-1 rounded-sm transition-colors ${
                       rangeIdx === i
                         ? 'bg-[#1a2e1a] border border-[#22c55e]/40 text-[#22c55e]'
                         : 'bg-[#111] border border-[#1e1e1e] text-[#555] hover:text-[#888] hover:border-[#333]'
@@ -709,10 +709,10 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             </div>
 
             <div className="flex flex-col gap-0.5 ml-auto">
-              <label className="text-[11px] font-mono text-[#555] uppercase tracking-[0.12em]">Auto-refresh (30s)</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Auto-refresh (30s)</label>
               <button
                 onClick={() => setAutoRefresh(v => !v)}
-                className={`self-start font-mono text-[12px] px-3 py-1.5 rounded-sm border transition-colors ${
+                className={`self-start text-[12px] px-3 py-1.5 rounded-sm border transition-colors ${
                   autoRefresh
                     ? 'bg-[#0d1f0d] border-[#22c55e]/40 text-[#22c55e]'
                     : 'border-[#1e1e1e] text-[#555] hover:text-[#888] hover:border-[#333]'
@@ -727,14 +727,14 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
           {!selectedConn && (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
-              <p className="text-[12px] font-mono text-[#555]">
+              <p className="text-[12px] text-[#555]">
                 Select a connection to view recorded history
               </p>
-              <p className="text-[12px] font-mono text-[#444] mt-1">
+              <p className="text-[12px] text-[#444] mt-1">
                 Metrics are recorded every 30 seconds while a remote server is connected
               </p>
               {connections.length === 0 && (
-                <p className="text-[12px] font-mono text-[#f59e0b] mt-3">
+                <p className="text-[12px] text-[#f59e0b] mt-3">
                   No data yet — connect a remote server and wait for the first poll cycle
                 </p>
               )}
@@ -743,7 +743,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
 
           {selectedConn && !selectedHistProc && (
             <div className="flex items-center justify-center py-12">
-              <p className="text-[12px] font-mono text-[#555]">
+              <p className="text-[12px] text-[#555]">
                 No processes recorded for this connection yet
               </p>
             </div>
@@ -756,8 +756,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <p className="text-[12px] font-mono text-[#888]">CPU Usage</p>
-                    <p className="text-[11px] font-mono text-[#444]">{histMetrics.length} data points</p>
+                    <p className="text-[12px] text-[#888]">CPU Usage</p>
+                    <p className="text-[11px] text-[#444]">{histMetrics.length} data points</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <StatCard label="Min" value={histCpuStats.min} unit="%" color="text-[#22c55e]" />
@@ -768,7 +768,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 <div className="h-40">
                   {histMetrics.length > 0
                     ? <Line data={histCpuChart} options={chartOptions('%', 100)} />
-                    : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">
+                    : <div className="h-full flex items-center justify-center text-[12px] text-[#555]">
                         No data for selected range
                       </div>
                   }
@@ -779,8 +779,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm p-3">
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <p className="text-[12px] font-mono text-[#888]">Memory Usage</p>
-                    <p className="text-[11px] font-mono text-[#444]">{histMetrics.length} data points</p>
+                    <p className="text-[12px] text-[#888]">Memory Usage</p>
+                    <p className="text-[11px] text-[#444]">{histMetrics.length} data points</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <StatCard label="Min" value={histMemStats.min} unit="MB" color="text-[#22c55e]" />
@@ -791,7 +791,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 <div className="h-40">
                   {histMetrics.length > 0
                     ? <Line data={histMemChart} options={chartOptions('MB')} />
-                    : <div className="h-full flex items-center justify-center text-[12px] font-mono text-[#555]">
+                    : <div className="h-full flex items-center justify-center text-[12px] text-[#555]">
                         No data for selected range
                       </div>
                   }
@@ -801,7 +801,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
               {/* Raw table */}
               <div className="bg-[#111] border border-[#1e1e1e] rounded-sm overflow-hidden">
                 <div className="px-3 py-2 border-b border-[#1e1e1e]">
-                  <p className="text-[12px] font-mono text-[#888]">
+                  <p className="text-[12px] text-[#888]">
                     Recent Samples (last 20)
                   </p>
                 </div>
@@ -809,27 +809,27 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                   <table className="w-full">
                     <thead>
                       <tr className="text-left border-b border-[#1e1e1e]">
-                        <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Time</th>
-                        <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">CPU</th>
-                        <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory</th>
-                        <th className="px-3 py-2 font-mono text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory (bytes)</th>
+                        <th className="px-3 py-2 text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Time</th>
+                        <th className="px-3 py-2 text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">CPU</th>
+                        <th className="px-3 py-2 text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory</th>
+                        <th className="px-3 py-2 text-[11px] text-[#555] uppercase tracking-[0.12em] font-normal">Memory (bytes)</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-[#1a1a1a]">
                       {[...histMetrics].reverse().slice(0, 20).map(m => (
                         <tr key={m.id} className="hover:bg-[#141414] transition-colors">
-                          <td className="px-3 py-1.5 font-mono text-[12px] text-[#555] tabular-nums">
+                          <td className="px-3 py-1.5 text-[12px] text-[#555] tabular-nums">
                             {new Date(m.timestamp).toLocaleString()}
                           </td>
-                          <td className="px-3 py-1.5 font-mono text-[12px] tabular-nums">
+                          <td className="px-3 py-1.5 text-[12px] tabular-nums">
                             <span className={m.cpu >= 80 ? 'text-[#ef4444]' : m.cpu >= 50 ? 'text-[#f59e0b]' : 'text-[#22c55e]'}>
                               {m.cpu.toFixed(2)}%
                             </span>
                           </td>
-                          <td className="px-3 py-1.5 font-mono text-[12px] text-[#22d3ee] tabular-nums">
+                          <td className="px-3 py-1.5 text-[12px] text-[#22d3ee] tabular-nums">
                             {m.memory_mb.toFixed(2)} MB
                           </td>
-                          <td className="px-3 py-1.5 font-mono text-[12px] text-[#444] tabular-nums">
+                          <td className="px-3 py-1.5 text-[12px] text-[#444] tabular-nums">
                             {m.memory_bytes.toLocaleString()}
                           </td>
                         </tr>

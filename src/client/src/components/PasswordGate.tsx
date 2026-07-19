@@ -118,17 +118,17 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
           <div className="inline-flex items-center justify-center w-11 h-11 rounded-sm bg-[#1a1a1a] border border-[#1e1e1e] mb-4">
             <LockClosedIcon className="h-5 w-5 text-[#888]" />
           </div>
-          <h1 className="font-mono text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-1">
+          <h1 className="text-[13px] font-bold text-[#e8e8e8] uppercase tracking-[0.1em] mb-1">
             EZ PM2 GUI
           </h1>
-          <p className="text-[12px] font-mono text-[#555]">
+          <p className="text-[12px] text-[#555]">
             {mode === 'pin' ? t('passwordGate.enterPin') : t('passwordGate.enterPassword')}
           </p>
         </div>
 
         {/* Mode toggle — only shown when both PIN and password are configured */}
         {pinSet && passwordSet && (
-          <div className="flex mx-5 mb-3 rounded-sm overflow-hidden border border-[#1e1e1e] text-[12px] font-mono">
+          <div className="flex mx-5 mb-3 rounded-sm overflow-hidden border border-[#1e1e1e] text-[12px]">
             <button
               onClick={() => switchMode('pin')}
               className={`flex-1 py-1.5 transition-colors ${
@@ -171,7 +171,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
 
             {/* Error */}
             {error && (
-              <p className="text-[12px] font-mono text-[#ef4444] text-center mb-3 -mt-1">{error}</p>
+              <p className="text-[12px] text-[#ef4444] text-center mb-3 -mt-1">{error}</p>
             )}
 
             {/* Numeric keypad */}
@@ -181,7 +181,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
                   key={d}
                   onClick={() => addDigit(d)}
                   disabled={loading}
-                  className="py-3.5 bg-[#141414] border border-[#1e1e1e] rounded-sm font-mono text-[#e8e8e8] text-sm font-semibold hover:bg-[#1a1a1a] transition-colors select-none disabled:opacity-40"
+                  className="py-3.5 bg-[#141414] border border-[#1e1e1e] rounded-sm text-[#e8e8e8] text-sm font-semibold hover:bg-[#1a1a1a] transition-colors select-none disabled:opacity-40"
                 >
                   {d}
                 </button>
@@ -190,14 +190,14 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
               <button
                 onClick={() => { setPin(''); setError(''); }}
                 disabled={loading}
-                className="py-3.5 rounded-sm font-mono text-[12px] text-[#555] hover:text-[#888] transition-colors select-none disabled:opacity-40"
+                className="py-3.5 rounded-sm text-[12px] text-[#555] hover:text-[#888] transition-colors select-none disabled:opacity-40"
               >
                 {t('passwordGate.clear')}
               </button>
               <button
                 onClick={() => addDigit('0')}
                 disabled={loading}
-                className="py-3.5 bg-[#141414] border border-[#1e1e1e] rounded-sm font-mono text-[#e8e8e8] text-sm font-semibold hover:bg-[#1a1a1a] transition-colors select-none disabled:opacity-40"
+                className="py-3.5 bg-[#141414] border border-[#1e1e1e] rounded-sm text-[#e8e8e8] text-sm font-semibold hover:bg-[#1a1a1a] transition-colors select-none disabled:opacity-40"
               >
                 0
               </button>
@@ -211,7 +211,7 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
             </div>
 
             {loading && (
-              <p className="text-[12px] font-mono text-[#555] text-center mt-3">
+              <p className="text-[12px] text-[#555] text-center mt-3">
                 {t('passwordGate.verifying')}
               </p>
             )}
@@ -227,17 +227,17 @@ const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, pinSet, passwordS
               onChange={e => setPassword(e.target.value)}
               placeholder={t('passwordGate.passwordPlaceholder')}
               autoFocus
-              className={`w-full bg-[#0d0d0d] border text-[#e8e8e8] font-mono text-xs rounded-sm px-3 py-2 outline-none transition-colors placeholder:text-[#555] focus:border-[#555] ${
+              className={`w-full bg-[#0d0d0d] border text-[#e8e8e8] text-xs rounded-sm px-3 py-2 outline-none transition-colors placeholder:text-[#555] focus:border-[#555] ${
                 error ? 'border-[#ef4444]' : 'border-[#1e1e1e]'
               }`}
             />
             {error && (
-              <p className="text-[12px] font-mono text-[#ef4444]">{error}</p>
+              <p className="text-[12px] text-[#ef4444]">{error}</p>
             )}
             <button
               type="submit"
               disabled={loading || !password}
-              className="bg-[#e8e8e8] text-[#0a0a0a] font-mono text-xs font-semibold px-4 py-2 rounded-sm w-full hover:bg-[#d0d0d0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="bg-[#e8e8e8] text-[#0a0a0a] text-xs font-semibold px-4 py-2 rounded-sm w-full hover:bg-[#d0d0d0] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
             >
               {loading ? t('passwordGate.verifying') : t('passwordGate.unlock')}
             </button>
