@@ -203,7 +203,7 @@ http://localhost:3101
 
 ## 系统要求
 
-- Node.js 16.x 或更高版本
+- Node.js 22.12 或更高版本（目标为 26.x LTS 系列）
 - 全局安装 PM2 (`npm install -g pm2`)
 
 ## 配置
@@ -225,7 +225,7 @@ HOST=localhost
 
 ```env
 # src/client/.env
-REACT_APP_API_URL=http://localhost:3102
+VITE_API_URL=http://localhost:3102
 ```
 
 ## 使用 PM2 进行负载均衡

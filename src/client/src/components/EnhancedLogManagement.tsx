@@ -456,21 +456,23 @@ const EnhancedLogManagement: React.FC = () => {
         <>
           {/* Quick Filters */}
           <Paper sx={{ p: 2, mb: 2 }}>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={12} md={4}>
+            <Grid container spacing={2} sx={{ alignItems: 'center' }}>
+              <Grid size={{ xs: 12, md: 4 }}>
                 <TextField
                   fullWidth
                   size="small"
                   placeholder={t('logs.searchLogs')}
                   value={filters.searchTerm}
                   onChange={(e) => setFilters(prev => ({ ...prev, searchTerm: e.target.value }))}
-                  InputProps={{
-                    startAdornment: <SearchIcon sx={{ mr: 1, color: 'action.active' }} />
+                  slotProps={{
+                    input: {
+                      startAdornment: <SearchIcon sx={{ mr: 1, color: 'action.active' }} />
+                    }
                   }}
                 />
               </Grid>
               
-              <Grid item xs={12} md={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <FormControl fullWidth size="small">
                   <InputLabel>Processes</InputLabel>
                   <Select
@@ -495,7 +497,7 @@ const EnhancedLogManagement: React.FC = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} md={2}>
+              <Grid size={{ xs: 12, md: 2 }}>
                 <FormControl fullWidth size="small">
                   <InputLabel>Time Range</InputLabel>
                   <Select
@@ -510,7 +512,7 @@ const EnhancedLogManagement: React.FC = () => {
                 </FormControl>
               </Grid>
 
-              <Grid item xs={12} md={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <FormControlLabel
                   control={
                     <Switch
@@ -524,7 +526,7 @@ const EnhancedLogManagement: React.FC = () => {
               </Grid>
 
               {/* Timestamp range filters */}
-              <Grid item xs={12} md={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                   fullWidth
                   size="small"
@@ -532,10 +534,10 @@ const EnhancedLogManagement: React.FC = () => {
                   type="datetime-local"
                   value={filters.timestampFrom}
                   onChange={(e) => setFilters(prev => ({ ...prev, timestampFrom: e.target.value, timeRange: 'all' }))}
-                  InputLabelProps={{ shrink: true }}
+                  slotProps={{ inputLabel: { shrink: true } }}
                 />
               </Grid>
-              <Grid item xs={12} md={3}>
+              <Grid size={{ xs: 12, md: 3 }}>
                 <TextField
                   fullWidth
                   size="small"
@@ -543,11 +545,11 @@ const EnhancedLogManagement: React.FC = () => {
                   type="datetime-local"
                   value={filters.timestampTo}
                   onChange={(e) => setFilters(prev => ({ ...prev, timestampTo: e.target.value, timeRange: 'all' }))}
-                  InputLabelProps={{ shrink: true }}
+                  slotProps={{ inputLabel: { shrink: true } }}
                 />
               </Grid>
               {(filters.timestampFrom || filters.timestampTo) && (
-                <Grid item xs={12} md={2} sx={{ display: 'flex', alignItems: 'center' }}>
+                <Grid size={{ xs: 12, md: 2 }} sx={{ display: 'flex', alignItems: 'center' }}>
                   <Button size="small" variant="outlined" onClick={() => setFilters(prev => ({ ...prev, timestampFrom: '', timestampTo: '', timeRange: '1h' }))}>
                     Clear Dates
                   </Button>
@@ -697,7 +699,7 @@ const EnhancedLogManagement: React.FC = () => {
       {selectedTab === 1 && (
         <Grid container spacing={3}>
           {logStats.map((stat) => (
-            <Grid item xs={12} sm={6} md={4} key={stat.processId}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={stat.processId}>
               <Card>
                 <CardContent>
                   <Typography variant="h6" gutterBottom>

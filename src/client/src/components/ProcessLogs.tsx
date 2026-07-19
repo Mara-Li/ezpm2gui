@@ -179,7 +179,7 @@ const ProcessLogs: React.FC<ProcessLogsProps> = ({ processId, processName, conne
         <Box sx={{ flex: 1 }} />
 
         {/* Auto-scroll + auto-refresh */}
-        <Stack direction="row" spacing={0.5} alignItems="center">
+        <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
           <FormControlLabel
             control={<Checkbox checked={autoScroll} onChange={() => setAutoScroll(v => !v)} size="small" />}
             label={<Typography variant="caption">{t('logs.autoScroll')}</Typography>}

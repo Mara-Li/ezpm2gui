@@ -4,7 +4,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { v4 as uuidv4 } from 'uuid';
+import { randomUUID } from 'crypto';
 import { CronJobConfig, PM2CronOptions, CronJobStatus } from '../../types/cron';
 import { executePM2Command } from '../utils/pm2-connection';
 import { CronExpressionParser } from 'cron-parser';
@@ -213,7 +213,7 @@ export class CronJobService {
 
     const newConfig: CronJobConfig = {
       ...config,
-      id: uuidv4(),
+      id: randomUUID(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString()
     };

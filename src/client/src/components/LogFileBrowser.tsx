@@ -263,7 +263,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
         <Typography variant="body2" color="text.secondary">
           No log files found for <strong>{processName}</strong>.
         </Typography>
-        <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
           Log rotation may not be enabled. Run <code>pm2 install pm2-logrotate</code> to get daily archives.
         </Typography>
       </Box>
@@ -331,7 +331,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                     </TableCell>
 
                     <TableCell>
-                      <Typography variant="body2" fontWeight={group.dateKey === 'current' ? 600 : 400}>
+                      <Typography variant="body2" sx={{ fontWeight: group.dateKey === 'current' ? 600 : 400 }}>
                         {group.displayDate}
                       </Typography>
                     </TableCell>
@@ -455,7 +455,7 @@ const LogFileBrowser: React.FC<LogFileBrowserProps> = ({ processId, processName,
                               )}
                               {!fileLoading[activeFile.path] && !fileError[activeFile.path] && fileContent[activeFile.path] && (
                                 <>
-                                  <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 0.5 }}>
+                                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
                                     {fileContent[activeFile.path].length.toLocaleString()}
                                     {lines > 0 ? ` of last ${lines.toLocaleString()}` : ''} lines shown
                                     {fileTotal[activeFile.path] ? ` · ${fileTotal[activeFile.path].toLocaleString()} total` : ''}

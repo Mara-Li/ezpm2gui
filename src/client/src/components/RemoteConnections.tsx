@@ -755,7 +755,7 @@ const RemoteConnections: React.FC = () => {
       {/* @group Render > ConnectionList : Connection cards */}
       <Grid container spacing={1}>
         {connections.length === 0 ? (
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Paper
               variant="outlined"
               sx={{ p: 3, textAlign: 'center', backgroundColor: THEME.surface, border: `1px solid ${THEME.border}`, borderRadius: '2px' }}
@@ -766,7 +766,7 @@ const RemoteConnections: React.FC = () => {
             </Paper>
           </Grid>
         ) : connections.map((connection) => (
-          <Grid item xs={12} key={connection.id}>
+          <Grid size={12} key={connection.id}>
             <Paper
               variant="outlined"
               sx={{ p: 0, overflow: 'hidden', backgroundColor: THEME.surface, border: `1px solid ${THEME.border}`, borderRadius: '2px' }}
@@ -869,7 +869,7 @@ const RemoteConnections: React.FC = () => {
                   <Tabs
                     value={tabValue}
                     onChange={(_, v) => setTabValue(v)}
-                    TabIndicatorProps={{ style: { backgroundColor: THEME.accent, height: 1 } }}
+                    slotProps={{ indicator: { style: { backgroundColor: THEME.accent, height: 1 } } }}
                     sx={{ minHeight: 28, borderBottom: `1px solid ${THEME.border}`, backgroundColor: THEME.sidebar }}
                   >
                     <Tab
@@ -979,7 +979,7 @@ const RemoteConnections: React.FC = () => {
                   <TabPanel value={tabValue} index={1}>
                     {systemInfo[connection.id] ? (
                       <Grid container spacing={2}>
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                           <Typography sx={{ fontFamily: CLI_MONO, fontSize: '0.5625rem', color: THEME.textFaint, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1, display: 'block' }}>
                             {t('remoteConnections.systemInformation')}
                           </Typography>
@@ -995,7 +995,7 @@ const RemoteConnections: React.FC = () => {
                             </Box>
                           ))}
                         </Grid>
-                        <Grid item xs={12} md={6}>
+                        <Grid size={{ xs: 12, md: 6 }}>
                           <Typography sx={{ fontFamily: CLI_MONO, fontSize: '0.5625rem', color: THEME.textFaint, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.15em', mb: 1, display: 'block' }}>
                             {t('remoteConnections.resources')}
                           </Typography>
@@ -1031,14 +1031,14 @@ const RemoteConnections: React.FC = () => {
         onClose={handleDialogClose}
         maxWidth="md"
         fullWidth
-        PaperProps={{ sx: { backgroundColor: THEME.surface, border: `1px solid ${THEME.border}`, borderRadius: '2px', backgroundImage: 'none' } }}
+        slotProps={{ paper: { sx: { backgroundColor: THEME.surface, border: `1px solid ${THEME.border}`, borderRadius: '2px', backgroundImage: 'none' } } }}
       >
         <DialogTitle sx={{ fontFamily: CLI_MONO, fontSize: '0.75rem', color: THEME.text, fontWeight: 600, borderBottom: `1px solid ${THEME.border}`, py: 1.5 }}>
           {editingConnection ? t('remoteConnections.editRemoteConnection') : t('remoteConnections.addRemoteConnection')}
         </DialogTitle>
         <DialogContent sx={{ backgroundColor: THEME.surface, pt: '16px !important' }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.connectionName')}
@@ -1048,7 +1048,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12} md={8}>
+            <Grid size={{ xs: 12, md: 8 }}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.host')}
@@ -1058,7 +1058,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid size={{ xs: 12, md: 4 }}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.port')}
@@ -1069,7 +1069,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.username')}
@@ -1079,7 +1079,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.password')}
@@ -1092,7 +1092,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <TextField
                 fullWidth
                 label={t('remoteConnections.privateKey')}
@@ -1104,7 +1104,7 @@ const RemoteConnections: React.FC = () => {
                 sx={sxTextField}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid size={12}>
               <FormControlLabel
                 control={
                   <Checkbox

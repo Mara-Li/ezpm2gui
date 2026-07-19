@@ -304,7 +304,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
 
       {/* System Health Overview */}
       <Grid container spacing={1.5} sx={{ mb: 2 }}>
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -323,7 +323,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -342,7 +342,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -361,7 +361,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
           </Card>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={3}>
+        <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <Card>
             <CardContent>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
@@ -383,7 +383,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
 
       {/* Charts and Alerts */}
       <Grid container spacing={1.5}>
-        <Grid item xs={12} lg={8}>
+        <Grid size={{ xs: 12, lg: 8 }}>
           <Paper sx={{ p: 3 }}>
             <Box sx={{ height: 280 }}>
               <Line data={chartData} options={chartOptions} />
@@ -391,7 +391,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
           </Paper>
         </Grid>
 
-        <Grid item xs={12} lg={4}>
+        <Grid size={{ xs: 12, lg: 4 }}>
           <Paper variant="outlined" sx={{ p: 2, height: 280, overflow: 'auto' }}>
             <Typography variant="h6" gutterBottom>
               {t('advancedMonitoring.activeAlerts')}
@@ -420,7 +420,7 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
                     </ListItemIcon>
                     <ListItemText
                       primary={
-                        <Typography variant="body2" fontWeight="medium">
+                        <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
                           {alert.processName}
                         </Typography>
                       }
@@ -445,11 +445,11 @@ const AdvancedMonitoringDashboard: React.FC<AdvancedMonitoringDashboardProps> = 
         </Typography>
         <Grid container spacing={1.5}>
           {processes.map((process) => (
-            <Grid item xs={12} sm={6} md={4} key={process.pm_id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={process.pm_id}>
               <Card variant="outlined">
                 <CardContent>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                    <Typography variant="subtitle1" fontWeight="bold">
+                    <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
                       {process.name}
                     </Typography>
                     <Chip

@@ -131,7 +131,7 @@ const MetricsChart: React.FC<MetricsChartProps> = ({ processId, initialData }) =
   return (
     <Box>
       <Grid container spacing={2} sx={{ mb: 3 }}>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card variant="outlined">
             <CardContent>
               <Typography variant="subtitle2" color="text.secondary">
@@ -143,7 +143,7 @@ const MetricsChart: React.FC<MetricsChartProps> = ({ processId, initialData }) =
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid size={{ xs: 12, sm: 6 }}>
           <Card variant="outlined">
             <CardContent>
               <Typography variant="subtitle2" color="text.secondary">
@@ -158,7 +158,7 @@ const MetricsChart: React.FC<MetricsChartProps> = ({ processId, initialData }) =
       </Grid>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" gutterBottom color="text.secondary">
               {t('metricsPage.cpuOverTime')}
@@ -180,7 +180,7 @@ const MetricsChart: React.FC<MetricsChartProps> = ({ processId, initialData }) =
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <Paper variant="outlined" sx={{ p: 2 }}>
             <Typography variant="subtitle2" gutterBottom color="text.secondary">
               {t('metricsPage.memoryOverTime')}

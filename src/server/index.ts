@@ -458,7 +458,7 @@ export function createServer() {
   });
 
   // Catch-all route to return the React app
-  app.get('*', (req, res) => {
+  app.get('/*splat', (req, res) => {
     const indexPath = path.join(__dirname, '../../src/client/build/index.html');
     console.log('Trying to serve index.html from:', indexPath);
     const fs = require('fs');

@@ -14,7 +14,7 @@ import { stripAnsi } from '../utils/ansi';
 import { useTranslation } from 'react-i18next';
 
 // @group Constants : Backend API URL — must match App.tsx
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3101';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3101';
 
 interface LogStreamEnhancedProps {
   processId?: number | string;

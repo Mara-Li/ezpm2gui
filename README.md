@@ -217,7 +217,7 @@ http://localhost:3101
 
 ## Requirements
 
-- Node.js 16.x or later
+- Node.js 22.12 or later (targeting the 26.x LTS line)
 - PM2 installed globally (`npm install -g pm2`)
 
 ## Configuration
@@ -239,7 +239,7 @@ For the React client to connect to the correct port during a production build, a
 
 ```env
 # src/client/.env
-REACT_APP_API_URL=http://localhost:3102
+VITE_API_URL=http://localhost:3102
 ```
 
 ## Load Balancing with PM2

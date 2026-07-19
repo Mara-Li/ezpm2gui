@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "types": ["node"],
-    "target": "es2018",
+    "types": ["node", "vite/client"],
+    "target": "ES2023",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext"
+      "ES2023"
     ],
     "allowJs": true,
     "skipLibCheck": true,

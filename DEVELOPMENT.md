@@ -46,7 +46,8 @@ The EZ PM2 GUI application is structured as follows:
 
 ### Prerequisites
 
-- Node.js (>= 16.x)
+- Node.js (>= 22.12, targeting the 26.x LTS line)
+- pnpm (`corepack enable` or `npm install -g pnpm`) for the root project; the client under `src/client` still uses npm
 - PM2 installed globally (`npm install -g pm2`)
 
 ### Installation

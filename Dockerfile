@@ -1,21 +1,21 @@
 # syntax=docker/dockerfile:1.7
 
 # @group Dependencies : Install reproducible build dependencies for server and client
-FROM node:22.16.0-bookworm-slim AS dependencies
+FROM node:26.5.0-bookworm-slim AS dependencies
 
 WORKDIR /app
 
 ENV npm_config_update_notifier=false
 ENV npm_config_fund=false
-ENV npm_config_legacy_peer_deps=true
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends ca-certificates g++ make python3 \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && npm install -g pnpm@11.15.0
 
-COPY package.json package-lock.json ./
-RUN npm ci --ignore-scripts \
-  && npm rebuild better-sqlite3
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+RUN pnpm install --frozen-lockfile --ignore-scripts \
+  && pnpm rebuild better-sqlite3
 
 COPY src/client/package.json src/client/package-lock.json ./src/client/
 RUN cd src/client && npm ci
@@ -28,12 +28,12 @@ COPY bin ./bin
 COPY scripts ./scripts
 COPY src ./src
 
-RUN npm run build
-RUN npm prune --omit=dev --ignore-scripts \
+RUN pnpm run build
+RUN pnpm prune --prod --ignore-scripts \
   && rm -rf src/client/node_modules
 
 # @group Runtime : Run the compiled app with only production dependencies
-FROM node:22.16.0-bookworm-slim AS runtime
+FROM node:26.5.0-bookworm-slim AS runtime
 
 WORKDIR /app
 
@@ -45,7 +45,7 @@ ENV PM2_HOME=/app/.pm2
 RUN groupadd --system --gid 1001 ezpm2gui \
   && useradd --system --uid 1001 --gid ezpm2gui --home-dir /app --shell /usr/sbin/nologin ezpm2gui
 
-COPY --from=build --chown=ezpm2gui:ezpm2gui /app/package.json /app/package-lock.json ./
+COPY --from=build --chown=ezpm2gui:ezpm2gui /app/package.json /app/pnpm-lock.yaml ./
 COPY --from=build --chown=ezpm2gui:ezpm2gui /app/node_modules ./node_modules
 COPY --from=build --chown=ezpm2gui:ezpm2gui /app/dist ./dist
 COPY --from=build --chown=ezpm2gui:ezpm2gui /app/bin ./bin

@@ -41,7 +41,7 @@ router.get('/status', async (req: Request, res: Response) => {
  * GET /api/cron-jobs/:id
  * Get a specific cron job by ID
  */
-router.get('/:id', (req: Request, res: Response) => {
+router.get('/:id', (req: Request<{ id: string }>, res: Response) => {
   try {
     const job = CronJobService.getCronJob(req.params.id);
     if (!job) {
@@ -97,7 +97,7 @@ router.post('/', async (req: Request, res: Response) => {
  * PUT /api/cron-jobs/:id
  * Update a cron job
  */
-router.put('/:id', async (req: Request, res: Response) => {
+router.put('/:id', async (req: Request<{ id: string }>, res: Response) => {
   try {
     const updates: Partial<CronJobConfig> = req.body;
     const job = await CronJobService.updateCronJob(req.params.id, updates);
@@ -112,7 +112,7 @@ router.put('/:id', async (req: Request, res: Response) => {
  * DELETE /api/cron-jobs/:id
  * Delete a cron job
  */
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request<{ id: string }>, res: Response) => {
   try {
     await CronJobService.deleteCronJob(req.params.id);
     res.json({ success: true, message: 'Cron job deleted successfully' });
@@ -126,7 +126,7 @@ router.delete('/:id', async (req: Request, res: Response) => {
  * POST /api/cron-jobs/:id/toggle
  * Toggle cron job enabled state
  */
-router.post('/:id/toggle', async (req: Request, res: Response) => {
+router.post('/:id/toggle', async (req: Request<{ id: string }>, res: Response) => {
   try {
     const job = await CronJobService.toggleCronJob(req.params.id);
     res.json({ success: true, data: job });
@@ -140,7 +140,7 @@ router.post('/:id/toggle', async (req: Request, res: Response) => {
  * POST /api/cron-jobs/:id/start
  * Manually start a cron job
  */
-router.post('/:id/start', async (req: Request, res: Response) => {
+router.post('/:id/start', async (req: Request<{ id: string }>, res: Response) => {
   try {
     await CronJobService.startCronJob(req.params.id);
     res.json({ success: true, message: 'Cron job started successfully' });
@@ -154,7 +154,7 @@ router.post('/:id/start', async (req: Request, res: Response) => {
  * POST /api/cron-jobs/:id/stop
  * Manually stop a cron job
  */
-router.post('/:id/stop', async (req: Request, res: Response) => {
+router.post('/:id/stop', async (req: Request<{ id: string }>, res: Response) => {
   try {
     await CronJobService.stopCronJob(req.params.id);
     res.json({ success: true, message: 'Cron job stopped successfully' });

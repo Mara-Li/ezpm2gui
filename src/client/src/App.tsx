@@ -69,8 +69,8 @@ import {
 } from '@heroicons/react/24/outline';
 
 // Initialize socket connection with improved settings
-// process.env.REACT_APP_API_URL is baked in at build time by CRA from .env.local / .env
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3101';
+// import.meta.env.VITE_API_URL is baked in at build time by Vite from .env.local / .env
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3101';
 
 const socket = io(API_URL, {
   // Send the session token (if any) on every (re)connection attempt
@@ -876,7 +876,7 @@ const App: React.FC = () => {
                 className="flex items-center gap-1.5 text-xs font-bold text-[#e8e8e8] tracking-tight no-underline"
               >
                 <img
-                  src={`${process.env.PUBLIC_URL}/logo192.svg`}
+                  src="/logo192.svg"
                   alt=""
                   className="h-5 w-5 rounded-[3px] shrink-0"
                 />
@@ -1153,7 +1153,7 @@ const App: React.FC = () => {
           <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1.5, pb: 1 }}>
             {/* @group Branding : About dialog app logo */}
             <img
-              src={`${process.env.PUBLIC_URL}/logo192.svg`}
+              src="/logo192.svg"
               alt=""
               style={{ width: 32, height: 32, borderRadius: 8, flexShrink: 0 }}
             />
