@@ -22,6 +22,8 @@ import { useTranslation } from 'react-i18next';
 interface SidebarMenuProps {
   onItemClick?: () => void;
   collapsed?: boolean;
+  /** Set to false while the app is locked — skips the /api/processes fetch until unlocked */
+  enabled?: boolean;
 }
 
 // @group Types : Process entry for log sidebar tree
@@ -42,7 +44,7 @@ interface SidebarServerGroup {
 }
 
 // @group SidebarMenu : Navigation menu for the application sidebar
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = false }) => {
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = false, enabled = true }) => {
   const location = useLocation();
   const { t } = useTranslation();
   const navigate  = useNavigate();
@@ -62,6 +64,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
   const [actionLoading,   setActionLoading]   = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
+    if (!enabled) return;
     let cancelled = false;
 
     const load = async () => {
@@ -118,7 +121,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
     load();
     return () => { cancelled = true; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [enabled]);
 
   const toggleServer = (id: string) => {
     setExpandedServers(prev => {

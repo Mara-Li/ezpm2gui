@@ -149,6 +149,12 @@ const App: React.FC = () => {
     () => localStorage.getItem('ezpm2_unlocked') === '1'
   );
   const autoLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // True once it's safe to call protected /api endpoints: we know whether a
+  // password/PIN is required, and if one is, the user has actually unlocked.
+  // Every effect that hits a protected endpoint on mount/interval must gate on
+  // this — otherwise it races the auth check, 401s, and (before the fixes in
+  // auth.ts) could reload-loop the page.
+  const authReady = passwordSet !== null && (!(passwordSet || pinSet) || appUnlocked);
 
   // @group WhatsNew : Show popup once per session
   const [showWhatsNew, setShowWhatsNew] = useState<boolean>(false);
@@ -242,13 +248,7 @@ const App: React.FC = () => {
     processId: null
   });
   useEffect(() => {
-    // Don't touch protected endpoints until we know whether a password/PIN is
-    // required and, if so, until the user has actually unlocked. Otherwise this
-    // races ahead of the auth check on every mount, 401s, and the auth
-    // interceptor's handleUnauthorized() reloads the page — which just re-runs
-    // this same race, looping forever instead of failing once.
-    if (passwordSet === null) return;
-    if ((passwordSet || pinSet) && !appUnlocked) return;
+    if (!authReady) return;
 
     // Track last data update timestamp to detect if data is actually flowing
     let lastDataUpdate = Date.now();
@@ -354,7 +354,7 @@ const App: React.FC = () => {
       socket.off('disconnect');
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enqueueNotification, loadLocalProcessesAndMetrics, passwordSet, pinSet, appUnlocked]);
+  }, [enqueueNotification, loadLocalProcessesAndMetrics, authReady]);
 
   // Filter processes when search, status, or namespace filter changes
   useEffect(() => {
@@ -405,6 +405,7 @@ const App: React.FC = () => {
 
   // @group ServerSwitcher : Poll remote processes when a remote server is active
   useEffect(() => {
+    if (!authReady) return;
     if (activeServerId === LOCAL_SERVER_ID || !remoteConnectionsLoaded) return;
     if (!isRemoteServerAvailable(activeServerId, remoteConnections)) return;
 
@@ -434,6 +435,7 @@ const App: React.FC = () => {
     return () => clearInterval(interval);
   }, [
     activeServerId,
+    authReady,
     enqueueNotification,
     loadLocalProcessesAndMetrics,
     persistActiveServerId,
@@ -444,6 +446,8 @@ const App: React.FC = () => {
 
   // @group ServerSwitcher : Refresh remote connections list periodically so status dots stay current
   useEffect(() => {
+    if (!authReady) return;
+
     const refresh = () => {
       void refreshRemoteConnections();
     };
@@ -456,10 +460,12 @@ const App: React.FC = () => {
       clearInterval(interval);
       window.removeEventListener(REMOTE_CONNECTIONS_CHANGED_EVENT, refresh);
     };
-  }, [refreshRemoteConnections]);
+  }, [refreshRemoteConnections, authReady]);
 
   // @group Updates : Check for update once after 4 s — non-blocking, silent on failure
   useEffect(() => {
+    if (!authReady) return;
+
     const timer = setTimeout(async () => {
       try {
         const res = await fetch('/api/update/check');
@@ -472,10 +478,12 @@ const App: React.FC = () => {
       }
     }, 4000);
     return () => clearTimeout(timer);
-  }, []);
+  }, [authReady]);
 
   // @group Updates : Load installed app version for footer/about display
   useEffect(() => {
+    if (!authReady) return;
+
     fetch('/api/update/current')
       .then(res => res.json())
       .then(json => {
@@ -485,7 +493,7 @@ const App: React.FC = () => {
       .catch(() => {
         // silent — footer falls back to a loading placeholder
       });
-  }, []);
+  }, [authReady]);
 
   // @group Auth : Fetch password-protection status on mount; also load autoLockMinutes
   const [autoLockMinutes, setAutoLockMinutes] = useState<number>(0);
@@ -1022,7 +1030,7 @@ const App: React.FC = () => {
               <div className="fixed inset-0 bg-black/50" onClick={toggleMenu} />
               <div className="fixed left-0 top-0 h-full w-[200px] border-r shadow-xl bg-[#0d0d0d] border-[#1e1e1e]">
                 <div className="pt-9 h-full overflow-y-auto">
-                  <SidebarMenu onItemClick={toggleMenu} />
+                  <SidebarMenu onItemClick={toggleMenu} enabled={authReady} />
                 </div>
               </div>
             </div>
@@ -1032,7 +1040,7 @@ const App: React.FC = () => {
           <div className={`hidden sm:flex flex-col fixed left-0 top-9 z-[40] h-[calc(100vh-2.25rem-22px)] border-r overflow-y-auto transition-[width] duration-200 bg-[#0d0d0d] border-[#1e1e1e] ${
             sidebarCollapsed ? 'w-[44px]' : 'w-[200px]'
           }`}>
-            <SidebarMenu collapsed={sidebarCollapsed} />
+            <SidebarMenu collapsed={sidebarCollapsed} enabled={authReady} />
           </div>
 
           {/* ── Main Content ── */}
