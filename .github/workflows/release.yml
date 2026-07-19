@@ -80,7 +80,7 @@ jobs:
             ---
             Install or upgrade:
             ```bash
-            npm install -g ezpm2gui@npm:mara-li/ezpm2gui@${{ steps.version.outputs.VERSION }}
+            npm install -g ezpm2gui@npm:@mara-li/ezpm2gui@${{ steps.version.outputs.VERSION }}
             ```
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
