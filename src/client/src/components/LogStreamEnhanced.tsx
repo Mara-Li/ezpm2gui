@@ -304,7 +304,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
             <select
               value={selectedLogType}
               onChange={e => setSelectedLogType(e.target.value as 'out' | 'err')}
-              className="h-7 px-2 pr-7 text-xs rounded-sm border
+              className="h-7 px-2 pr-7 py-0 text-xs rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          focus:outline-none focus:border-[#22c55e]"
             >
@@ -340,7 +340,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
               placeholder={t('logs.filterLogs')}
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              className="w-full h-7 pl-7 pr-3 text-xs rounded-sm border
+              className="w-full h-7 pl-7 pr-3 py-0 text-xs rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          placeholder-[#555]
                          focus:outline-none focus:border-[#22c55e]"
@@ -401,7 +401,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
               type="datetime-local"
               value={dateFrom}
               onChange={e => setDateFrom(e.target.value)}
-              className="h-7 px-2 text-[12px] rounded-sm border
+              className="h-7 px-2 py-0 text-[12px] rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          focus:outline-none focus:border-[#22c55e]"
             />
@@ -413,7 +413,7 @@ const LogStreamEnhanced: React.FC<LogStreamEnhancedProps> = ({
               type="datetime-local"
               value={dateTo}
               onChange={e => setDateTo(e.target.value)}
-              className="h-7 px-2 text-[12px] rounded-sm border
+              className="h-7 px-2 py-0 text-[12px] rounded-sm border
                          bg-[#111] border-[#1e1e1e] text-[#e8e8e8]
                          focus:outline-none focus:border-[#22c55e]"
             />
