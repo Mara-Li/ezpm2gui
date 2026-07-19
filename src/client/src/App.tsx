@@ -686,7 +686,12 @@ const App: React.FC = () => {
     setNamespaceFilter(e.target.value);
   };
 
-  if (loading) {
+  // Wait for the auth-status check too, not just process data — otherwise the
+  // full (unprotected) app renders for a moment before PasswordGate mounts,
+  // since passwordSet/pinSet start out null and that flips the gate's condition
+  // from "don't show" to "show" only once the fetch resolves. More visible the
+  // slower the connection (mobile, dev server), but wrong at any speed.
+  if (loading || passwordSet === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
         <div className="flex items-center gap-2.5">
