@@ -11,6 +11,7 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
+import AnsiText from './AnsiText';
 
 // @group Types : Log status bar data types
 interface LogWindowState {
@@ -272,7 +273,7 @@ const LogStatusBar: React.FC<LogStatusBarProps> = ({ logWindows, onClose, onClea
                     flex: 1,
                     lineHeight: 1.5,
                   }}>
-                    {log.message}
+                    <AnsiText text={log.message} />
                   </Typography>
                 </Box>
               ))
