@@ -4,10 +4,11 @@ name: Release
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
-  contents: write   # needed to create GitHub Releases
+  contents: write # needed to create GitHub Releases
+  id-token: write # needed for npm trusted publishing (OIDC)
 
 jobs:
   release:
@@ -19,14 +20,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # full history for changelog generation
+          fetch-depth: 0 # full history for changelog generation
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'npm'
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+          cache: "npm"
 
       # @group Dependencies : Install root and client deps
       - name: Install root dependencies
@@ -34,6 +35,10 @@ jobs:
 
       - name: Install client dependencies
         run: cd src/client && npm ci --legacy-peer-deps
+
+      # @group Trusted publishing : npm OIDC requires npm >= 11.5.1
+      - name: Update npm
+        run: npm install -g npm@latest
 
       # @group Build : Full three-step build (server TS + React client + bin TS)
       - name: Build
@@ -44,14 +49,9 @@ jobs:
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
-      # @group Publish : Push package to npm registry
+      # @group Publish : Push package to npm registry via trusted publishing (OIDC)
       - name: Publish to npm
-        run: |
-          echo "Checking npm auth..."
-          npm whoami
-          npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
 
       # @group Release : Auto-generate changelog from commits since last tag
       - name: Generate changelog
@@ -80,7 +80,7 @@ jobs:
             ---
             Install or upgrade:
             ```bash
-            npm install -g ezpm2gui@${{ steps.version.outputs.VERSION }}
+            npm install -g @mara-li/ezpm2gui@${{ steps.version.outputs.VERSION }}
             ```
           draft: false
           prerelease: ${{ contains(github.ref_name, '-') }}
