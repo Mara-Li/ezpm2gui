@@ -149,12 +149,15 @@ const App: React.FC = () => {
     () => localStorage.getItem('ezpm2_unlocked') === '1'
   );
   const autoLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // True once we know a password/PIN is required and the user hasn't unlocked yet
+  // (false while the auth check is still pending, so it never flashes true→false).
+  const locked = (passwordSet === true || pinSet === true) && !appUnlocked;
   // True once it's safe to call protected /api endpoints: we know whether a
   // password/PIN is required, and if one is, the user has actually unlocked.
   // Every effect that hits a protected endpoint on mount/interval must gate on
   // this — otherwise it races the auth check, 401s, and (before the fixes in
   // auth.ts) could reload-loop the page.
-  const authReady = passwordSet !== null && (!(passwordSet || pinSet) || appUnlocked);
+  const authReady = passwordSet !== null && !locked;
 
   // @group WhatsNew : Show popup once per session
   const [showWhatsNew, setShowWhatsNew] = useState<boolean>(false);
@@ -707,7 +710,12 @@ const App: React.FC = () => {
   // since passwordSet/pinSet start out null and that flips the gate's condition
   // from "don't show" to "show" only once the fetch resolves. More visible the
   // slower the connection (mobile, dev server), but wrong at any speed.
-  if (loading || passwordSet === null) {
+  //
+  // Don't wait on `loading` while locked — the process-data fetch is gated on
+  // authReady (see the effect below) and never runs until unlocked, so `loading`
+  // would never flip to false and this would get stuck on the spinner forever
+  // instead of falling through to render PasswordGate.
+  if (passwordSet === null || (!locked && loading)) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#0a0a0a]">
         <div className="flex items-center gap-2.5">
@@ -827,7 +835,7 @@ const App: React.FC = () => {
     <ThemeProvider theme={muiTheme}>
     <Router>
       {/* @group Auth : Password/PIN gate — rendered before anything else when locked */}
-      {(passwordSet === true || pinSet === true) && !appUnlocked && (
+      {locked && (
         <PasswordGate
           darkMode={darkMode}
           onUnlock={() => {
