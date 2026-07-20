@@ -22,27 +22,25 @@ jobs:
         with:
           fetch-depth: 0 # full history for changelog generation
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.15.0
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "26.5.0"
           registry-url: "https://registry.npmjs.org"
-          cache: "npm"
+          cache: "pnpm"
 
-      # @group Dependencies : Install root and client deps
-      - name: Install root dependencies
-        run: npm ci --legacy-peer-deps
+      # @group Dependencies : Install root and client deps (single pnpm workspace install)
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
-      - name: Install client dependencies
-        run: cd src/client && npm ci --legacy-peer-deps
-
-      # @group Trusted publishing : npm OIDC requires npm >= 11.5.1
-      - name: Update npm
-        run: npm install -g npm@latest
-
-      # @group Build : Full three-step build (server TS + React client + bin TS)
+      # @group Build : Build every workspace package (server TS + bin TS + React client)
       - name: Build
-        run: npm run build
+        run: pnpm --include-workspace-root -r run build
 
       # @group Version : Extract tag name for use in later steps
       - name: Extract version from tag
