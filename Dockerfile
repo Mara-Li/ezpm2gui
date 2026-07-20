@@ -14,11 +14,9 @@ RUN apt-get update \
   && npm install -g pnpm@11.15.0
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY src/client/package.json ./src/client/
 RUN pnpm install --frozen-lockfile --ignore-scripts \
   && pnpm rebuild better-sqlite3
-
-COPY src/client/package.json src/client/package-lock.json ./src/client/
-RUN cd src/client && npm ci
 
 # @group Build : Compile the TypeScript server, CLI files, and React client
 FROM dependencies AS build

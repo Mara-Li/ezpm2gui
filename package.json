@@ -12,9 +12,9 @@
   },
   "scripts": {
     "start": "node dist/server/index.js",
-    "dev": "concurrently --kill-others-on-fail --names \"server,client\" --prefix-colors \"cyan,green\" \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "concurrently --kill-others-on-fail --names \"server,client\" --prefix-colors \"cyan,green\" \"pnpm run dev:server\" \"pnpm run dev:client\"",
     "dev:server": "nodemon --exec ts-node src/server/index.ts",
-    "dev:client": "cd src/client && npm run dev",
+    "dev:client": "pnpm --filter ezpm2gui-client run dev",
     "build": "node scripts/build.js",
     "mobile": "node scripts/deploy-mobile.js",
     "mobile:dev": "node scripts/deploy-mobile.js dev",
@@ -28,11 +28,10 @@
     "mobile:ios": "node scripts/deploy-mobile.js ios",
     "mobile:ios:release": "node scripts/deploy-mobile.js ios --release",
     "build:server": "tsc",
-    "build:client": "cd src/client && npm run build",
+    "build:client": "pnpm --filter ezpm2gui-client run build",
     "build:bin": "tsc --project tsconfig.bin.json",
-    "prepare": "npm run build",
-    "test": "ts-node tests/unit/server-selection.test.ts && ts-node tests/unit/theme.test.ts && ts-node tests/unit/app-version.test.ts && ts-node tests/unit/ansi.test.ts",
-    "postinstall": "node scripts/postinstall.js"
+    "prepare": "pnpm run build",
+    "test": "ts-node tests/unit/server-selection.test.ts && ts-node tests/unit/theme.test.ts && ts-node tests/unit/app-version.test.ts && ts-node tests/unit/ansi.test.ts"
   },
   "keywords": [
     "pm2",
@@ -58,8 +57,7 @@
   "files": [
     "dist/",
     "bin/",
-    "src/client/build/",
-    "scripts/postinstall.js"
+    "src/client/build/"
   ],
   "dependencies": {
     "axios": "^1.18.1",

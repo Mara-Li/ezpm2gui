@@ -8,7 +8,6 @@ console.log('Starting EZ PM2 GUI build process...');
 const rootDir = path.resolve(__dirname, '..');
 const binDir = path.join(rootDir, 'bin');
 const distDir = path.join(rootDir, 'dist');
-const clientDir = path.join(rootDir, 'src', 'client');
 const serverConfigSrc = path.join(rootDir, 'src', 'server', 'config', 'project-configs.json');
 const serverConfigDistDir = path.join(distDir, 'server', 'config');
 const serverConfigDist = path.join(serverConfigDistDir, 'project-configs.json');
@@ -22,7 +21,7 @@ if (!fs.existsSync(distDir)) {
 // Build server-side TypeScript files
 console.log('\n1. Building server-side TypeScript files...');
 try {
-  const result = execSync('npm run build:server', { 
+  const result = execSync('pnpm run build:server', {
     stdio: ['pipe', 'pipe', 'pipe'], 
     cwd: rootDir,
     encoding: 'utf8' 
@@ -38,20 +37,10 @@ try {
 // Build client-side application
 console.log('\n2. Building client-side application...');
 try {
-  if (!fs.existsSync(path.join(clientDir, 'node_modules'))) {
-    console.log('   Installing client dependencies first...');
-    const installResult = execSync('npm install', { 
-      stdio: ['pipe', 'pipe', 'pipe'], 
-      cwd: clientDir,
-      encoding: 'utf8' 
-    });
-    console.log(installResult);
-  }
-  
-  const buildResult = execSync('npm run build', { 
-    stdio: ['pipe', 'pipe', 'pipe'], 
-    cwd: clientDir,
-    encoding: 'utf8' 
+  const buildResult = execSync('pnpm --filter ezpm2gui-client run build', {
+    stdio: ['pipe', 'pipe', 'pipe'],
+    cwd: rootDir,
+    encoding: 'utf8'
   });
   console.log(buildResult);
   console.log('✓ Client-side build completed successfully');
@@ -64,7 +53,7 @@ try {
 // Build bin directory TypeScript files
 console.log('\n3. Building bin directory TypeScript files...');
 try {
-  const binResult = execSync('npm run build:bin', { 
+  const binResult = execSync('pnpm run build:bin', {
     stdio: ['pipe', 'pipe', 'pipe'], 
     cwd: rootDir,
     encoding: 'utf8' 

@@ -47,7 +47,7 @@ The EZ PM2 GUI application is structured as follows:
 ### Prerequisites
 
 - Node.js (>= 22.12, targeting the 26.x LTS line)
-- pnpm (`corepack enable` or `npm install -g pnpm`) for the root project; the client under `src/client` still uses npm
+- pnpm (`corepack enable` or `npm install -g pnpm`) - this is a pnpm workspace, `pnpm install` at the repo root installs both the server and the client (`src/client`) in one step
 - PM2 installed globally (`npm install -g pm2`)
 
 ### Installation
@@ -142,10 +142,10 @@ Use the **native name** of the language as the label (e.g. `Deutsch`, `Español`
 ### 4. Build and verify
 
 ```bash
-cd src/client && npm run build
+pnpm --filter ezpm2gui-client run build
 ```
 
-The build must complete with **Compiled successfully** and zero ESLint warnings. Open the app, switch to your new language via the globe icon in the navbar, and spot-check a few pages.
+The build (type-check + Vite build) must complete without errors. Open the app, switch to your new language via the globe icon in the navbar, and spot-check a few pages.
 
 ### Contribution checklist
 
