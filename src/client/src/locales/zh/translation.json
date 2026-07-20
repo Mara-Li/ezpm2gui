@@ -335,8 +335,12 @@
   },
   "metricsPage": {
     "title": "指标",
+    "subtitle": "PM2 进程的实时与历史性能指标",
     "live": "实时",
     "history": "历史",
+    "localSource": "本地",
+    "localHint": "本地指标每30秒采样一次，保留30天",
+    "noLocalDataYet": "暂无本地数据 — 首次采样将在30秒内到达",
     "min": "最小",
     "avg": "平均",
     "max": "最大",

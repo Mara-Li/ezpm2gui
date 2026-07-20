@@ -176,8 +176,9 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   }, []);
 
   // @group HistoryState
+  const LOCAL_CONN_ID = '__local__';
   const [connections,       setConnections]       = useState<ConnectionInfo[]>([]);
-  const [selectedConn,      setSelectedConn]      = useState<string>('');
+  const [selectedConn,      setSelectedConn]      = useState<string>(LOCAL_CONN_ID);
   const [histProcs,         setHistProcs]         = useState<string[]>([]);
   const [selectedHistProc,  setSelectedHistProc]  = useState<string>('');
   const [rangeIdx,          setRangeIdx]          = useState<number>(1);
@@ -218,15 +219,25 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
     }
   }, [processes, selectedLiveProc]);
 
-  // @group HistoryData : Load connections that have data
+  // @group HistoryData : Load connections that have data; always prepend Local
   const loadConnections = useCallback(async () => {
     try {
       const res = await axios.get<{ success: boolean; connections: ConnectionInfo[] }>(
         '/api/remote-metrics/connections'
       );
-      if (res.data.success) setConnections(res.data.connections);
-    } catch { /* silent */ }
-  }, []);
+      if (res.data.success) {
+        const remotes = res.data.connections.filter(c => c.id !== LOCAL_CONN_ID);
+        setConnections([{ id: LOCAL_CONN_ID, name: t('metricsPage.localSource') }, ...remotes]);
+      }
+    } catch {
+      setConnections([{ id: LOCAL_CONN_ID, name: t('metricsPage.localSource') }]);
+    }
+  }, [t]);
+
+  // Load on mount so Local is always available; reload when switching to History to pick up new remotes
+  useEffect(() => {
+    loadConnections();
+  }, [loadConnections]);
 
   useEffect(() => {
     if (tab === 'history') loadConnections();
@@ -661,13 +672,12 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
           {/* Controls */}
           <div className="flex flex-wrap items-end gap-3">
             <div className="flex flex-col gap-0.5">
-              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Connection</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.connection')}</label>
               <select
                 value={selectedConn}
                 onChange={e => setSelectedConn(e.target.value)}
                 className={selectCls}
               >
-                <option value="">-- select connection --</option>
                 {connections.map(c => (
                   <option key={c.id} value={c.id}>{c.name}</option>
                 ))}
@@ -675,7 +685,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             </div>
 
             <div className="flex flex-col gap-0.5">
-              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Process</label>
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">{t('remoteMetrics.process')}</label>
               <select
                 value={selectedHistProc}
                 onChange={e => setSelectedHistProc(e.target.value)}
@@ -683,7 +693,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 className={selectCls}
               >
                 {histProcs.length === 0
-                  ? <option value="">-- select connection first --</option>
+                  ? <option value="">—</option>
                   : histProcs.map(p => <option key={p} value={p}>{p}</option>)
                 }
               </select>
@@ -727,25 +737,21 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
           {!selectedConn && (
             <div className="flex flex-col items-center justify-center py-16 text-center">
               <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
-              <p className="text-[12px] text-[#555]">
-                Select a connection to view recorded history
-              </p>
-              <p className="text-[12px] text-[#444] mt-1">
-                Metrics are recorded every 30 seconds while a remote server is connected
-              </p>
-              {connections.length === 0 && (
-                <p className="text-[12px] text-[#f59e0b] mt-3">
-                  No data yet — connect a remote server and wait for the first poll cycle
-                </p>
-              )}
+              <p className="text-[12px] text-[#555]">{t('remoteMetrics.selectConnection')}</p>
+              <p className="text-[12px] text-[#444] mt-1">{t('remoteMetrics.metricsRecorded')}</p>
             </div>
           )}
 
           {selectedConn && !selectedHistProc && (
-            <div className="flex items-center justify-center py-12">
+            <div className="flex flex-col items-center justify-center py-12 text-center gap-1">
               <p className="text-[12px] text-[#555]">
-                No processes recorded for this connection yet
+                {selectedConn === LOCAL_CONN_ID
+                  ? t('metricsPage.noLocalDataYet')
+                  : t('remoteMetrics.noProcesses')}
               </p>
+              {selectedConn === LOCAL_CONN_ID && (
+                <p className="text-[12px] text-[#444]">{t('metricsPage.localHint')}</p>
+              )}
             </div>
           )}
 

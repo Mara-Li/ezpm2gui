@@ -28,6 +28,7 @@ import { remoteConnectionManager } from './utils/remote-connection';
 import { metricsHistory } from './utils/metrics-history';
 import remoteMetricsRoutes from './routes/remoteMetrics';
 import { remoteMetricsPoller } from './utils/remote-metrics-poller';
+import { remoteMetricsDB } from './utils/remote-metrics-db';
 import { requireAuth, authorizeSocket } from './middleware/requireAuth';
 import { setRevokeListener } from './utils/auth-tokens';
 
@@ -418,6 +419,29 @@ export function createServer() {
     }
   }, 3000);
 
+  // @group LocalMetricsSQLite : Persist local PM2 metrics to SQLite every 30 s so the History
+  // tab can display long-term local charts the same way it does for remote connections.
+  // Records are stored under connection_id='__local__' in the shared remote_metrics table.
+  const localSqliteInterval = setInterval(async () => {
+    try {
+      const processList = await executePM2Command<any[]>((cb) => pm2.list(cb));
+      const now = Date.now();
+      const rows = processList
+        .filter((p: any) => p.pm_id != null)
+        .map((p: any) => ({
+          connection_id:   '__local__',
+          connection_name: 'Local',
+          process_name:    p.name ?? String(p.pm_id),
+          pm_id:           p.pm_id as number,
+          timestamp:       now,
+          cpu:             parseFloat((p.monit?.cpu ?? 0).toFixed(2)),
+          memory_bytes:    p.monit?.memory ?? 0,
+          memory_mb:       parseFloat(((p.monit?.memory ?? 0) / 1_048_576).toFixed(2)),
+        }));
+      if (rows.length > 0) remoteMetricsDB.insertBatch(rows);
+    } catch { /* silent */ }
+  }, 30_000);
+
   // WebSocket for real-time updates
   io.on('connection', (socket) => {
     console.log('Client connected');
@@ -470,8 +494,11 @@ export function createServer() {
     }
   });
 
-  // Clean up history poll on server close
-  server.on('close', () => clearInterval(historyPollInterval));
+  // Clean up history polls on server close
+  server.on('close', () => {
+    clearInterval(historyPollInterval);
+    clearInterval(localSqliteInterval);
+  });
 
   // Return the server instance
   return server;
