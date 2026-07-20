@@ -26,7 +26,7 @@ COPY bin ./bin
 COPY scripts ./scripts
 COPY src ./src
 
-RUN pnpm run build
+RUN pnpm --include-workspace-root -r run build
 RUN pnpm prune --prod --ignore-scripts \
   && rm -rf src/client/node_modules
 

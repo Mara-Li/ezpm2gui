@@ -15,7 +15,8 @@
     "dev": "concurrently --kill-others-on-fail --names \"server,client\" --prefix-colors \"cyan,green\" \"pnpm run dev:server\" \"pnpm run dev:client\"",
     "dev:server": "nodemon --exec ts-node src/server/index.ts",
     "dev:client": "pnpm --filter ezpm2gui-client run dev",
-    "build": "node scripts/build.js",
+    "build": "pnpm run build:server && pnpm run build:bin",
+    "postbuild": "node scripts/postbuild.js",
     "mobile": "node scripts/deploy-mobile.js",
     "mobile:dev": "node scripts/deploy-mobile.js dev",
     "mobile:android": "node scripts/deploy-mobile.js android --debug --install",
@@ -30,7 +31,7 @@
     "build:server": "tsc",
     "build:client": "pnpm --filter ezpm2gui-client run build",
     "build:bin": "tsc --project tsconfig.bin.json",
-    "prepare": "pnpm run build",
+    "prepare": "pnpm --include-workspace-root -r run build",
     "test": "ts-node tests/unit/server-selection.test.ts && ts-node tests/unit/theme.test.ts && ts-node tests/unit/app-version.test.ts && ts-node tests/unit/ansi.test.ts"
   },
   "keywords": [

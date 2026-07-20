@@ -159,7 +159,7 @@ The build (type-check + Vite build) must complete without errors. Open the app, 
 ## Publishing as an NPM Package
 
 1. Update version in `package.json`
-2. Build everything: `npm run build`
+2. Build everything: `pnpm --include-workspace-root -r run build`
 3. Publish to npm: `npm publish`
 
 ## Usage as a Global Command

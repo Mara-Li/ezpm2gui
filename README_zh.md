@@ -274,8 +274,8 @@ install.bat    # Windows
 # 以开发模式启动
 npm run dev
 
-# 构建应用
-npm run build
+# 构建应用（服务端 + bin + 客户端）
+pnpm --include-workspace-root -r run build
 
 # 启动应用（生产模式）
 npm start

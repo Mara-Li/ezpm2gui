@@ -1,17 +1,8 @@
 @echo off
-echo Installing client dependencies...
-cd src\client
-call npm install --legacy-peer-deps
-
-echo Building client...
-call npm run build
-
-echo Installing server dependencies...
-cd ..\..
-call npm install --legacy-peer-deps
-
-echo Building server...
-call npm run build
+REM A single `pnpm install` installs both the server and client (pnpm
+REM workspace) and builds everything via the root "prepare" script.
+echo Installing dependencies and building (root + client, via pnpm workspace)...
+call pnpm install
 
 echo.
 echo ======================================

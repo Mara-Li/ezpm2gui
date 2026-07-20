@@ -1,18 +1,9 @@
 #!/bin/bash
 
-echo "Installing client dependencies..."
-cd src/client
-npm install
-
-echo "Building client..."
-npm run build
-
-echo "Installing server dependencies..."
-cd ../..
-npm install
-
-echo "Building server..."
-npm run build
+# A single `pnpm install` installs both the server and client (pnpm
+# workspace) and builds everything via the root "prepare" script.
+echo "Installing dependencies and building (root + client, via pnpm workspace)..."
+pnpm install
 
 echo ""
 echo "======================================"
