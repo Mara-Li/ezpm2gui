@@ -1057,7 +1057,11 @@ const App: React.FC = () => {
           </div>
 
           {/* ── Main Content ── */}
-          <main className={`flex-1 pt-9 min-h-screen transition-[margin] duration-200 bg-[#0a0a0a] ${
+          {/* min-w-0 is required: as a flex item, main defaults to min-width:auto and
+              refuses to shrink below its widest descendant (the process table), which
+              blows out the whole page's width on narrow viewports instead of letting
+              the table's own overflow-x-auto scroll internally. */}
+          <main className={`flex-1 min-w-0 pt-9 min-h-screen transition-[margin] duration-200 bg-[#0a0a0a] ${
             sidebarCollapsed ? 'sm:ml-[44px]' : 'sm:ml-[200px]'
           }`}>
             <div className="px-3 py-3 pb-8">
