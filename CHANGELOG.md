@@ -1,11 +1,27 @@
 # Changelog
 
-All notable changes to EZ PM2 GUI are documented in this file.  
-Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).  
-This project adheres to [Semantic Versioning](https://semver.org/).
+All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
----
+## [1.12.0](https://github.com/Mara-Li/ezpm2gui/compare/v1.11.1...v1.12.0) (2026-07-20)
 
+### Features
+
+* **logs:** parse ANSI escape codes and render logs in color ([656445e](https://github.com/Mara-Li/ezpm2gui/commit/656445e98a9c57f85cbaa16d23f880c57eb32cdb))
+
+### Bug Fixes
+
+* **auth:** block initial render until the password-gate check resolves ([5a38d04](https://github.com/Mara-Li/ezpm2gui/commit/5a38d04589315e80073535d9f7e7f7705eccb4c0))
+* **auth:** break the unauthorized-reload loop and stop racing the lock screen ([d573c61](https://github.com/Mara-Li/ezpm2gui/commit/d573c61fafc1d66670b37845315df7adedd81305))
+* **auth:** gate remaining protected-endpoint effects on unlock state ([0ae7b03](https://github.com/Mara-Li/ezpm2gui/commit/0ae7b034b24c5b122c2e8b5dc544c0aaa27c5f19))
+* **auth:** stop the loading spinner getting stuck forever while locked ([ae0fe2d](https://github.com/Mara-Li/ezpm2gui/commit/ae0fe2d0a3309e3e0b6a5bceb219e1d5420cd95b))
+* include the missed .gitignore entries from the previous commit ([65871af](https://github.com/Mara-Li/ezpm2gui/commit/65871af4a950aef0e25162f2323a3851204fc666))
+* **logs:** parse ANSI colors in the remote-connections floating log panel ([e809d52](https://github.com/Mara-Li/ezpm2gui/commit/e809d524837d0483ffec1def076583812c799d15))
+* **security:** stop tracking runtime-generated server state in git ([12f5186](https://github.com/Mara-Li/ezpm2gui/commit/12f5186eefab88c19b385649977225e19408acfc))
+* **ui:** fix misaligned toggle knob and select arrow overlap in Settings ([34709b6](https://github.com/Mara-Li/ezpm2gui/commit/34709b6a72e38d2d48cef8038c1e5033b85acfee))
+* **ui:** reclaim vertical padding on the log toolbar's select/inputs ([b829511](https://github.com/Mara-Li/ezpm2gui/commit/b8295113bccd3193a60690b437ac7b071b1bb98f))
+* **ui:** stop global focus ring from overriding focus:outline-none ([96a08e6](https://github.com/Mara-Li/ezpm2gui/commit/96a08e6378eb0eda77961383aac5ea48eddf1467))
+* **ui:** stop top nav bar from overflowing on mobile ([aa85112](https://github.com/Mara-Li/ezpm2gui/commit/aa85112c0c8b932b869be463c48de0e5934672f1))
+* **update:** use the ezpm2gui@npm: alias form for install/upgrade commands ([ca84f07](https://github.com/Mara-Li/ezpm2gui/commit/ca84f070f2cd4e47cb7ad09b549d2d77dc1678b0))
 ## [1.10.0] - 2026-05-28
 
 ### Added
