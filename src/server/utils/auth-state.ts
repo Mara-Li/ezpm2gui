@@ -13,9 +13,10 @@
 import crypto from 'crypto';
 import fs from 'fs';
 import path from 'path';
+import { resolveDataPath } from './data-dir';
 
 // @group Constants : Path to the stored auth config file
-export const AUTH_FILE = path.join(__dirname, '../config/auth.json');
+export const AUTH_FILE = resolveDataPath('auth.json');
 
 // @group Constants : PBKDF2 parameters for password/PIN hashing
 const PBKDF2_ITERATIONS = 100_000;

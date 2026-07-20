@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import os from 'os';
 import { promisify } from 'util';
+import { resolveDataPath } from '../utils/data-dir';
 
 const execAsync = promisify(exec);
 
@@ -73,7 +74,7 @@ export class ProjectSetupService {
 
   constructor() {
     this.loadConfigs();
-    this.logFile = path.join(__dirname, '../logs/deployment.log');
+    this.logFile = resolveDataPath('logs', 'deployment.log');
     this.ensureLogDirectory();
   }
 

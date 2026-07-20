@@ -1,10 +1,8 @@
 import Database from 'better-sqlite3';
-import path from 'path';
-import fs from 'fs';
+import { resolveDataPath } from './data-dir';
 
-// @group Configuration : SQLite DB lives alongside other server config files
-const DB_DIR  = path.join(__dirname, '../config');
-const DB_PATH = path.join(DB_DIR, 'remote-metrics.db');
+// @group Configuration : SQLite DB lives in the stable server data directory
+const DB_PATH = resolveDataPath('remote-metrics.db');
 
 // @group Types : Single recorded data-point for a remote process
 export interface RemoteMetricRow {
@@ -24,7 +22,6 @@ class RemoteMetricsDB {
   private db: Database.Database;
 
   constructor() {
-    if (!fs.existsSync(DB_DIR)) fs.mkdirSync(DB_DIR, { recursive: true });
     this.db = new Database(DB_PATH);
     this.db.pragma('journal_mode = WAL');
     this.initSchema();
