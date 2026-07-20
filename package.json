@@ -1,6 +1,6 @@
 {
   "name": "@mara-li/ezpm2gui",
-  "version": "1.12.3",
+  "version": "1.12.4",
   "main": "dist/server/index.js",
   "engines": {
     "node": ">=22.12.0"

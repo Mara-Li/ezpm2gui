@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.4](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.3...v1.12.4) (2026-07-20)
+
+### Features
+
+* add local metrics persistence to history tab ([664b809](https://github.com/Mara-Li/ezpm2gui/commit/664b809c11ac862394be37e20a8a3e5631bc53d1))
+
+### Bug Fixes
+
+* **metrics:** add missing subtitle key and local process history ([8e8f869](https://github.com/Mara-Li/ezpm2gui/commit/8e8f869d92c0e5969a9a7582b6c346db14a58663))
 ## [1.12.3](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.2...v1.12.3) (2026-07-20)
 
 ### Bug Fixes
