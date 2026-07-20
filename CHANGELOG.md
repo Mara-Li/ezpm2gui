@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.2](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.1...v1.12.2) (2026-07-20)
+
+### Bug Fixes
+
+* **ui:** stop main content pushing the whole page wide on mobile ([9f31ca7](https://github.com/Mara-Li/ezpm2gui/commit/9f31ca7cd3c5369a10240b3ac47ea46fa7ccf289))
 ## [1.12.1](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.0...v1.12.1) (2026-07-20)
 ## [1.12.0](https://github.com/Mara-Li/ezpm2gui/compare/v1.11.1...v1.12.0) (2026-07-20)
 
