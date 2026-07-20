@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.3](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.2...v1.12.3) (2026-07-20)
+
+### Bug Fixes
+
+* **auth:** stop npm install -g from wiping auth, remote connections, and cron jobs ([24ab88e](https://github.com/Mara-Li/ezpm2gui/commit/24ab88e046877db2f53dd1a51be4da07f7ff51c5))
 ## [1.12.2](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.1...v1.12.2) (2026-07-20)
 
 ### Bug Fixes
