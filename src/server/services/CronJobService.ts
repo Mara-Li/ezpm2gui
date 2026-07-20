@@ -7,10 +7,11 @@ import * as path from 'path';
 import { randomUUID } from 'crypto';
 import { CronJobConfig, PM2CronOptions, CronJobStatus } from '../../types/cron';
 import { executePM2Command } from '../utils/pm2-connection';
+import { resolveDataPath } from '../utils/data-dir';
 import { CronExpressionParser } from 'cron-parser';
 
-const CRON_CONFIG_FILE = path.join(__dirname, '../config/cron-jobs.json');
-const CRON_SCRIPTS_DIR = path.join(__dirname, '../config/cron-scripts');
+const CRON_CONFIG_FILE = resolveDataPath('cron-jobs.json');
+const CRON_SCRIPTS_DIR = resolveDataPath('cron-scripts');
 
 export class CronJobService {
   private static instance: CronJobService;
