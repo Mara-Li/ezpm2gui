@@ -47,13 +47,13 @@ const ServerSwitcher: React.FC<ServerSwitcherProps> = ({
       {/* Trigger button */}
       <button
         onClick={() => setOpen(v => !v)}
-        className="flex items-center gap-1.5 px-2 py-0.5 rounded-sm text-[12px] border border-[#1e1e1e] bg-[#111] text-[#888] hover:border-[#333] transition-colors"
+        className="flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 rounded-sm text-[12px] border border-[#1e1e1e] bg-[#111] text-[#888] hover:border-[#333] transition-colors"
         title={t('serverSwitcher.title')}
       >
         <div className={`w-2 h-2 rounded-full shrink-0 ${isConnected ? 'bg-[#22c55e]' : 'bg-[#333]'}`} />
         <ServerStackIcon className="h-3.5 w-3.5 shrink-0" />
-        <span className="max-w-[100px] truncate">{activeLabel}</span>
-        <ChevronDownIcon className={`h-3.5 w-3.5 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <span className="hidden sm:inline max-w-[100px] truncate">{activeLabel}</span>
+        <ChevronDownIcon className={`hidden sm:block h-3.5 w-3.5 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Dropdown panel */}
