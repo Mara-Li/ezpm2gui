@@ -335,8 +335,12 @@
   },
   "metricsPage": {
     "title": "Metrics",
+    "subtitle": "Real-time and historical performance metrics for your PM2 processes",
     "live": "Live",
     "history": "History",
+    "localSource": "Local",
+    "localHint": "Local metrics are sampled every 30 s and kept for 30 days",
+    "noLocalDataYet": "No local data yet — first sample arrives within 30 s",
     "min": "Min",
     "avg": "Avg",
     "max": "Max",
