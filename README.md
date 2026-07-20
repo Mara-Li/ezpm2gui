@@ -288,8 +288,8 @@ install.bat    # On Windows
 # Start in development mode
 npm run dev
 
-# Build the application
-npm run build
+# Build the application (server + bin + client)
+pnpm --include-workspace-root -r run build
 
 # Start the application (production mode)
 npm start
