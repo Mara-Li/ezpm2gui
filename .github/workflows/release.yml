@@ -1,6 +1,4 @@
 name: Release
-
-# @group Trigger : Runs when a version tag like v1.0.0 is pushed
 on:
   push:
     tags:
@@ -8,20 +6,18 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write # needed to create GitHub Releases
-  id-token: write # needed for npm trusted publishing (OIDC)
+  contents: write
+  id-token: write
 
 jobs:
   release:
     name: Build, Publish & Release
     runs-on: ubuntu-latest
-
     steps:
-      # @group Setup : Checkout and Node.js environment
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
-          fetch-depth: 0 # full history for changelog generation
+          fetch-depth: 0
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
         with:
@@ -32,26 +28,18 @@ jobs:
         with:
           node-version: "26.5.0"
           registry-url: "https://registry.npmjs.org"
-          cache: "pnpm"
-
-      # @group Dependencies : Install root and client deps (single pnpm workspace install)
+          package-manager-cache: false
+      - name: Remove broken npm auth token placeholder (OIDC trusted publishing only)
+        run: sed -i '/_authToken/d' "$NPM_CONFIG_USERCONFIG"
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
-
-      # @group Build : Build every workspace package (server TS + bin TS + React client)
       - name: Build
         run: pnpm --include-workspace-root -r run build
-
-      # @group Version : Extract tag name for use in later steps
       - name: Extract version from tag
         id: version
         run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
-
-      # @group Publish : Push package to npm registry via trusted publishing (OIDC)
       - name: Publish to npm
         run: npm publish --access public
-
-      # @group Release : Auto-generate changelog from commits since last tag
       - name: Generate changelog
         id: changelog
         run: |
