@@ -484,14 +484,24 @@ export function createServer() {
   // Catch-all route to return the React app
   app.get('/*splat', (req, res) => {
     const indexPath = path.join(__dirname, '../../src/client/build/index.html');
-    console.log('Trying to serve index.html from:', indexPath);
     const fs = require('fs');
-    if (fs.existsSync(indexPath)) {
-      res.sendFile(indexPath);
-    } else {
+    if (!fs.existsSync(indexPath)) {
       console.error('Index.html file not found at:', indexPath);
       res.status(404).send('File not found. Please check server configuration.');
+      return;
     }
+    // Pass an error callback instead of letting a failed send() reach Express's
+    // default handler — that would leak a full stack trace (incl. filesystem
+    // paths) to the client. Logging err.code also tells us *why* the send
+    // failed (e.g. ENOENT despite existsSync passing moments earlier — a
+    // filesystem-level TOCTOU rather than a missing build) instead of a bare
+    // "Not Found".
+    res.sendFile(indexPath, (err) => {
+      if (err && !res.headersSent) {
+        console.error(`Failed to send ${indexPath}:`, (err as NodeJS.ErrnoException).code ?? err.message);
+        res.status(500).send('Failed to load application. Check server logs for details.');
+      }
+    });
   });
 
   // Clean up history polls on server close
