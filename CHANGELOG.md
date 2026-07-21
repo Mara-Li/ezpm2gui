@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.5](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.4...v1.12.5) (2026-07-21)
+
+### Bug Fixes
+
+* auto-refresh sidebar, add live remote metrics, seed live charts from history ([c21571c](https://github.com/Mara-Li/ezpm2gui/commit/c21571cd9b8e9a56373b622abe5defe0560032a9))
+* **server:** stop leaking stack traces from the SPA fallback route ([cedfde8](https://github.com/Mara-Li/ezpm2gui/commit/cedfde8f0b249b30683c0e13844e68183a837e19))
 ## [1.12.4](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.3...v1.12.4) (2026-07-20)
 
 ### Features
