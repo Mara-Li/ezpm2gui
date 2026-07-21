@@ -1,9 +1,8 @@
 #!/usr/bin/env node
-import { spawn, ChildProcess } from 'child_process';
 import path from 'path';
 import fs from 'fs';
 
-// Determine the path to the server executable
+// Determine the path to the compiled server entry point
 const serverPath = path.join(__dirname, '../dist/server/index.js');
 
 // Check if the server file exists
@@ -12,8 +11,15 @@ if (!fs.existsSync(serverPath)) {
   process.exit(1);
 }
 
-// Start the server
-const server: ChildProcess = spawn('node', [serverPath], { stdio: 'inherit' });
+// Run the server in this process rather than spawning a child. Under a
+// process supervisor (systemd, PM2, ...) that tracks this CLI's PID and
+// restarts it on failure, a spawned child can outlive a supervisor-triggered
+// restart of this wrapper as an orphan still bound to the port, silently
+// serving stale data alongside the freshly restarted instance. Calling
+// startServer() directly means the supervisor's signals and restarts apply
+// to the actual HTTP server, not a proxy for it.
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { startServer } = require(serverPath) as { startServer: () => unknown };
 
 // Log startup message
 console.log('\x1b[36m%s\x1b[0m', `
@@ -21,31 +27,9 @@ console.log('\x1b[36m%s\x1b[0m', `
 ║         EZ PM2 GUI Started         ║
 ╚════════════════════════════════════╝
 
-Web interface available at: \x1b[1mhttp://localhost:3101\x1b[0m
+Web interface available at: \x1b[1mhttp://localhost:${process.env.PORT || 3101}\x1b[0m
 
 Press Ctrl+C to stop the server.
 `);
 
-// Handle server process events
-server.on('error', (err: Error) => {
-  console.error('Failed to start server:', err);
-  process.exit(1);
-});
-
-server.on('exit', (code: number | null) => {
-  if (code !== 0) {
-    console.error(`Server process exited with code ${code}`);
-  }
-  process.exit(code || 0);
-});
-
-// Handle termination signals
-process.on('SIGINT', () => {
-  console.log('\nShutting down EZ PM2 GUI...');
-  server.kill();
-});
-
-process.on('SIGTERM', () => {
-  console.log('\nShutting down EZ PM2 GUI...');
-  server.kill();
-});
+startServer();

@@ -514,8 +514,19 @@ export function createServer() {
   return server;
 }
 
-// Only start the server if this file is run directly
-if (require.main === module) {
+/**
+ * Create the server, bind it to PORT/HOST, and wire up graceful shutdown.
+ *
+ * Exported so the `ezpm2gui` CLI (bin/ezpm2gui.ts) can run the real server
+ * in its own process instead of spawning a child — under a process
+ * supervisor (systemd, PM2, ...) that tracks the CLI's PID and restarts it
+ * on failure, a spawned child can outlive a supervisor-triggered restart of
+ * its parent as an orphan still bound to the port, silently serving stale
+ * data alongside the freshly restarted instance. Running the same function
+ * in-process means the supervisor's signals and restarts apply directly to
+ * the actual HTTP server.
+ */
+export function startServer(): http.Server {
   const PORT = parseInt(process.env.PORT || '3101', 10);
   const HOST = process.env.HOST || 'localhost';
 
@@ -525,7 +536,7 @@ if (require.main === module) {
   });
 
   // Handle shutdown gracefully
-  process.on('SIGINT', async () => {
+  const shutdown = async () => {
     console.log('\nGracefully shutting down...');
     try {
       await disconnectFromPM2();
@@ -535,17 +546,15 @@ if (require.main === module) {
     }
     server.close();
     process.exit(0);
-  });
+  };
 
-  process.on('SIGTERM', async () => {
-    console.log('\nGracefully shutting down...');
-    try {
-      await disconnectFromPM2();
-      await remoteConnectionManager.closeAllConnections();
-    } catch (error) {
-      console.error('Error during shutdown:', error);
-    }
-    server.close();
-    process.exit(0);
-  });
+  process.on('SIGINT', shutdown);
+  process.on('SIGTERM', shutdown);
+
+  return server;
+}
+
+// Only start the server if this file is run directly
+if (require.main === module) {
+  startServer();
 }
