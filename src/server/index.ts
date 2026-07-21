@@ -483,22 +483,28 @@ export function createServer() {
 
   // Catch-all route to return the React app
   app.get('/*splat', (req, res) => {
-    const indexPath = path.join(__dirname, '../../src/client/build/index.html');
+    const buildDir = path.join(__dirname, '../../src/client/build');
+    const indexPath = path.join(buildDir, 'index.html');
     const fs = require('fs');
     if (!fs.existsSync(indexPath)) {
       console.error('Index.html file not found at:', indexPath);
       res.status(404).send('File not found. Please check server configuration.');
       return;
     }
-    // Pass an error callback instead of letting a failed send() reach Express's
-    // default handler — that would leak a full stack trace (incl. filesystem
-    // paths) to the client. Logging err.code also tells us *why* the send
-    // failed (e.g. ENOENT despite existsSync passing moments earlier — a
-    // filesystem-level TOCTOU rather than a missing build) instead of a bare
-    // "Not Found".
-    res.sendFile(indexPath, (err) => {
+    // Pass `root` instead of a bare absolute path. send() (used internally by
+    // res.sendFile) runs a dotfile check on *every segment* of the path it's
+    // given; without `root`, that's the full absolute path, so any ancestor
+    // directory starting with "." — e.g. `~/.local/share/...`, where fnm (and
+    // most XDG-style tool installers) puts its Node versions — trips the
+    // default `dotfiles: 'ignore'` policy and send() 404s the file even
+    // though it exists (no filesystem error at all: existsSync above passes,
+    // but this rejection happens before send() ever stats the file). Scoping
+    // to `root` limits the dotfile check to the path *relative to it*, so
+    // ancestor directories are never inspected — this is also why
+    // express.static() above is unaffected, it already always passes `root`.
+    res.sendFile('index.html', { root: buildDir }, (err) => {
       if (err && !res.headersSent) {
-        console.error(`Failed to send ${indexPath}:`, (err as NodeJS.ErrnoException).code ?? err.message);
+        console.error(`Failed to send index.html from ${buildDir}:`, (err as NodeJS.ErrnoException).code ?? err.message);
         res.status(500).send('Failed to load application. Check server logs for details.');
       }
     });
