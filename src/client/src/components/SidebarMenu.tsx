@@ -18,6 +18,7 @@ import {
 } from '@heroicons/react/24/outline';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
+import { REMOTE_CONNECTIONS_CHANGED_EVENT } from '../utils/server-selection';
 
 interface SidebarMenuProps {
   onItemClick?: () => void;
@@ -119,7 +120,18 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({ onItemClick, collapsed = fals
     };
 
     load();
-    return () => { cancelled = true; };
+
+    // Keep the tree in sync when servers are added/removed/(dis)connected
+    // elsewhere (Remote Connections page) and as a periodic safety net.
+    const onConnectionsChanged = () => { load(); };
+    const interval = setInterval(load, 5000);
+    window.addEventListener(REMOTE_CONNECTIONS_CHANGED_EVENT, onConnectionsChanged);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      window.removeEventListener(REMOTE_CONNECTIONS_CHANGED_EVENT, onConnectionsChanged);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled]);
 

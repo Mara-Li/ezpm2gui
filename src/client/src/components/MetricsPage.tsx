@@ -23,6 +23,7 @@ import {
 } from '@heroicons/react/24/outline';
 import PageHeader from './PageHeader';
 import { PM2Process, SystemMetricsData } from '../types/pm2';
+import { REMOTE_CONNECTIONS_CHANGED_EVENT } from '../utils/server-selection';
 
 // @group ChartJS : Register required chart.js components
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Legend, Filler);
@@ -151,6 +152,12 @@ interface MetricsPageProps {
 }
 
 // @group MetricsPage : Main component
+// @group Constants : Identifier used for the local machine wherever a server/connection id is expected
+const LOCAL_CONN_ID = '__local__';
+
+// @group Constants : How often the Live tab polls a selected remote server's process list (ms)
+const REMOTE_LIVE_POLL_MS = 5000;
+
 const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   const { t } = useTranslation();
   const [tab, setTab] = useState<'live' | 'history'>('live');
@@ -160,6 +167,70 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   const liveBufferRef = useRef<Map<string, LivePoint[]>>(new Map());
   const [, setLiveRender] = useState(0); // bump to force re-render on buffer update
   const [actionLoading, setActionLoading] = useState<{ [pmId: number]: boolean }>({});
+  const seededRef = useRef<Set<string>>(new Set()); // buffer keys already pre-filled from recorded history
+
+  // @group LiveServers : Server (local or a connected remote) the Live tab is currently showing
+  const [liveServers, setLiveServers] = useState<{ id: string; name: string }[]>([
+    { id: LOCAL_CONN_ID, name: t('metricsPage.localSource') },
+  ]);
+  const [selectedLiveServer, setSelectedLiveServer] = useState<string>(LOCAL_CONN_ID);
+  const [remoteLiveProcesses, setRemoteLiveProcesses] = useState<PM2Process[]>([]);
+
+  // @group LiveServers : Build a per-server key so buffers/history from different servers never collide
+  const bufKey = useCallback((serverId: string, procName: string) => `${serverId}::${procName}`, []);
+
+  // @group LiveServers : Load the list of servers available to inspect live (local + connected remotes)
+  useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const res = await axios.get<any[]>('/api/remote/connections');
+        if (cancelled) return;
+        const connected = res.data.filter(c => c.connected).map(c => ({ id: c.id, name: c.name }));
+        setLiveServers([{ id: LOCAL_CONN_ID, name: t('metricsPage.localSource') }, ...connected]);
+      } catch {
+        if (!cancelled) setLiveServers([{ id: LOCAL_CONN_ID, name: t('metricsPage.localSource') }]);
+      }
+    };
+    load();
+    const interval = setInterval(load, REMOTE_LIVE_POLL_MS);
+    window.addEventListener(REMOTE_CONNECTIONS_CHANGED_EVENT, load);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+      window.removeEventListener(REMOTE_CONNECTIONS_CHANGED_EVENT, load);
+    };
+  }, [t]);
+
+  // Fall back to Local if the selected remote server disconnects or is removed
+  useEffect(() => {
+    if (selectedLiveServer === LOCAL_CONN_ID) return;
+    if (!liveServers.some(s => s.id === selectedLiveServer)) {
+      setSelectedLiveServer(LOCAL_CONN_ID);
+      setRemoteLiveProcesses([]);
+    }
+  }, [liveServers, selectedLiveServer]);
+
+  // @group LiveServers : Poll the selected remote server's process list at near-live cadence
+  useEffect(() => {
+    if (tab !== 'live' || selectedLiveServer === LOCAL_CONN_ID) return;
+
+    let cancelled = false;
+    const poll = async () => {
+      try {
+        const res = await axios.get<PM2Process[]>(`/api/remote/${selectedLiveServer}/processes`);
+        if (!cancelled) setRemoteLiveProcesses(res.data);
+      } catch {
+        if (!cancelled) setRemoteLiveProcesses([]);
+      }
+    };
+    poll();
+    const interval = setInterval(poll, REMOTE_LIVE_POLL_MS);
+    return () => { cancelled = true; clearInterval(interval); };
+  }, [tab, selectedLiveServer]);
+
+  // @group LiveProcesses : Processes shown by the Live tab for the currently selected server
+  const liveProcesses = selectedLiveServer === LOCAL_CONN_ID ? processes : remoteLiveProcesses;
 
   const handleProcessAction = useCallback(async (
     e: React.MouseEvent, proc: PM2Process, action: 'start' | 'stop' | 'restart' | 'delete'
@@ -167,16 +238,19 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
     e.stopPropagation();
     setActionLoading(prev => ({ ...prev, [proc.pm_id]: true }));
     try {
-      await axios.post(`/api/process/${proc.pm_id}/${action}`);
+      if (selectedLiveServer === LOCAL_CONN_ID) {
+        await axios.post(`/api/process/${proc.pm_id}/${action}`);
+      } else {
+        await axios.post(`/api/remote/${selectedLiveServer}/processes/${proc.name}/${action}`);
+      }
     } catch (err) {
       console.error(`Failed to ${action} process:`, err);
     } finally {
       setActionLoading(prev => ({ ...prev, [proc.pm_id]: false }));
     }
-  }, []);
+  }, [selectedLiveServer]);
 
   // @group HistoryState
-  const LOCAL_CONN_ID = '__local__';
   const [connections,       setConnections]       = useState<ConnectionInfo[]>([]);
   const [selectedConn,      setSelectedConn]      = useState<string>(LOCAL_CONN_ID);
   const [histProcs,         setHistProcs]         = useState<string[]>([]);
@@ -187,13 +261,14 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   const [autoRefresh,       setAutoRefresh]       = useState(false);
   const autoRefreshRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // @group LiveBuffer : Accumulate live readings into per-process rolling buffer
+  // @group LiveBuffer : Accumulate live readings into a per-server, per-process rolling buffer
   useEffect(() => {
     const now = Date.now();
     const map = liveBufferRef.current;
+    const liveKeys = new Set(liveProcesses.map(p => bufKey(selectedLiveServer, p.name)));
 
-    for (const proc of processes) {
-      const key = proc.name;
+    for (const proc of liveProcesses) {
+      const key = bufKey(selectedLiveServer, proc.name);
       const existing = map.get(key) ?? [];
       existing.push({
         ts:    now,
@@ -204,20 +279,74 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
       map.set(key, existing);
     }
 
-    // Remove processes no longer in the list
+    // Remove processes of the current server no longer in its list
     for (const key of map.keys()) {
-      if (!processes.find(p => p.name === key)) map.delete(key);
+      if (key.startsWith(`${selectedLiveServer}::`) && !liveKeys.has(key)) map.delete(key);
     }
 
     setLiveRender(n => n + 1);
-  }, [processes]);
+  }, [liveProcesses, selectedLiveServer, bufKey]);
 
-  // Auto-select first live process when list loads
+  // @group LiveBuffer : Pre-fill a freshly selected server/process's buffer from already-recorded
+  // history so the chart draws a real line immediately instead of a lone point.
   useEffect(() => {
-    if (!selectedLiveProc && processes.length > 0) {
-      setSelectedLiveProc(processes[0].name);
+    let cancelled = false;
+
+    const seedLocal = async () => {
+      try {
+        const res = await axios.get<{ pm_id: number; name: string; history: { timestamp: number; cpu: number; memoryMB: number }[] }[]>(
+          '/api/metrics/history'
+        );
+        if (cancelled) return;
+        const map = liveBufferRef.current;
+        for (const entry of res.data) {
+          const key = bufKey(LOCAL_CONN_ID, entry.name);
+          if (seededRef.current.has(key) || (map.get(key)?.length ?? 0) > 1) continue;
+          seededRef.current.add(key);
+          const seeded = entry.history.map(h => ({ ts: h.timestamp, cpu: h.cpu, memMb: h.memoryMB }));
+          const existing = map.get(key) ?? [];
+          map.set(key, [...seeded, ...existing].slice(-MAX_LIVE_POINTS));
+        }
+        if (!cancelled) setLiveRender(n => n + 1);
+      } catch { /* silent — live buffer just stays empty until it fills naturally */ }
+    };
+
+    const seedRemote = async () => {
+      for (const proc of liveProcesses) {
+        const key = bufKey(selectedLiveServer, proc.name);
+        if (seededRef.current.has(key)) continue;
+        seededRef.current.add(key);
+        try {
+          const now = Date.now();
+          const res = await axios.get<{ success: boolean; metrics: HistMetricPoint[] }>(
+            `/api/remote-metrics/${encodeURIComponent(selectedLiveServer)}/${encodeURIComponent(proc.name)}`,
+            { params: { from: now - 5 * 60_000, to: now } }
+          );
+          if (cancelled || !res.data.success) continue;
+          const map = liveBufferRef.current;
+          if ((map.get(key)?.length ?? 0) > 1) continue;
+          const seeded = res.data.metrics.map(m => ({ ts: m.timestamp, cpu: m.cpu, memMb: m.memory_mb }));
+          const existing = map.get(key) ?? [];
+          map.set(key, [...seeded, ...existing].slice(-MAX_LIVE_POINTS));
+        } catch { /* silent */ }
+      }
+      if (!cancelled) setLiveRender(n => n + 1);
+    };
+
+    if (selectedLiveServer === LOCAL_CONN_ID) void seedLocal();
+    else if (liveProcesses.length > 0) void seedRemote();
+
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedLiveServer, liveProcesses.map(p => p.name).join(',')]);
+
+  // Auto-select first live process when the list loads or the selected server changes
+  useEffect(() => {
+    if (liveProcesses.length === 0) return;
+    if (!liveProcesses.find(p => p.name === selectedLiveProc)) {
+      setSelectedLiveProc(liveProcesses[0].name);
     }
-  }, [processes, selectedLiveProc]);
+  }, [liveProcesses, selectedLiveProc]);
 
   // @group HistoryData : Load connections that have data; always prepend Local
   const loadConnections = useCallback(async () => {
@@ -319,7 +448,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
   });
 
   // @group LiveChartData : Build chart data from rolling buffer
-  const livePoints  = liveBufferRef.current.get(selectedLiveProc) ?? [];
+  const livePoints  = liveBufferRef.current.get(bufKey(selectedLiveServer, selectedLiveProc)) ?? [];
   const liveLabels  = livePoints.map(p =>
     new Date(p.ts).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
   );
@@ -420,7 +549,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
     focus:outline-none focus:ring-1 focus:ring-[#22c55e] disabled:opacity-40`;
 
   // @group LiveCurrentProcess : current live process being viewed
-  const currentProc = processes.find(p => p.name === selectedLiveProc);
+  const currentProc = liveProcesses.find(p => p.name === selectedLiveProc);
 
   // @group SplitPane : Draggable divider state for live tab (left % of total width, default 3:2 = 60%)
   const [splitPct, setSplitPct] = useState(60);
@@ -471,15 +600,34 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
 
       {/* ════════════════════ LIVE TAB ════════════════════ */}
       {tab === 'live' && (
-        processes.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16 text-center">
-            <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
-            <p className="text-[12px] text-[#555]">No processes found</p>
-            <p className="text-[12px] text-[#444] mt-1">
-              Make sure PM2 is running and connected
-            </p>
-          </div>
-        ) : (
+        <div className="space-y-3">
+          {/* Server selector — pick the local machine or any connected remote server */}
+          {liveServers.length > 1 && (
+            <div className="flex flex-col gap-0.5 w-fit">
+              <label className="text-[11px] text-[#555] uppercase tracking-[0.12em]">Server</label>
+              <select
+                value={selectedLiveServer}
+                onChange={e => { setSelectedLiveServer(e.target.value); setSelectedLiveProc(''); }}
+                className={selectCls}
+              >
+                {liveServers.map(s => (
+                  <option key={s.id} value={s.id}>{s.name}</option>
+                ))}
+              </select>
+            </div>
+          )}
+
+          {liveProcesses.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-16 text-center">
+              <ChartBarIcon className="h-11 w-11 text-[#333] mb-3" />
+              <p className="text-[12px] text-[#555]">No processes found</p>
+              <p className="text-[12px] text-[#444] mt-1">
+                {selectedLiveServer === LOCAL_CONN_ID
+                  ? 'Make sure PM2 is running and connected'
+                  : 'This server reported no PM2 processes'}
+              </p>
+            </div>
+          ) : (
           <div
             ref={splitContainerRef}
             className="flex min-h-0"
@@ -496,8 +644,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                 <p className="text-[12px] text-[#555] uppercase tracking-[0.15em]">Processes</p>
               </div>
               <div className="overflow-y-auto flex-1">
-                {processes.map(proc => {
-                  const procBuf = liveBufferRef.current.get(proc.name) ?? [];
+                {liveProcesses.map(proc => {
+                  const procBuf = liveBufferRef.current.get(bufKey(selectedLiveServer, proc.name)) ?? [];
                   const isSelected = proc.name === selectedLiveProc;
                   return (
                     <div
@@ -610,7 +758,7 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
                     Mem: <span className="text-[#22d3ee]">{fmtMem(currentProc.monit.memory)}</span>
                   </span>
                   <span className="text-[#444] ml-auto">
-                    {livePoints.length} pts · updates every 3s
+                    {livePoints.length} pts · updates every {selectedLiveServer === LOCAL_CONN_ID ? '3s' : `${REMOTE_LIVE_POLL_MS / 1000}s`}
                   </span>
                 </div>
               )}
@@ -663,7 +811,8 @@ const MetricsPage: React.FC<MetricsPageProps> = ({ processes }) => {
             </div>
 
           </div>
-        )
+          )}
+        </div>
       )}
 
       {/* ════════════════════ HISTORY TAB ════════════════════ */}
