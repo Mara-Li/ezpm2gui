@@ -129,12 +129,17 @@ class RemoteMetricsDB {
       `).all(connectionId, processName, from, to) as RemoteMetricRow[];
     }
 
-    // Downsample: pick every Nth row so we stay under maxPoints
+    // Downsample: pick every Nth row (numbered within this series, not the
+    // shared table-wide id) so we stay under maxPoints
     const step = Math.ceil(total / maxPoints);
     return this.db.prepare(`
-      SELECT * FROM remote_metrics
-      WHERE connection_id = ? AND process_name = ? AND timestamp BETWEEN ? AND ?
-        AND (id % ?) = 0
+      SELECT id, connection_id, connection_name, process_name, pm_id, timestamp, cpu, memory_bytes, memory_mb
+      FROM (
+        SELECT *, ROW_NUMBER() OVER (ORDER BY timestamp ASC) - 1 AS rn
+        FROM remote_metrics
+        WHERE connection_id = ? AND process_name = ? AND timestamp BETWEEN ? AND ?
+      )
+      WHERE (rn % ?) = 0
       ORDER BY timestamp ASC
       LIMIT ?
     `).all(connectionId, processName, from, to, step, maxPoints) as RemoteMetricRow[];
