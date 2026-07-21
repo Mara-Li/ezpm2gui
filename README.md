@@ -177,9 +177,7 @@ npm install ezpm2gui@npm:@mara-li/ezpm2gui
 > **Note:** always use the `ezpm2gui@npm:@mara-li/ezpm2gui` alias form, for both
 > global and local installs. The plain `ezpm2gui` package name on npm belongs to
 > the original, no-longer-updated upstream project — installing it directly
-> pulls that stale package instead of this fork, which can result in *should not
-> happen* errors (e.g. a 404 when refreshing the page on `/processes` or another
-> client-side route) that were already fixed here.
+> pulls that stale package instead of this fork.
 
 ## Usage
 
