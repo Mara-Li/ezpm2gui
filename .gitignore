@@ -109,6 +109,10 @@ dist
 build/
 src/client/build/
 
+# Compiled CLI entry points — regenerated from bin/*.ts by `build:bin`
+# (wired into the root "build" and "prepare" scripts), same as dist/.
+bin/*.js
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
