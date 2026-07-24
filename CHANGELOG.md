@@ -2,6 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.12.8](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.7...v1.12.8) (2026-07-24)
 ## [1.12.7](https://github.com/Mara-Li/ezpm2gui/compare/v1.12.6...v1.12.7) (2026-07-21)
 
 ### Bug Fixes
